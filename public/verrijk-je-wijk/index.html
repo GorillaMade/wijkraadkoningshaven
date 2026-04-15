@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="nl-nl" dir="ltr">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=45725&amp;path=livereload" data-no-instant defer></script>
+  
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+<title>Verrijk je wijk | Wijkraad Koningshaven</title>
+<meta name="description" content="">
+<meta name="keywords" content="hugo, htmx, SEO">
+<meta name="author" content="Jouw Naam">
+<meta name="robots" content="index, follow">
+
+
+<link rel="canonical" href="http://localhost:45725/verrijk-je-wijk/">
+
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="Verrijk je wijk | Wijkraad Koningshaven">
+<meta property="og:description" content="">
+<meta property="og:url" content="http://localhost:45725/verrijk-je-wijk/">
+<meta property="og:site_name" content="Wijkraad Koningshaven">
+<meta property="og:image" content="/images/og-image.png">
+
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Verrijk je wijk | Wijkraad Koningshaven">
+<meta name="twitter:description" content="">
+<meta name="twitter:image" content="/images/og-image.png">
+
+
+<link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
+<link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
+<link rel="shortcut icon" href="/favicon/favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+<meta name="apple-mobile-web-app-title" content="Q&A verzuimadvies" />
+<link rel="manifest" href="/favicon/site.webmanifest" />
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Wijkraad Koningshaven",
+  "url": "http:\/\/localhost:45725\/",
+  "logo": "\/uploads\/logo.png",
+  "sameAs": "[\"https://www.linkedin.com/company/voorbeeldbedrijf\",\"https://twitter.com/voorbeeldbedrijf\"]"
+}
+</script>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Verrijk je wijk",
+  "description": "",
+  "author": {
+    "@type": "Person",
+    "name": "Jouw Naam"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Wijkraad Koningshaven",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "\/uploads\/logo.png"
+    }
+  },
+  "datePublished": "0001-01-01T00:00:00Z",
+  "image": "\/images\/og-image.png"
+}
+</script>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "http:\/\/localhost:45725\/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Verrijk je wijk",
+      "item": "http:\/\/localhost:45725\/verrijk-je-wijk\/"
+    }
+  ]
+}
+</script>
+
+
+
+
+
+
+    
+    
+        
+            <link rel="stylesheet" href="/css/main.css">
+        
+    
+
+
+      <script src="/js/main.js"></script>
+<script src="/js/htmx.min.js" defer></script>
+
+</head>
+<body>
+  <header class="site-header">
+    <div class="site-header__inner wrapper">
+        <a href="/" class="brand">
+            
+            <img src="/uploads/logo.svg" alt="Wijkraad Koningshaven">
+            <span>Wijkraad Koningshaven</span>
+            
+        </a>
+        <button class="hamburger">
+            <span class="bar bar--1"></span>
+            <span class="bar bar--2"></span>
+            <span class="bar bar--3"></span>
+        </button>
+        
+<nav class="nav" aria-label="Hoofdmenu">
+  <ul class="nav__list" role="navigation"><li class="nav__item">
+        <a
+          href="/"
+          class="nav__link"
+        >Home</a>
+    </li><li class="nav__item">
+        <a
+          href="/over-ons/"
+          class="nav__link"
+        >Over ons</a>
+    </li><li class="nav__item">
+        <a
+          href="/blog/"
+          class="nav__link"
+        >Nieuws</a>
+    </li><li class="nav__item">
+        <a
+          href="/faqs/"
+          class="nav__link"
+        >F.A.Q.</a>
+    </li><li class="nav__item">
+        <a
+          href="/contact/"
+          class="nav__link"
+        >Contact</a>
+    </li>
+  </ul>
+</nav>
+
+
+<script>
+(function () {
+  var OPEN_CLASS = 'is-open';
+  var TOGGLE_SEL = '.nav__toggle';
+
+  function closeItem(item) {
+    if (!item) return;
+    item.classList.remove(OPEN_CLASS);
+    var toggle = item.querySelector(TOGGLE_SEL);
+    if (toggle) toggle.setAttribute('aria-expanded', 'false');
+  }
+
+  function openItem(item) {
+    if (!item) return;
+    item.classList.add(OPEN_CLASS);
+    var toggle = item.querySelector(TOGGLE_SEL);
+    if (toggle) toggle.setAttribute('aria-expanded', 'true');
+  }
+
+  function toggleItem(item) {
+    var toggle = item.querySelector(TOGGLE_SEL);
+    if (!toggle) return;
+    if (toggle.getAttribute('aria-expanded') === 'true') closeItem(item);
+    else openItem(item);
+  }
+
+  function closeAll() {
+    document.querySelectorAll('.nav__item.' + OPEN_CLASS).forEach(function (item) {
+      closeItem(item);
+    });
+  }
+
+  function init() {
+    
+    closeAll();
+
+    
+    document.querySelectorAll(TOGGLE_SEL).forEach(function (toggle) {
+      toggle.addEventListener('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var item = toggle.closest('.nav__item');
+        toggleItem(item);
+      });
+    });
+
+    
+    window.addEventListener('pageshow', function (ev) {
+      if (ev.persisted) closeAll();
+    });
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+</script>
+
+    </div>
+</header>
+  <main>
+    
+    <section class="vjw region">
+    <div class="wrapper wrapper--small text--center region"><h1 id="verrijk-je-wijk">Verrijk je wijk</h1>
+<p>De gemeente Tilburg stimuleert bewonersinitiatieven met het programma Verrijk Je Wijk. Dit initiatief biedt financiële ondersteuning aan ideeën die bijdragen aan de sociale cohesie en leefbaarheid in uw straat, buurt of wijk. Het doel is om onderlinge relaties te versterken en de samenhang binnen de wijk te verbeteren.</p></div>
+    <div class="wrapper wrapper--wide">
+        
+        <div class="box" id="form-container"><form id="contactform" class="form flow" method="POST" action="/send" hx-post="/send" hx-target="#form-container"
+    hx-swap="innerHTML"><div>
+        <label class="inborder" for="naam">Naam</label>
+        <input type="text" name="naam" id="naam" class="form-control"  required>
+    </div><div>
+        <label class="inborder" for="telefoon">Telefoon</label>
+        <input type="text" name="telefoon" id="telefoon" class="form-control"  required>
+    </div><div>
+        <label class="inborder" for="street">Adres</label>
+        <input type="text" name="street" id="street" class="form-control"  required>
+    </div><div>
+        <label class="inborder" for="postcode">Postcode</label>
+        <input type="text" name="postcode" id="postcode" class="form-control"  required>
+    </div><div>
+        <label class="inborder" for="woonplaats">Woonplaats</label>
+        <input type="text" name="woonplaats" id="woonplaats" class="form-control"  required>
+    </div><div>
+        <label class="inborder" for="email">Email</label>
+        <input type="email" name="email" id="email" class="form-control"  required>
+    </div><div>
+        <label class="inborder" for="aanvrager">Namens wie vraagt u het aan?</label>
+        <input type="text" name="aanvrager" id="aanvrager" class="form-control"  required>
+    </div><div>
+        <label class="inborder" for="event_description">Wat wil u organiseren?</label>
+        <textarea name="event_description" name="event_description" id="event_description" cols="30" rows="10" class="form-control"  required></textarea>
+    </div><div>
+        <label class="inborder" for="datum">Wat is de datum voor uw plan?</label>
+        <input type="date" name="datum" id="datum" class="form-control"  required>
+    </div><div>
+        <label class="inborder" for="lokatie">Waar vindt het plaats?</label>
+        <input type="text" name="lokatie" id="lokatie" class="form-control"  required>
+    </div><div>
+        <label class="inborder" for="doelgroep">Welke doelgroep wil u uitnodigen?</label>
+        <input type="text" name="doelgroep" id="doelgroep" class="form-control"  required>
+    </div><div>
+        <label class="inborder" for="deelnemers">Hoeveel deelnemers verwacht u?</label>
+        <input type="text" name="deelnemers" id="deelnemers" class="form-control"  required>
+    </div><div>
+        <label class="inborder" for="bedrag">Hoeveel wil u bij de wijkraad aanvragen?</label>
+        <input type="text" name="bedrag" id="bedrag" class="form-control"  required>
+    </div><div>
+        <label class="inborder" for="bijdragen">Heb je nog aan andere instanties of bedrijven een bijdrage gevraagd en zo ja aan wie?</label>
+        <textarea name="bijdragen" name="bijdragen" id="bijdragen" cols="30" rows="10" class="form-control"  required></textarea>
+    </div><div>
+        <label class="inborder" for="bijdragen_toegezegd">Hoeveel heb je gevraagd en wat is toegezegd?</label>
+        <textarea name="bijdragen_toegezegd" name="bijdragen_toegezegd" id="bijdragen_toegezegd" cols="30" rows="10" class="form-control"  required></textarea>
+    </div><div>
+        <label class="inborder" for="berekening">Noteer hier een berekening (begroting) zoals beschreven onder de spelregels van Verrijk je Wijk</label>
+        <textarea name="berekening" name="berekening" id="berekening" cols="30" rows="10" class="form-control"  required></textarea>
+    </div><div class="checkbox">
+        <label class="flex-group"><input type="checkbox" name="terms" value="Ik ga akkoord met de&lt;a href=&#34;/faqs&#34;&gt;voorwaarden&lt;/a&gt;" required>Ik ga akkoord met de<a href="/faqs">voorwaarden</a></label>
+    </div><div class="submit">
+        <div><input type="submit" value="Verzend" class="button" data-button-variant="accent" /></div>
+    </div></form>
+</div>
+    </div>
+</section>
+
+
+
+  </main>
+  <footer class="[] [] [ region ]">
+    <div class="wrapper">
+        <div class="flex-group flex-group--between">
+          <span>Copyright 2026 door <strong>Wijkraad Koningshaven</strong>. All rights reserved.</span>
+          <ul class="buttons social cluster" role="list"><li><a href="https://www.facebook.com/Koningshaven.eu/" class="button icon"><img src="/img/facebook.svg" alt="Facebook" /></a></li><li><a href="https://www.instagram.com/Koningshaven.eu/" class="button icon"><img src="/img/instagram.svg" alt="Instagram" /></a></li><li><a href="https://wa.me/&#43;31612345678" class="button icon"><img src="/img/whatsapp.svg" alt="WhatsApp" /></a></li><li><a href="mailto:info@wijkraadkoningshaven.nl" class="button icon"><img src="/img/email.svg" alt="Email" /></a></li></ul>
+        </div>
+    </div>
+</footer>
+
+
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js" defer></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js" defer></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const hamburger = document.querySelector('.hamburger');
+    const nav = document.querySelector('.nav');
+
+    hamburger.addEventListener('click', function () {
+      this.classList.toggle('open');
+      nav.classList.toggle('open');
+    });
+  });
+</script>
+</body>
+</html>

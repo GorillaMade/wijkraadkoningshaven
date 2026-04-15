@@ -1,0 +1,14 @@
+@use "../abstracts" as *;
+
+// Color(s) default theme
+@each $color, $shade-map in $active-theme {
+    @each $shade, $value in $shade-map {
+        .color-#{$color}-#{$shade} {
+            color: #{$value};
+        }
+
+        .bg-#{$color}-#{$shade} {
+            background: #{$value};
+        }
+    }
+}

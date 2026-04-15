@@ -1,0 +1,23 @@
+ul.breadcrumbs {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 auto;
+    padding: 0;
+    list-style: none;
+    width: fit-content;
+
+    li {
+        font-size: var(--fs-step--1);
+
+        &:not(:last-child) {
+            &:after {
+                content: "/";
+                margin-inline: var(--space-xs);
+            }
+        }
+
+        a {
+            text-decoration: none;
+        }
+    }
+}

@@ -1,0 +1,22 @@
+{{- $inner := . -}}
+{{- if or (eq $inner "") (eq $inner nil) -}}
+    {{- $inner = "Empty block found. Consider creating a 'content/blocks/cta.md' file." -}}
+    {{- with page.Site.GetPage "blocks/cta.md" -}}
+        {{- $inner = .RawContent -}}
+    {{- end -}}
+{{- end -}}
+{{- $inner = markdownify $inner -}}
+{{- $image := index (findRE `(?s)<p><img.*?p>` $inner 1) 0 -}}
+{{- $inner = replace $inner $image "" 1 -}}
+<section class="cta region">
+    <div class="wrapper">
+        <div class="switcher box">
+            <div class="text flow">
+                <div>{{- $inner | safeHTML -}}</div>
+            </div>
+            <div class="image">
+                {{- $image | safeHTML -}}
+            </div>
+        </div>
+    </div>
+</section>

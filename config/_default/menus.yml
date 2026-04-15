@@ -1,0 +1,16 @@
+main:
+  - name: "Home"
+    pageRef: "/"
+    weight: 10
+  - name: "Over ons"
+    pageRef: "over-ons"
+    weight: 20
+  - name: "Nieuws"
+    pageRef: "/blog"
+    weight: 30
+  - name: "F.A.Q."
+    pageRef: "/faqs"
+    weight: 40
+  - name: "Contact"
+    pageRef: "/contact"
+    weight: 60

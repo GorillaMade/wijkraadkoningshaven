@@ -1,0 +1,37 @@
+faqs:
+  - title: "Algemene vragen"
+    faqs:
+      - question: "Wat is het doel van Stichting Wijkraad Koningshaven?"
+        answer: "De stichting zet zich in voor het welzijn van de bewoners in de wijken Broekhoven 1, Fatima en Hoogvenne. Dit doen we in de breedste zin van het woord, met extra aandacht voor mensen die zich in een achterstandspositie bevinden of dreigen te raken."
+      - question: "Op welke aandachtsgebieden richt de stichting zich?"
+        answer:
+          "Wij richten ons op verschillende thema’s die bijdragen aan een prettige en leefbare wijk, waaronder:
+
+          - Wonen en woonomgeving, volkshuisvesting en ruimtelijke ordening.
+
+          - Sociale en culturele activiteiten, zoals onderwijs en volwasseneneducatie.
+
+          - Hulpverlening en volksgezondheid, inclusief zelfhulpinitiatieven.
+
+          - Recreatieve en creatieve activiteiten voor bewoners.
+
+          - Maatschappelijke vraagstukken en ontwikkelingen binnen de wijk en daarbuiten."
+      - question: "Hoe draagt de stichting bij aan de leefbaarheid van de wijk?"
+        answer: "We organiseren en ondersteunen initiatieven die bijdragen aan een betere woonomgeving, meer sociale samenhang en extra mogelijkheden voor persoonlijke ontwikkeling. Daarnaast werken we samen met bewoners, gemeente en andere organisaties om verbeteringen te realiseren."
+      - question: "Voor wie is de wijkraad bedoeld?"
+        answer: "De wijkraad is er voor alle bewoners van Broekhoven 1, Fatima en Hoogvenne, met speciale aandacht voor mensen die extra ondersteuning nodig hebben."
+      - question: "Hoe kan ik meedenken of een initiatief aandragen?"
+        answer: "Wil je meedenken over verbeteringen in de wijk of heb je een idee dat bijdraagt aan het welzijn van bewoners? Neem contact met ons op, we horen graag jouw ideeën!"
+
+  - title: "Verrijk je wijk"
+    faqs:
+      - question: "Wat zijn de voorwaarden voor een aanvraag?"
+        answer: "Aanvragen dienen bij te dragen aan de sociale cohesie en leefbaarheid in de wijk. De activiteit moet toegankelijk zijn voor een brede groep bewoners en voorzien zijn van een gedetailleerde begroting waarin de besteding van de bijdrage wordt verantwoord."
+      - question: "Hoeveel aanvragen kan ik indienen?"
+        answer: "Per persoon of locatie kunnen maximaal 3 aanvragen worden ingediend, waarbij sprake is van een afbouw in toekenning. Nieuwe aanvragen kunnen pas na drie kalenderjaren opnieuw worden ingediend. Commerciële en gesubsidieerde instellingen komen niet in aanmerking voor een bijdrage vanuit Verrijk Je Wijk."
+      - question: "Wie is verantwoordelijk voor de uitvoering van het initiatief?"
+        answer: "U bent als aanvrager, samen met uw buurtbewoners, verantwoordelijk voor de uitvoering van het initiatief. Uitzondering hierop zijn ingrepen in de openbare ruimte; hiervoor is de gemeente verantwoordelijk."
+      - question: "Is een vergunning verplicht?"
+        answer: "Voor alle activiteiten die plaatsvinden in de openbare ruimte, zoals op een straat of in een park, dient u zelf een vergunning aan te vragen bij de gemeente."
+      - question: "Wanneer vindt de uitbetaling plaats?"
+        answer: "De uitbetaling vindt plaats binnen vier weken na de uitvoering van het evenement, mits de originele bonnen worden ingediend. U kunt deze fysiek aanleveren of digitaal inscannen en per e-mail verzenden."

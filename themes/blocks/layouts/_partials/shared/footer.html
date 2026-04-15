@@ -1,0 +1,23 @@
+<footer class="[] [] [ region ]">
+    <div class="wrapper">
+        <div class="flex-group flex-group--between">
+          <span>Copyright {{ now.Year }} door <strong>{{ .Site.Title }}</strong>. All rights reserved.</span>
+          {{ partial "socialbuttons" . }}
+        </div>
+    </div>
+</footer>
+
+<!-- Scripts -->
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js" defer></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js" defer></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const hamburger = document.querySelector('.hamburger');
+    const nav = document.querySelector('.nav');
+
+    hamburger.addEventListener('click', function () {
+      this.classList.toggle('open');
+      nav.classList.toggle('open');
+    });
+  });
+</script>

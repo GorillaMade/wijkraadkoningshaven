@@ -1,0 +1,22 @@
+{{- if .Get 0 -}}
+	{{- range (index (index page.Site.Data page.Site.Language.Lang).faqs (sub (.Get 0) 1)).faqs -}}
+		<details>
+			<summary>{{- .question -}}</summary>
+			<div>{{- .answer | markdownify -}}</div>
+		</details>
+	{{- end -}}
+{{- else -}}
+	{{- range (index page.Site.Data page.Site.Language.Lang).faqs.faqs -}}
+		{{- if .title -}}
+			<h3 class="mb-s-l">{{- .title -}}</h3>
+			<div class="faqs">
+				{{- range .faqs -}}
+					<details>
+						<summary>{{- .question -}}</summary>
+						<div>{{- .answer | markdownify -}}</div>
+					</details>
+				{{- end -}}
+			</div>
+		{{- end -}}
+	{{- end -}}
+{{- end -}}

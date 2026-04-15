@@ -1,0 +1,59 @@
+{{- $inner := . -}}
+{{- if or (eq $inner "") (eq $inner nil) -}}
+    {{- $inner = "Empty block found. Consider creating a 'content/blocks/title.md' file." -}}
+    {{- with page.Site.GetPage "blocks/title.md" -}}
+        {{- $inner = .RawContent -}}
+    {{- end -}}
+{{- end -}}
+
+{{- /* extract image src from markdown image syntax */ -}}
+{{- $imgMatch := index (findRE `!\[[^\]]*?]\(([^\)]*?)\)` $inner 1) 0 -}}
+{{- $imagesrc := "" -}}
+{{- if $imgMatch -}}
+  {{- $imagesrc = substr (index (split $imgMatch "](") 1) 0 -1 -}}
+{{- end -}}
+
+{{- /* markdownify inner text */ -}}
+{{- $raw := (markdownify . | chomp) -}}
+{{- $block := findRE "(?is)^<(?:address|article|aside|blockquote|canvas|dd|div|dl|dt|fieldset|figcaption|figure|footer|form|h(?:1|2|3|4|5|6)|header|hgroup|hr|li|main|nav|noscript|ol|output|p|pre|section|table|tfoot|ul|video)\\b" $raw 1 -}}
+{{- if or $block (not $raw) -}}
+  {{- $inner = $raw -}}
+{{- else -}}
+  {{- $inner = print `<p>` $raw `</p>` -}}
+{{- end -}}
+
+{{- $image := index (findRE `(?s)<p><img.*?p>` $inner 1) 0 -}}
+{{- $inner = replace $inner $image "" 1 -}}
+
+{{- $empty := false -}}
+{{- if lt (len $inner) 3 }}{{ $empty = true }}{{ end }}
+
+{{- $bg := "" -}}
+{{- if $imagesrc -}}
+  {{- $res := resources.GetMatch $imagesrc -}}
+  {{- if $res -}}
+    {{- /* local resource found → use Hugo image processing */ -}}
+    {{- $bg = ($res.Fill `3000x1000 webp Center q50`).RelPermalink -}}
+  {{- else if hasPrefix $imagesrc "http" -}}
+    {{- /* external image url */ -}}
+    {{- $bg = $imagesrc -}}
+  {{- else -}}
+    {{- /* static folder image fallback */ -}}
+    {{- $bg = printf "/%s" $imagesrc -}}
+  {{- end -}}
+{{- end -}}
+
+<section class="title {{ if $bg }}bgimage{{ end }}">
+  {{- if $bg -}}
+  <div class="bgimage region" style="background: url('{{ $bg }}') center center / cover no-repeat;">
+      {{ if not $empty }}<div class="overlay"></div>{{ end }}
+      <div class="wrapper wrapper--small text--center">
+          {{ $inner | safeHTML }}
+      </div>
+  </div>
+  {{- else -}}
+  <div class="wrapper wrapper--small region">
+      {{- markdownify $inner -}}
+  </div>
+  {{- end -}}
+</section>

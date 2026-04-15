@@ -1,0 +1,112 @@
+action: /form.php
+placeholders: false
+fields:
+  # - name: title
+  #   input_type: html
+  #   label: <h3 class="mt-0">Verrijk je wijk formulier</h3>
+  #   required: false
+
+  - name: naam
+    input_type: text
+    label: Naam
+    placeholder: Volledige naam
+    required: true
+
+  - name: telefoon
+    input_type: text
+    label: Telefoon
+    placeholder: Telefoon nummer
+    required: true
+
+  - name: street
+    input_type: text
+    label: Adres
+    placeholder: Straatnaam + huisnummer
+    required: true
+
+  - name: postcode
+    input_type: text
+    label: Postcode
+    placeholder: Postcode
+    required: false
+
+  - name: woonplaats
+    input_type: text
+    label: Woonplaats
+    placeholder: Woonplaats
+    required: false
+
+  - name: email
+    input_type: email
+    label: Email
+    placeholder: Email Address
+    required: true
+
+  - name: aanvrager
+    input_type: text
+    label: Namens wie vraagt u het aan?
+    placeholder: bijv. straat, buurt of vereniging
+    required: false
+
+  - name: event_description
+    input_type: textarea
+    label: Wat wil u organiseren?
+    placeholder: Typ in het kort wat u zou willen organiseren
+    required: false
+
+  - name: datum
+    input_type: date
+    label: Wat is de datum voor uw plan?
+    placeholder: datum
+    required: true
+
+  - name: lokatie
+    input_type: text
+    label: Waar vindt het plaats?
+    placeholder: Lokatie
+    required: true
+
+  - name: doelgroep
+    input_type: text
+    label: Welke doelgroep wil u uitnodigen?
+    placeholder: Bijv. buurtbewoners, kinderen of bejaarden
+    required: true
+
+  - name: deelnemers
+    input_type: text
+    label: Hoeveel deelnemers verwacht u?
+    placeholder: Aantal deelnemers
+    required: true
+
+  - name: bedrag
+    input_type: text
+    label: Hoeveel wil u bij de wijkraad aanvragen?
+    placeholder: Het bedrag wat u wil aanvragen
+    required: true
+
+  - name: bijdragen
+    input_type: textarea
+    label: Heb je nog aan andere instanties of bedrijven een bijdrage gevraagd en zo ja aan wie?
+    required: true
+
+  - name: bijdragen_toegezegd
+    input_type: textarea
+    label: Hoeveel heb je gevraagd en wat is toegezegd?
+    placeholder: Alleen invullen als je de vorige vraag met JA hebt beantwoord
+    required: false
+
+  - name: berekening
+    input_type: textarea
+    label: Noteer hier een berekening (begroting) zoals beschreven onder de spelregels van Verrijk je Wijk
+    placeholder: Noteer hier het bedrag en een duidelijke begroting van alle kosten.
+    required: false
+
+  - name: terms
+    input_type: checkbox
+    label: Ik ga akkoord met de <a href="/faqs">voorwaarden</a>
+    required: true
+
+  - name: submit
+    input_type: submit
+    label: Verzend
+    required: true

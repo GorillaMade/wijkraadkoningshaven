@@ -1,0 +1,32 @@
+<section class="service region">
+    <div class="wrapper wrapper--small flow">
+        {{ partial "breadcrumbs.html" . }}
+        <h1 class="text--center">{{ page.Title | safeHTML }}</h1>
+        {{ if or page.Params.date (index page.Params.tags 0) }}
+        <div class="meta text--center">
+            {{ if index page.Params.tags 0 }}
+            <div>
+                <ul class="cluster" role="list">
+                    {{ range page.Params.tags }}
+                    <li><span class="tag">{{ . }}</span>
+                    {{ end }}
+                </ul>
+            </div>
+            {{ end }}
+        </div>
+        {{ end }}
+    </div>
+    <div class="wrapper wrapper--wide my-l">
+        {{- $postimage := `/uploads/gallery/01.jpg` -}}
+        {{- if page.Params.image -}}
+            {{- $postimage = page.Params.image -}}
+        {{- end -}}
+        {{- if (resources.GetMatch $postimage) -}}
+            {{- $postimage = ((resources.GetMatch $postimage).Fill `1600x800 jpg Smart q50`).RelPermalink -}}
+        {{- end -}}
+        <img src="{{ $postimage }}" alt="{{ .Title }}" class="featuredimage" />
+    </div>
+    <div class="wrapper wrapper--small service">
+        {{ page.Content }}
+    </div>
+</section>

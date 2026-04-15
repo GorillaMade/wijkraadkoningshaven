@@ -1,0 +1,30 @@
+{{- $title := .Get "title" -}}
+{{- $inner := .Inner | default "" -}}
+
+{{- if or (eq $inner "") (eq $inner nil) -}}
+    {{- $inner = "Empty block found. Consider creating a 'content/blocks/faq.md' file." -}}
+    {{- with page.Site.GetPage "blocks/faq.md" -}}
+        {{- $inner = .RawContent -}}
+    {{- end -}}
+{{- end -}}
+
+{{- $parts := split $inner "---" -}}
+
+<section class="faqs py-xl-3xl">
+    <div class="wrapper wrapper--wide">
+        {{- if $title -}}
+            <header class="text--center mb-l">
+                <h2 class="mt-0">{{ $title }}</h2>
+            </header>
+        {{- end -}}
+
+        {{- range $parts -}}
+            {{- $title := index (findRE `(?s)<h2.*?>.*?</h2>` (markdownify .) 1) 0 -}}
+            {{- $titleplain := replace (index (split $title ">") 1) `</h2` `` -}}
+            <details>
+                <summary>{{- $titleplain | markdownify -}}</summary>
+                <div class="faq__content">{{- (replace (markdownify .) $title "") | safeHTML -}}</div>
+            </details>
+        {{- end -}}
+    </div>
+</section>

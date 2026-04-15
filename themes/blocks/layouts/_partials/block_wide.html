@@ -1,0 +1,16 @@
+{{- $inner := .Inner -}}
+{{- $sectionClass := .SectionClass | default "" -}}
+{{- $wrapperClass := .WrapperClass | default "" -}}
+
+{{- if or (eq $inner "") (eq $inner nil) -}}
+    {{- $inner = "Empty block found. Consider creating a 'content/block/wide.md' file." -}}
+    {{- with page.Site.GetPage "blocks/wide.md" -}}
+        {{- $inner = .RawContent -}}
+    {{- end -}}
+{{- end -}}
+
+<section class="wide {{ $sectionClass }}">
+    <div class="wrapper wrapper--wide {{ $wrapperClass }}">
+        {{- markdownify $inner -}}
+    </div>
+</section>

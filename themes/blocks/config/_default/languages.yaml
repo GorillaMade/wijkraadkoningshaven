@@ -1,0 +1,12 @@
+nl:
+  languageName: Nederlands
+  contentDir: "content/nl"
+  weight: 1
+  disabled: false
+  params:
+    flag:
+  permalinks:
+    page:
+      services: /diensten/:slug
+    section:
+      services: /diensten/

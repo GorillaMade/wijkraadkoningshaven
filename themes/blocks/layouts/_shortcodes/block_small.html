@@ -1,0 +1,22 @@
+<!--
+{{/*
+    Usage:
+
+    {{< block_small region=true centered=true >}}
+
+    ## Heading
+
+    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+
+    {{< /block_small >}}
+
+*/}}
+-->
+
+{{- $region := .Get "region" | default false -}}
+{{- $centered := .Get "centered" | default false -}}
+
+{{- $sectionClass := cond $region "region" "" -}}
+{{- $wrapperClass := cond $centered "text--center" "" -}}
+
+{{- partial "block_small.html" (dict "Inner" .Inner "SectionClass" $sectionClass "WrapperClass" $wrapperClass) -}}

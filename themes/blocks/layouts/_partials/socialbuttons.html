@@ -1,0 +1,5 @@
+<ul class="buttons social cluster" role="list">
+    {{- range (index page.Site.Data page.Site.Language.Lang).socials.list -}}
+    <li><a href="{{ .link | safeURL }}" class="button icon"><img src="{{ .logo_image }}" alt="{{ .title }}" /></a></li>
+    {{- end -}}
+</ul>

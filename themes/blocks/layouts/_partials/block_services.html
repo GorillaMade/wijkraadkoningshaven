@@ -1,0 +1,64 @@
+{{- $inner := . -}}
+{{- if or (eq $inner "") (eq $inner nil) -}}
+  {{- with page.Site.GetPage "blocks/services.md" -}}
+    {{- $inner = .RawContent -}}
+  {{- end -}}
+{{- end -}}
+
+{{- $services := where page.Site.RegularPages "Type" "services" -}}
+
+<section class="services region flow">
+
+    {{ if $inner }}
+    <div class="wrapper wrapper--small text--center">
+        {{- markdownify $inner -}}
+    </div>
+    {{ end }}
+
+    <div class="wrapper flow region">
+        <ul class="contentitems grid services" data-layout="thirds" role="list" 
+            data-pagesize="{{ if page.Site.Data.settings.show_all_services }}99{{ else }}{{ page.Site.Data.settings.page_size }}{{ end }}">
+
+            {{ range $index,$service := $services }}
+            <li class="item {{ range .Params.tags }} tag_{{ . }}{{ end }}">
+
+                {{/* Afbeelding */}}
+                {{- $imgResource := .Resources.GetMatch .Params.image -}}
+                {{- if not $imgResource -}}
+                  {{- $imgResource = resources.GetMatch .Params.image -}}
+                {{- end -}}
+
+                {{- if $imgResource -}}
+                  {{- $serviceimage := ($imgResource.Fill "1200x600 jpg Smart q50").RelPermalink -}}
+                  <a href="{{ .RelPermalink }}">
+                      <div class="img">
+                          <img src="{{ $serviceimage }}" alt="{{ .Title }}" 
+                               style="cursor: pointer;" loading="lazy" decoding="async"
+                               onclick="document.location.href='{{ .RelPermalink }}';" />
+                      </div>
+                  </a>
+                {{- else if .Params.image -}}
+                  <a href="{{ .RelPermalink }}">
+                      <div class="img">
+                          <img src="{{ .Params.image | relURL }}" alt="{{ .Title }}" 
+                               style="cursor: pointer;" loading="lazy" decoding="async"
+                               onclick="document.location.href='{{ .RelPermalink }}';" />
+                      </div>
+                  </a>
+                {{- end }}
+
+                <h3 class="h4">{{ .Title | safeHTML }}</h3>
+                <div class="summary">
+                    <p>{{ substr (.Summary | plainify) 0 150 | safeHTML }}...</p>
+                    <p>
+                        <a href="{{ .RelPermalink }}" class="button" data-button-variant="accent">
+                            {{ i18n "Read more" }}
+                        </a>
+                    </p>
+                </div>
+            </li>
+
+            {{ end }}
+        </ul>
+    </div>
+</section>

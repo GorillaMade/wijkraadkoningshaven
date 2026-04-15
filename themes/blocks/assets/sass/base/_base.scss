@@ -1,0 +1,86 @@
+//
+//
+//
+
+body {
+    background: var(--primary-50);
+    color: var(--primary-950);
+    font-family: var(--ff-sans);
+    font-size: var(--fs-step-0);
+    font-weight: var(--fw-regular);
+    line-height: 1.45;
+}
+
+
+// -----------------------------------------------------------------------------
+//
+// -----------------------------------------------------------------------------
+
+h1, h2, h3,
+h4, h5, h6 {
+    letter-spacing: -.025rem;
+    font-family: var(--ff-heading);
+    font-weight: var(--fw-bold);
+    line-height: 1.2;
+    color: inherit;
+    /* &:is(:first-of-type) {
+        margin-block-start: 0;
+    } */
+}
+
+h1, .h1 {
+    font-size: var(--fs-step-5);
+}
+
+h2, .h2 {
+    font-size: var(--fs-step-4);
+}
+
+h3, .h3 {
+    font-size: var(--fs-step-3);
+}
+
+h4, .h4 {
+    font-size: var(--fs-step-2);
+}
+
+h5, .h5 {
+    font-size: var(--fs-step-1);
+}
+
+h6, .h6 {
+    font-size: var(--fs-step-0);
+}
+
+
+// -----------------------------------------------------------------------------
+//
+// -----------------------------------------------------------------------------
+
+a:not([class]) {
+    color: var(--accent-500);
+
+    &:is(:hover, :focus-visible) {
+        color: var(--accent-800);
+    }
+}
+
+
+//
+//
+//
+
+input:not([type="submit"], [type="checkbox"], [type="radio"]),
+textarea {
+    min-width: 100%;
+    padding: var(--space-xs);
+    border: 1px solid var(--primary-200);
+    border-radius: var(--radius-s);
+}
+
+textarea {
+    --textarea-height: 180px;
+    min-height: var(--textarea-height);
+    height: var(--textarea-height);
+    resize: vertical;
+}

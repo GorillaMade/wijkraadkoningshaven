@@ -1,0 +1,19 @@
+{{- $inner := . -}}
+{{- if or (eq $inner "") (eq $inner nil) -}}
+    {{- $inner = "" -}}
+    {{- with page.Site.GetPage "blocks/intro2.md" -}}
+        {{- $inner = .RawContent -}}
+    {{- end -}}
+{{- end -}}
+{{- $inner = markdownify $inner -}}
+{{- $image := index (findRE `(?s)<p><img.*?p>` $inner 1) 0 -}}
+{{- $inner = replace $inner $image "" 1 -}}
+{{- $imagesrc := index (split $image `"`) 1 -}}
+<section class="intro intro--bgimage">
+    <div class="bgimage" style="background: url('{{ $imagesrc }}') center center / cover no-repeat;">
+        <div class="overlay"></div>
+        <div class="wrapper wrapper--small">
+            {{ $inner | safeHTML }}
+        </div> 
+    </div>
+</section>

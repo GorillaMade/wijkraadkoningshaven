@@ -1,0 +1,13 @@
+list:
+  - title: Facebook
+    link: https://www.facebook.com/Koningshaven.eu/
+    logo_image: /img/facebook.svg
+  - title: Instagram
+    link: https://www.instagram.com/Koningshaven.eu/
+    logo_image: /img/instagram.svg
+  - title: WhatsApp
+    link: https://wa.me/+31612345678
+    logo_image: /img/whatsapp.svg
+  - title: Email
+    link: mailto:info@wijkraadkoningshaven.nl
+    logo_image: /img/email.svg

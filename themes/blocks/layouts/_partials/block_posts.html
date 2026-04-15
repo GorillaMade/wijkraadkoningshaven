@@ -1,0 +1,81 @@
+{{- $inner := . -}}
+{{- if or (eq $inner "") (eq $inner nil) -}}
+    {{- with page.Site.GetPage "blocks/posts.md" -}}
+        {{- $inner = .RawContent -}}
+    {{- end -}}
+{{- end -}}
+
+{{- $posts := where page.Site.RegularPages "Section" "posts" -}}
+
+<section class="posts">
+
+    {{ if $inner }}
+        <div class="wrapper wrapper--small text--center region">
+            {{- markdownify $inner -}}
+        </div>
+    {{ end }}
+
+    <div class="wrapper">
+
+        <!--<div class="filter">
+            <select name="filter" id="filter"
+                class="multipleselecttags numbers_{{ page.Site.Data.settings.filter_has_numbers }}"
+                multiple autocomplete="off"
+                title="{{ i18n "filter tags" }}">
+                {{ range $name, $taxonomy := page.Site.Taxonomies.tags }}
+                    <option value="{{ $name }}">{{ $name }}</option>
+                {{ end }}
+            </select>
+        </div>-->
+
+        <ul class="posts__list grid" role="list"
+            data-pagesize="{{ page.Site.Data.settings.page_size }}" data-layout="thirds">
+
+            {{ range $index, $post := $posts }}
+            <li class="post__item {{ range .Params.tags }}tag_{{ . }}{{ end }}">
+
+                {{- $page := .Page -}}
+                {{- $img := $page.Params.image -}}
+
+                {{- if $img -}}
+                    <a href="{{ $page.RelPermalink }}">
+                        <img src="{{ $img }}"
+                             alt="{{ $page.Title }}"
+                             class="featuredimage"
+                             loading="lazy"
+                             decoding="async"
+                             onclick="document.location.href='{{ $page.RelPermalink }}'">
+                    </a>
+                {{- end -}}
+
+                <h3>{{ .Title | safeHTML }}</h3>
+
+                {{ if .Params.date }}
+                    <div class="meta__date">
+                        <img src="/img/icons/calendar_month-fill.svg" class="black_2_textDark" alt="" />
+                        {{ .Date | time.Format ":date_medium" }}
+                    </div>
+                {{ end }}
+
+                <div class="summary">
+                    <p>{{ substr (.Summary | plainify) 0 190 | safeHTML }}...</p>
+                    <p><a href="{{ .RelPermalink }}" class="button smaller" data-button-ghost="">{{ i18n "Read more" }}</a></p>
+                </div>
+
+            </li>
+            {{ end }}
+
+        </ul>
+
+        <!--<p>
+            <a class="button secondary ghost smaller"
+               id="loadmoreposts"
+               onclick="loadMorePosts();">
+               {{ i18n "Load more posts" }}...
+            </a>
+        </p>
+
+        <script src="/js/filter.js" defer></script>-->
+
+    </div>
+</section>

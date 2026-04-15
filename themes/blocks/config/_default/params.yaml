@@ -1,0 +1,37 @@
+# -- Site specifieke params --
+author: ""
+description: ""
+keywords: ""
+
+favicon: "/uploads/favicon.svg"
+logo: "/uploads/logo.png"
+
+
+# -- S.E.O. params --
+seo:
+  enable: true
+  twitter_card: "summary_large_image"
+  og_image: "/uploads/og-image.png"
+
+
+# -- Schema params --
+schema:
+  type: "Organization"
+  name: ""
+  url: ""
+  logo: "/uploads/logo.png"
+  sameAs:
+    - "https://linkedin.com"
+    - "https://instagram.com"
+
+
+
+# -- Socials --
+socials:
+  - title: "linkedin"
+    link: "https://linkedin.com"
+    logo_image: "/img/linkedin.svg"
+  - title: "instagram"
+    link: "https://instagram.com"
+    logo_image: "/img/instagram.svg"
+  

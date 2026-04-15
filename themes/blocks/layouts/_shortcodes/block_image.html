@@ -1,0 +1,36 @@
+{{- $inner := .Inner | default "" -}}
+
+{{- /* Parameters */ -}}
+{{- $reversed := .Get "reversed" | default "false" | lower -}}
+{{- $bgClass := .Get "background-color" | default "" -}}
+
+{{- /* Markdown renderen */ -}}
+{{ $inner = markdownify $inner }}
+
+{{- /* Eerste image detecteren */ -}}
+{{- $image := index (findRE `(?s)<p><img.*?p>` $inner 1) 0 -}}
+{{- $inner = replace $inner $image "" 1 -}}
+
+{{- /* Wrapper classes */ -}}
+{{- $wrapperClasses := slice "wrapper" "switcher" "ai--center" -}}
+{{- $wrapperClassStr := delimit $wrapperClasses " " -}}
+
+<section class="text-image region {{ $bgClass }}">
+    <div class="{{ $wrapperClassStr }}">
+        {{- if eq $reversed "true" }}
+            <div class="image">
+                <div>{{- $image | safeHTML -}}</div>
+            </div>
+            <div class="text">
+                <div>{{ $inner | safeHTML }}</div>
+            </div>
+        {{- else }}
+            <div class="text">
+                <div>{{ $inner | safeHTML }}</div>
+            </div>
+            <div class="image">
+                <div>{{- $image | safeHTML -}}</div>
+            </div>
+        {{- end }}
+    </div>
+</section>

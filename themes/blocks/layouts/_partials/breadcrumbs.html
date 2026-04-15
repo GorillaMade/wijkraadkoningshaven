@@ -1,0 +1,58 @@
+{{- $parent_title := "" -}}
+{{- $parent_link := "" -}}
+
+{{- range (index .Site.Data $.Site.Language.Lang).header.menuitems -}}
+  {{- $title := .title -}}
+  {{- $link := .link -}}
+
+  {{- if eq $link $.Page.RelPermalink -}}
+    {{- $parent_title = $title -}}
+    {{- $parent_link = $link -}}
+  {{- else -}}
+    {{- range .items -}}
+      {{- if eq .link $.Page.RelPermalink -}}
+        {{- $parent_title = $title -}}
+        {{- $parent_link = $link -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+
+<ul class="breadcrumbs">
+  {{/* ===== GEEN services/posts/products ===== */}}
+  {{- if and (ne page.Section "services") (ne page.Section "posts") (ne page.Section "products") -}}
+
+    {{- range page.Ancestors.Reverse -}}
+      <li><a href="{{ .RelPermalink }}">{{ .Title | truncate 25 }}</a></li>
+    {{- end -}}
+
+    {{- if $parent_title -}}
+      <li><a href="{{ $parent_link }}">{{ $parent_title | truncate 25 }}</a></li>
+    {{- else -}}
+      <li><a href="{{ page.RelPermalink }}">{{ page.Title | truncate 25 }}</a></li>
+    {{- end -}}
+
+  {{/* ===== SERVICES / POSTS / PRODUCTS ===== */}}
+  {{- else -}}
+
+    {{/* Home */}}
+    {{- with site.Home -}}
+      <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
+    {{- end -}}
+
+    {{/* Section (bijv. /diensten/) */}}
+    {{- with site.GetPage "section" page.Section -}}
+      <li>
+        <a href="{{ .RelPermalink }}">
+          {{ i18n page.Section }}
+        </a>
+      </li>
+    {{- end -}}
+
+    {{/* Detailpagina */}}
+    {{- if ne page.Kind "section" -}}
+      <li>{{ page.Title | truncate 25 }}</li>
+    {{- end -}}
+
+  {{- end -}}
+</ul>

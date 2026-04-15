@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="nl-nl" dir="ltr">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=45725&amp;path=livereload" data-no-instant defer></script>
+  
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+<title>Page not found (404) | Wijkraad Koningshaven</title>
+<meta name="description" content="">
+<meta name="keywords" content="hugo, htmx, SEO">
+<meta name="author" content="Jouw Naam">
+<meta name="robots" content="index, follow">
+
+
+<link rel="canonical" href="http://localhost:45725/nl/404/">
+
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="Page not found (404) | Wijkraad Koningshaven">
+<meta property="og:description" content="">
+<meta property="og:url" content="http://localhost:45725/nl/404/">
+<meta property="og:site_name" content="Wijkraad Koningshaven">
+<meta property="og:image" content="/images/og-image.png">
+
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Page not found (404) | Wijkraad Koningshaven">
+<meta name="twitter:description" content="">
+<meta name="twitter:image" content="/images/og-image.png">
+
+
+<link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
+<link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
+<link rel="shortcut icon" href="/favicon/favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+<meta name="apple-mobile-web-app-title" content="Q&A verzuimadvies" />
+<link rel="manifest" href="/favicon/site.webmanifest" />
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Wijkraad Koningshaven",
+  "url": "http:\/\/localhost:45725\/",
+  "logo": "\/uploads\/logo.png",
+  "sameAs": "[\"https://www.linkedin.com/company/voorbeeldbedrijf\",\"https://twitter.com/voorbeeldbedrijf\"]"
+}
+</script>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Page not found (404)",
+  "description": "",
+  "author": {
+    "@type": "Person",
+    "name": "Jouw Naam"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Wijkraad Koningshaven",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "\/uploads\/logo.png"
+    }
+  },
+  "datePublished": "0001-01-01T00:00:00Z",
+  "image": "\/images\/og-image.png"
+}
+</script>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "http:\/\/localhost:45725\/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Page not found (404)",
+      "item": "http:\/\/localhost:45725\/nl\/404\/"
+    }
+  ]
+}
+</script>
+
+
+
+
+
+
+    
+    
+        
+            <link rel="stylesheet" href="/css/main.css">
+        
+    
+
+
+      <script src="/js/main.js"></script>
+<script src="/js/htmx.min.js" defer></script>
+
+</head>
+<body>
+  <header class="site-header">
+    <div class="site-header__inner wrapper">
+        <a href="/" class="brand">
+            
+            <img src="/uploads/logo.svg" alt="Wijkraad Koningshaven">
+            <span>Wijkraad Koningshaven</span>
+            
+        </a>
+        <button class="hamburger">
+            <span class="bar bar--1"></span>
+            <span class="bar bar--2"></span>
+            <span class="bar bar--3"></span>
+        </button>
+        
+<nav class="nav" aria-label="Hoofdmenu">
+  <ul class="nav__list" role="navigation"><li class="nav__item">
+        <a
+          href="/"
+          class="nav__link"
+        >Home</a>
+    </li><li class="nav__item">
+        <a
+          href="/over-ons/"
+          class="nav__link"
+        >Over ons</a>
+    </li><li class="nav__item">
+        <a
+          href="/blog/"
+          class="nav__link"
+        >Nieuws</a>
+    </li><li class="nav__item">
+        <a
+          href="/faqs/"
+          class="nav__link"
+        >F.A.Q.</a>
+    </li><li class="nav__item">
+        <a
+          href="/contact/"
+          class="nav__link"
+        >Contact</a>
+    </li>
+  </ul>
+</nav>
+
+
+<script>
+(function () {
+  var OPEN_CLASS = 'is-open';
+  var TOGGLE_SEL = '.nav__toggle';
+
+  function closeItem(item) {
+    if (!item) return;
+    item.classList.remove(OPEN_CLASS);
+    var toggle = item.querySelector(TOGGLE_SEL);
+    if (toggle) toggle.setAttribute('aria-expanded', 'false');
+  }
+
+  function openItem(item) {
+    if (!item) return;
+    item.classList.add(OPEN_CLASS);
+    var toggle = item.querySelector(TOGGLE_SEL);
+    if (toggle) toggle.setAttribute('aria-expanded', 'true');
+  }
+
+  function toggleItem(item) {
+    var toggle = item.querySelector(TOGGLE_SEL);
+    if (!toggle) return;
+    if (toggle.getAttribute('aria-expanded') === 'true') closeItem(item);
+    else openItem(item);
+  }
+
+  function closeAll() {
+    document.querySelectorAll('.nav__item.' + OPEN_CLASS).forEach(function (item) {
+      closeItem(item);
+    });
+  }
+
+  function init() {
+    
+    closeAll();
+
+    
+    document.querySelectorAll(TOGGLE_SEL).forEach(function (toggle) {
+      toggle.addEventListener('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var item = toggle.closest('.nav__item');
+        toggleItem(item);
+      });
+    });
+
+    
+    window.addEventListener('pageshow', function (ev) {
+      if (ev.persisted) closeAll();
+    });
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+</script>
+
+    </div>
+</header>
+  <main>
+    
+    <section class="error404">
+    <div class="wrapper wrapper--small">
+        <p><img src="/img/404.svg" alt=""></p>
+<h1 id="oeps-er-is-iets-mis-gegaan">Oeps! Er is iets mis gegaan!</h1>
+<p><a href="/" class="button" title="Terug naar home">Terug naar home</a></p>
+
+    </div>
+</section>
+
+
+  </main>
+  <footer class="[] [] [ region ]">
+    <div class="wrapper">
+        <div class="flex-group flex-group--between">
+          <span>Copyright 2026 door <strong>Wijkraad Koningshaven</strong>. All rights reserved.</span>
+          <ul class="buttons social cluster" role="list"><li><a href="https://www.facebook.com/Koningshaven.eu/" class="button icon"><img src="/img/facebook.svg" alt="Facebook" /></a></li><li><a href="https://www.instagram.com/Koningshaven.eu/" class="button icon"><img src="/img/instagram.svg" alt="Instagram" /></a></li><li><a href="https://wa.me/&#43;31612345678" class="button icon"><img src="/img/whatsapp.svg" alt="WhatsApp" /></a></li><li><a href="mailto:info@wijkraadkoningshaven.nl" class="button icon"><img src="/img/email.svg" alt="Email" /></a></li></ul>
+        </div>
+    </div>
+</footer>
+
+
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js" defer></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js" defer></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const hamburger = document.querySelector('.hamburger');
+    const nav = document.querySelector('.nav');
+
+    hamburger.addEventListener('click', function () {
+      this.classList.toggle('open');
+      nav.classList.toggle('open');
+    });
+  });
+</script>
+</body>
+</html>

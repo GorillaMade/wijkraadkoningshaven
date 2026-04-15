@@ -1,0 +1,101 @@
+@use "colors" as *;
+
+// -----------------------------------------------------------------------------
+// Theme settings
+// -----------------------------------------------------------------------------
+
+$active-theme: $light;
+$enable-media-prefers-dark-mode: false;
+
+// -----------------------------------------------------------------------------
+// Body settings
+// -----------------------------------------------------------------------------
+
+$body-foreground: var(--neutral-600);
+$body-background: var(--neutral-0);
+$body-font-size: var(--fs-step-0);
+$body-font-weight: var(--fw-regular);
+$body-line-height: 1.45;
+
+// -----------------------------------------------------------------------------
+// Wrapper
+// -----------------------------------------------------------------------------
+
+$wrapper-small-width: 50rem;
+$wrapper-wide-width: 64rem;
+$wrapper-max-width: 84rem;
+
+// -----------------------------------------------------------------------------
+// Navigation
+// -----------------------------------------------------------------------------
+
+$nav-list-gap: 1px;
+
+$nav-link-foreground: var(--primary-900);
+$nav-link-foreground-hover: var(--primary-0);
+$nav-link-foreground-active: var(--primary-0);
+
+$nav-link-background: transparent;
+$nav-link-background-hover: var(--primary-100);
+$nav-link-background-active: var(--primary-200);
+
+$nav-link-font-family: inherit;
+$nav-link-font-size: var(--fs-step--1);
+$nav-link-font-weight: var(--fw-regular);
+$nav-link-line-height: 1.1;
+$nav-link-border-radius: var(--radius-s);
+
+// Navigation dropdown
+
+$subnav-link-foreground: var(--neutral-600);
+$subnav-link-foreground-hover: var(--neutral-700);
+$subnav-link-foreground-active: var(--accent-0);
+
+$subnav-link-background: var(--primary-0);
+$subnav-link-background-hover: var(--primary-100);
+$subnav-link-background-active: var(--primary-500);
+
+// -----------------------------------------------------------------------------
+// Hamburger
+// -----------------------------------------------------------------------------
+
+$hamburger-background: transparent;
+$hamburger-padding: var(--space-2xs);
+$hamburger-animation-timing: 200ms ease-in-out;
+$hamburger-border: none;
+$hamburger-border-radius: 0.125rem;
+
+$hamburger-bar-color: var(--primary-950);
+$hamburger-bar-width: 36px;
+$hamburger-bar-height: 6px;
+$hamburger-bar-gap: 4px;
+
+// -----------------------------------------------------------------------------
+// Button
+// -----------------------------------------------------------------------------
+
+$button-font-size: var(--fs-400);
+$button-font-weight: var(--fw-medium);
+
+$button-foreground: var(--neutral-50);
+$button-foreground-hover: var(--neutral-50);
+$button-background: var(--primary-500);
+$button-background-hover: var(--primary-600);
+
+$button-padding: 0.75rem 1.5rem;
+
+$button-border-width: 2px;
+$button-border-style: solid;
+$button-border-color: var(--button-border-color, transparent);
+$button-border-radius: var(--radius-m);
+
+// Variants
+$button-primary-foreground: var(--primary-0);
+$button-primary-foreground-hover: var(--primary-0);
+$button-primary-background: var(--primary-500);
+$button-primary-background-hover: var(--primary-600);
+
+$button-accent-foreground: var(--accent-0);
+$button-accent-foreground-hover: var(--accent-0);
+$button-accent-background: var(--accent-500);
+$button-accent-background-hover: var(--accent-600);

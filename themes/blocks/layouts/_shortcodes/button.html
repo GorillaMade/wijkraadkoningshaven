@@ -1,0 +1,29 @@
+{{- /* layouts/shortcodes/button.html */ -}}
+{{- $labelKey := .Get "label" -}}
+{{- $label := i18n $labelKey | default $labelKey -}}
+{{- $link := .Get "link" -}}
+{{- $variant := .Get "variant" | default "" -}}
+{{- $ghost := .Get "ghost" | default false -}}
+{{- $isLink := .Get "linktype" | default false -}}
+
+{{- /* detect external links */ -}}
+{{- $isRemote := (or (strings.HasPrefix $link "http") (in (lower $link) ".pdf")) -}}
+{{- if not $isRemote -}}
+  {{- $url := urls.Parse $link -}}
+  {{- if $url.Path -}}
+    {{- $fragment := "" -}}
+    {{- with $url.Fragment }}
+      {{- $fragment = printf "#%s" . -}}
+    {{- end -}}
+    {{- with .Page.GetPage $url.Path -}}
+      {{- $link = printf "%s%s" .RelPermalink $fragment -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+
+{{- /* Build classes */ -}}
+{{- $classes := slice "button" -}}
+{{- if $isLink }}{{ $classes = $classes | append "button--link" }}{{ end -}}
+{{- $classStr := delimit $classes " " -}}
+
+<a href="{{ $link | safeURL }}" class="{{ $classStr }}"{{ if ne $variant "" }} data-button-variant="{{ $variant }}"{{ end }}{{ if eq $ghost "true" }} data-button-ghost=""{{ end }} title="{{ $label }}"{{ if $isRemote }} target="_blank" rel="noopener"{{ end }}>{{ $label }}</a>

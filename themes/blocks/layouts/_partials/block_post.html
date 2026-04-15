@@ -1,0 +1,48 @@
+<article class="post">
+    <div class="wrapper title text--center">
+        {{ partial "breadcrumbs.html" . }}
+        <h1>{{ page.Title | safeHTML }}</h1>
+        {{- if or page.Params.date (index page.Params.tags 0) -}}
+        <div class="meta text--center">
+            <div class="meta__date">
+                <img
+                    src="/img/icons/calendar_month-fill.svg"
+                    class="black_2_textDark"
+                    alt=""
+                />
+                {{- page.Date | time.Format ":date_medium" -}}
+            </div>
+            {{- if index page.Params.tags -}}
+            <div class="meta__tags">
+                <img
+                    src="/img/icons/label-fill.svg"
+                    class="black_2_textDark"
+                    alt=""
+                />
+                <ul class="cluster" role="list">
+                    {{- range page.Params.tags -}}
+                    <li>
+                        <a href='{{ relLangURL "" }}blog/?tag{{ . }}'
+                            >{{ . }}</a
+                        >
+                    </li>
+                    {{- end -}}
+                </ul>
+            </div>
+            {{- end -}}
+        </div>
+        {{- end -}}
+    </div>
+    <div class="wrapper wrapper--wide">
+        {{- $postimage := page.Params.image -}}
+        {{- if page.Params.image -}}
+            {{- $postimage = page.Params.image -}}
+            <img src="{{ $postimage }}" alt="{{ .Title }}" class="featuredimage" />
+        {{- end -}}
+        {{- if (resources.GetMatch $postimage) -}}
+            {{- $postimage = ((resources.GetMatch $postimage).Fill `1600x800 jpg Smart q50`).RelPermalink -}}
+        {{- end -}}
+
+    </div>
+    <div class="wrapper wrapper--small post flow">{{ page.Content }}</div>
+</article>

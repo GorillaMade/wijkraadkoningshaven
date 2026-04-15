@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="nl-nl" dir="ltr">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=45725&amp;path=livereload" data-no-instant defer></script>
+  
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+<title>Blog | Wijkraad Koningshaven</title>
+<meta name="description" content="">
+<meta name="keywords" content="hugo, htmx, SEO">
+<meta name="author" content="Jouw Naam">
+<meta name="robots" content="index, follow">
+
+
+<link rel="canonical" href="http://localhost:45725/blog/">
+
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="Blog | Wijkraad Koningshaven">
+<meta property="og:description" content="">
+<meta property="og:url" content="http://localhost:45725/blog/">
+<meta property="og:site_name" content="Wijkraad Koningshaven">
+<meta property="og:image" content="/images/og-image.png">
+
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Blog | Wijkraad Koningshaven">
+<meta name="twitter:description" content="">
+<meta name="twitter:image" content="/images/og-image.png">
+
+
+<link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
+<link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
+<link rel="shortcut icon" href="/favicon/favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+<meta name="apple-mobile-web-app-title" content="Q&A verzuimadvies" />
+<link rel="manifest" href="/favicon/site.webmanifest" />
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Wijkraad Koningshaven",
+  "url": "http:\/\/localhost:45725\/",
+  "logo": "\/uploads\/logo.png",
+  "sameAs": "[\"https://www.linkedin.com/company/voorbeeldbedrijf\",\"https://twitter.com/voorbeeldbedrijf\"]"
+}
+</script>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Blog",
+  "description": "",
+  "author": {
+    "@type": "Person",
+    "name": "Jouw Naam"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Wijkraad Koningshaven",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "\/uploads\/logo.png"
+    }
+  },
+  "datePublished": "0001-01-01T00:00:00Z",
+  "image": "\/images\/og-image.png"
+}
+</script>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "http:\/\/localhost:45725\/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Blog",
+      "item": "http:\/\/localhost:45725\/blog\/"
+    }
+  ]
+}
+</script>
+
+
+
+
+
+
+    
+    
+        
+            <link rel="stylesheet" href="/css/main.css">
+        
+    
+
+
+      <script src="/js/main.js"></script>
+<script src="/js/htmx.min.js" defer></script>
+
+</head>
+<body>
+  <header class="site-header">
+    <div class="site-header__inner wrapper">
+        <a href="/" class="brand">
+            
+            <img src="/uploads/logo.svg" alt="Wijkraad Koningshaven">
+            <span>Wijkraad Koningshaven</span>
+            
+        </a>
+        <button class="hamburger">
+            <span class="bar bar--1"></span>
+            <span class="bar bar--2"></span>
+            <span class="bar bar--3"></span>
+        </button>
+        
+<nav class="nav" aria-label="Hoofdmenu">
+  <ul class="nav__list" role="navigation"><li class="nav__item">
+        <a
+          href="/"
+          class="nav__link"
+        >Home</a>
+    </li><li class="nav__item">
+        <a
+          href="/over-ons/"
+          class="nav__link"
+        >Over ons</a>
+    </li><li class="nav__item">
+        <a
+          href="/blog/"
+          class="nav__link active" aria-current="page"
+        >Nieuws</a>
+    </li><li class="nav__item">
+        <a
+          href="/faqs/"
+          class="nav__link"
+        >F.A.Q.</a>
+    </li><li class="nav__item">
+        <a
+          href="/contact/"
+          class="nav__link"
+        >Contact</a>
+    </li>
+  </ul>
+</nav>
+
+
+<script>
+(function () {
+  var OPEN_CLASS = 'is-open';
+  var TOGGLE_SEL = '.nav__toggle';
+
+  function closeItem(item) {
+    if (!item) return;
+    item.classList.remove(OPEN_CLASS);
+    var toggle = item.querySelector(TOGGLE_SEL);
+    if (toggle) toggle.setAttribute('aria-expanded', 'false');
+  }
+
+  function openItem(item) {
+    if (!item) return;
+    item.classList.add(OPEN_CLASS);
+    var toggle = item.querySelector(TOGGLE_SEL);
+    if (toggle) toggle.setAttribute('aria-expanded', 'true');
+  }
+
+  function toggleItem(item) {
+    var toggle = item.querySelector(TOGGLE_SEL);
+    if (!toggle) return;
+    if (toggle.getAttribute('aria-expanded') === 'true') closeItem(item);
+    else openItem(item);
+  }
+
+  function closeAll() {
+    document.querySelectorAll('.nav__item.' + OPEN_CLASS).forEach(function (item) {
+      closeItem(item);
+    });
+  }
+
+  function init() {
+    
+    closeAll();
+
+    
+    document.querySelectorAll(TOGGLE_SEL).forEach(function (toggle) {
+      toggle.addEventListener('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var item = toggle.closest('.nav__item');
+        toggleItem(item);
+      });
+    });
+
+    
+    window.addEventListener('pageshow', function (ev) {
+      if (ev.persisted) closeAll();
+    });
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+</script>
+
+    </div>
+</header>
+  <main>
+    
+    <section class="posts">
+
+    
+        <div class="wrapper wrapper--small text--center region"><ul class="breadcrumbs">
+  <li><a href="/">Home</a></li><li><a href="/blog/">Blog</a></li></ul>
+<h1 id="nieuws">Nieuws</h1>
+<p>This is a demo of the blog. In ultricies vel enim vel pulvinar. Quisque finibus sem velit, sed consequat mi ullamcorper vitae. Proin finibus tristique sollicitudin.</p></div>
+    
+
+    <div class="wrapper">
+
+        
+
+        <ul class="posts__list grid" role="list"
+            data-pagesize="" data-layout="thirds">
+
+            
+            <li class="post__item tag_evenement"><a href="/blog/debatavond-koningshaven-2026/">
+                        <img src="/uploads/undraw_debate.svg"
+                             alt="Debatavond Koningshaven 2026"
+                             class="featuredimage"
+                             loading="lazy"
+                             decoding="async"
+                             onclick="document.location.href='\/blog\/debatavond-koningshaven-2026\/'">
+                    </a><h3>Debatavond Koningshaven 2026</h3>
+
+                
+                    <div class="meta__date">
+                        <img src="/img/icons/calendar_month-fill.svg" class="black_2_textDark" alt="" />
+                        10 jan 2026
+                    </div>
+                
+
+                <div class="summary">
+                    <p>Op dinsdag 10 februari 2026 organiseert de wijkraad een debatavond.
+Iedere bewoner is welkom om mee te praten en vragen te stellen.
+In gesprek met politieke partijen Tijdens de avond kunt u ...</p>
+                    <p><a href="/blog/debatavond-koningshaven-2026/" class="button smaller" data-button-ghost="">Lees verder</a></p>
+                </div>
+
+            </li>
+            
+            <li class="post__item tag_evenement"><a href="/blog/kom-jij-ook-gezellig-mosselen-eten/">
+                        <img src="https://wijkraadkoningshaven.nl/uploads/mosselen-2025.jpg"
+                             alt="Kom jij ook gezellig mosselen eten?"
+                             class="featuredimage"
+                             loading="lazy"
+                             decoding="async"
+                             onclick="document.location.href='\/blog\/kom-jij-ook-gezellig-mosselen-eten\/'">
+                    </a><h3>Kom jij ook gezellig mosselen eten?</h3>
+
+                
+                    <div class="meta__date">
+                        <img src="/img/icons/calendar_month-fill.svg" class="black_2_textDark" alt="" />
+                        8 jan 2025
+                    </div>
+                
+
+                <div class="summary">
+                    <p>Het is weer tijd voor onze jaarlijkse mosselavond.
+Opgeven kan alleen vanaf 1 oktober
+Stuur een mail naar info@wijkraadkoningshaven.nl
+Wij hebben plaats voor 80 personen. Ben er dus snel bij...</p>
+                    <p><a href="/blog/kom-jij-ook-gezellig-mosselen-eten/" class="button smaller" data-button-ghost="">Lees verder</a></p>
+                </div>
+
+            </li>
+            
+            <li class="post__item tag_evenement"><a href="/blog/wijkraad-koningshaven-30-jarig-jubileum/">
+                        <img src="https://wijkraadkoningshaven.nl/uploads/Flyerfront.png"
+                             alt="Wijkraad Koningshaven 30 jarig Jubileum"
+                             class="featuredimage"
+                             loading="lazy"
+                             decoding="async"
+                             onclick="document.location.href='\/blog\/wijkraad-koningshaven-30-jarig-jubileum\/'">
+                    </a><h3>Wijkraad Koningshaven 30 jarig Jubileum</h3>
+
+                
+                    <div class="meta__date">
+                        <img src="/img/icons/calendar_month-fill.svg" class="black_2_textDark" alt="" />
+                        4 jan 2025
+                    </div>
+                
+
+                <div class="summary">
+                    <p>Stichting Wijkraad Koningshaven viert 30-jarig jubileum! Dit jaar bestaat Stichting Wijkraad Koningshaven 30 jaar, en dat vieren we samen met de wijkbewoners met een feest in zomerse sferen:...</p>
+                    <p><a href="/blog/wijkraad-koningshaven-30-jarig-jubileum/" class="button smaller" data-button-ghost="">Lees verder</a></p>
+                </div>
+
+            </li>
+            
+            <li class="post__item tag_Jaarverslag"><a href="/blog/jaarverslag-stichting-wijkraad-koningshaven-2024/">
+                        <img src="/uploads/agenda.jpg"
+                             alt="Jaarverslag Stichting Wijkraad Koningshaven 2024"
+                             class="featuredimage"
+                             loading="lazy"
+                             decoding="async"
+                             onclick="document.location.href='\/blog\/jaarverslag-stichting-wijkraad-koningshaven-2024\/'">
+                    </a><h3>Jaarverslag Stichting Wijkraad Koningshaven 2024</h3>
+
+                
+                    <div class="meta__date">
+                        <img src="/img/icons/calendar_month-fill.svg" class="black_2_textDark" alt="" />
+                        1 jan 2024
+                    </div>
+                
+
+                <div class="summary">
+                    <p>Januari Dit jaar is er geen nieuwjaarsreceptie georganiseerd. Penningmeester neemt deel in planteam Hopliedekade. Er zijn wat onduidelijkheden betreffende opruimen kerstboom. Centrum-manager...</p>
+                    <p><a href="/blog/jaarverslag-stichting-wijkraad-koningshaven-2024/" class="button smaller" data-button-ghost="">Lees verder</a></p>
+                </div>
+
+            </li>
+            
+
+        </ul>
+
+        
+
+    </div>
+</section>
+
+
+
+  </main>
+  <footer class="[] [] [ region ]">
+    <div class="wrapper">
+        <div class="flex-group flex-group--between">
+          <span>Copyright 2026 door <strong>Wijkraad Koningshaven</strong>. All rights reserved.</span>
+          <ul class="buttons social cluster" role="list"><li><a href="https://www.facebook.com/Koningshaven.eu/" class="button icon"><img src="/img/facebook.svg" alt="Facebook" /></a></li><li><a href="https://www.instagram.com/Koningshaven.eu/" class="button icon"><img src="/img/instagram.svg" alt="Instagram" /></a></li><li><a href="https://wa.me/&#43;31612345678" class="button icon"><img src="/img/whatsapp.svg" alt="WhatsApp" /></a></li><li><a href="mailto:info@wijkraadkoningshaven.nl" class="button icon"><img src="/img/email.svg" alt="Email" /></a></li></ul>
+        </div>
+    </div>
+</footer>
+
+
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js" defer></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js" defer></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const hamburger = document.querySelector('.hamburger');
+    const nav = document.querySelector('.nav');
+
+    hamburger.addEventListener('click', function () {
+      this.classList.toggle('open');
+      nav.classList.toggle('open');
+    });
+  });
+</script>
+</body>
+</html>

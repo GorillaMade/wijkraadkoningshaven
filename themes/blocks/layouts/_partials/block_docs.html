@@ -1,0 +1,22 @@
+{{- $inner := . -}}
+{{- if or (eq $inner "") (eq $inner nil) -}}
+    {{- $inner = "Empty block found. Consider creating a 'content/block/docs.md' file." -}}
+    {{- with page.Site.GetPage "block/docs.md" -}}
+        {{- $inner = .RawContent -}}
+    {{- end -}}
+{{- end -}}
+<section class="docs">
+    <div class="wrapper">
+        <div class="hasSidebar">
+            <aside class="menu">
+                <h3>Documentation</h3>
+                {{ partial "nested-menu.html" }}
+            </aside>
+            <div class="content">
+                {{ partial "breadcrumbs.html" }}
+                <h1>{{ page.Title }}</h1>
+                {{- markdownify $inner -}}
+            </div>
+        </div>
+    </div>
+</section>

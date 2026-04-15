@@ -1,0 +1,127 @@
+{{- /*
+Nav partial — alle parent-items met children renderen als toggle buttons.
+- aria-expanded wordt automatisch bijgehouden door JS.
+- Enkel toggles openen/sluiten hun eigen dropdown.
+- Active page en ancestor links krijgen respectievelijk active / ancestor class.
+*/ -}}
+
+{{- define "menuWalk" -}}
+  {{- $page := index . "page" -}}
+  {{- $entries := index . "menuEntries" -}}
+  {{- $depth := index . "depth" | default 0 -}}
+  {{- $menuID := index . "menuID" -}}
+
+  {{- range $entry := $entries }}
+    {{- $liClass := cond (eq $depth 0) "nav__item" "dropdown__item" -}}
+    {{- if and (eq $depth 0) $entry.HasChildren }}{{- $liClass = printf "%s dropdown" $liClass -}}{{- end -}}
+    {{- $linkClass := cond (eq $depth 0) "nav__link" "dropdown__link" -}}
+
+    {{- $safeName := urlize (printf "%s-%d" $entry.Name $depth) -}}
+    {{- $dropdownID := printf "dropdown-%s" $safeName -}}
+
+    {{- $isCurrent := $page.IsMenuCurrent $menuID $entry -}}
+    {{- $isAncestor := $page.HasMenuCurrent $menuID $entry -}}
+
+    <li class="{{ $liClass }}">
+      {{- if and (eq $depth 0) $entry.HasChildren }}
+        {{- $btnClass := printf "%s nav__toggle" $linkClass -}}
+        {{- if $isCurrent }}{{ $btnClass = printf "%s active" $btnClass }}{{ else if $isAncestor }}{{ $btnClass = printf "%s ancestor" $btnClass }}{{ end }}
+
+        <div class="nav__link-group">
+          <button
+            id="toggle-{{ $safeName }}"
+            class="{{ $btnClass }}"
+            type="button"
+            aria-controls="{{ $dropdownID }}"
+            aria-expanded="false"
+            {{- if $isCurrent }} aria-current="page"{{ else if $isAncestor }} aria-current="true"{{ end }}
+          >
+            {{ $entry.Name }}
+            <span aria-hidden="true" class="nav__chev">▾</span>
+          </button>
+        </div>
+
+        <ul id="{{ $dropdownID }}" class="dropdown__list" role="navigation" aria-label="{{ $entry.Name }} submenu">
+          {{- with $entry.Children }}
+            {{- template "menuWalk" (dict "page" $page "menuEntries" . "depth" (add $depth 1) "menuID" $menuID) }}
+          {{- end }}
+        </ul>
+      {{- else }}
+        <a
+          href="{{ with $entry.Page }}{{ .RelPermalink }}{{ else }}{{ $entry.URL | relURL }}{{ end }}"
+          class="{{ $linkClass }}{{ if $isCurrent }} active{{ else if $isAncestor }} ancestor{{ end }}"
+          {{- if $isCurrent }} aria-current="page"{{ else if $isAncestor }} aria-current="true"{{ end }}
+        >{{ $entry.Name }}</a>
+      {{- end }}
+    </li>
+  {{- end }}
+{{- end -}}
+
+{{- $page := .page -}}
+{{- $menuID := .menuID | default "main" -}}
+
+{{- with index site.Menus $menuID }}
+<nav class="nav" aria-label="Hoofdmenu">
+  <ul class="nav__list" role="navigation">
+    {{- template "menuWalk" (dict "page" $page "menuEntries" . "depth" 0 "menuID" $menuID) }}
+  </ul>
+</nav>
+{{- end }}
+
+{{/* Progressive enhancement JS */}}
+<script>
+(function () {
+  var OPEN_CLASS = 'is-open';
+  var TOGGLE_SEL = '.nav__toggle';
+
+  function closeItem(item) {
+    if (!item) return;
+    item.classList.remove(OPEN_CLASS);
+    var toggle = item.querySelector(TOGGLE_SEL);
+    if (toggle) toggle.setAttribute('aria-expanded', 'false');
+  }
+
+  function openItem(item) {
+    if (!item) return;
+    item.classList.add(OPEN_CLASS);
+    var toggle = item.querySelector(TOGGLE_SEL);
+    if (toggle) toggle.setAttribute('aria-expanded', 'true');
+  }
+
+  function toggleItem(item) {
+    var toggle = item.querySelector(TOGGLE_SEL);
+    if (!toggle) return;
+    if (toggle.getAttribute('aria-expanded') === 'true') closeItem(item);
+    else openItem(item);
+  }
+
+  function closeAll() {
+    document.querySelectorAll('.nav__item.' + OPEN_CLASS).forEach(function (item) {
+      closeItem(item);
+    });
+  }
+
+  function init() {
+    // Sluit alle dropdowns bij pageload
+    closeAll();
+
+    // Toggle click handler
+    document.querySelectorAll(TOGGLE_SEL).forEach(function (toggle) {
+      toggle.addEventListener('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var item = toggle.closest('.nav__item');
+        toggleItem(item);
+      });
+    });
+
+    // Pageshow (bfcache) sluit alles
+    window.addEventListener('pageshow', function (ev) {
+      if (ev.persisted) closeAll();
+    });
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+</script>

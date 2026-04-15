@@ -1,0 +1,14 @@
+{{- $src := .Get 1 -}}
+{{- $alt := .Get 0 | default "" -}}
+
+{{- if or (strings.HasPrefix $src "http") (strings.HasPrefix $src "/") -}}
+    <p><img src="{{ $src }}" alt="{{ $alt }}" class="colorize_image" /></p>
+{{- else -}}
+    {{- $res := resources.GetMatch $src -}}
+    {{- if $res -}}
+        {{- $res = $res.Fit "1333x1333 jpg Smart q50" -}}
+        <p><img src="{{ $res.RelPermalink }}" alt="{{ $alt }}" class="colorize_image" /></p>
+    {{- else -}}
+        <p>Image not found: {{ $src }}</p>
+    {{- end -}}
+{{- end -}}

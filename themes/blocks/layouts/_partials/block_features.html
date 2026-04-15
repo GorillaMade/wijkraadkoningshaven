@@ -1,0 +1,22 @@
+{{- $inner := . -}}
+{{- if or (eq $inner "") (eq $inner nil) -}}
+    {{- $inner = "Empty block found. Consider creating a 'content/block/features.md' file." -}}
+    {{- with page.Site.GetPage "block/features.md" -}}
+        {{- $inner = .RawContent -}}
+    {{- end -}}
+{{- end -}}
+{{- $parts := split $inner "---" -}}
+<section class="features flow region">
+    <div class="wrapper wrapper--small text--center">
+        {{- markdownify (index $parts 0) -}}
+    </div>
+    <div class="wrapper">
+        <ul class="grid" data-layout="thirds" role="list">
+            {{ range after 1 $parts }}
+                <li class="has_icon">
+                    {{- replace (markdownify .) `<p><img` `<p class="image"><img class="black_2_accent"` | safeHTML -}}
+                </li>
+            {{ end }}
+        </ul>
+    </div>
+</section>

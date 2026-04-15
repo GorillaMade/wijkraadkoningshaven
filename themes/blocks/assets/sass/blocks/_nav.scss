@@ -1,0 +1,135 @@
+@use "../abstracts" as *;
+
+// -----------------------------------------------------------------------------
+// 
+// -----------------------------------------------------------------------------
+
+.nav {
+    width: 100%;
+    z-index: 9999;
+
+    &__list {
+        display: none;
+    }
+
+    &__item {
+        position: relative;
+    }
+
+    &__link,
+    &__toggle button {
+        --_nav-link-foreground: var(--nav-link-foreground, #{$nav-link-foreground});
+        --_nav-link-foreground-hover: var(--nav-link-foreground-hover, #{$nav-link-foreground-hover});
+        --_nav-link-foreground-active: var(--nav-link-foreground-active, #{$nav-link-foreground-active});
+
+        --_nav-link-background: var(--nav-link-background, #{$nav-link-background});
+        --_nav-link-background-hover: var(--nav-link-background-hover, #{$nav-link-background-hover});
+        --_nav-link-background-active: var(--nav-link-background-active, #{$nav-link-background-active});
+
+        --_nav-link-border-radius: var(--nav-link-border-radius, #{$nav-link-border-radius});
+
+        all: unset;
+        display: block;
+        color: var(--_nav-link-foreground);
+        background: var(--_nav-link-background);
+        padding: var(--site-nav-link-padding, .75rem 1.5rem);
+        text-decoration: none;
+        border-radius: var(--_nav-link-border-radius);
+        cursor: pointer;
+
+        &:is(:hover, :focus-visible) {
+            --nav-link-foreground: var(--_nav-link-foreground-hover);
+            --nav-link-background: var(--_nav-link-background-hover);
+        }
+
+        &[aria-current="page"],
+        &[aria-current="true"],
+        &.ancestor {
+            --nav-link-foreground: var(--_nav-link-foreground-active);
+            --nav-link-background: var(--_nav-link-background-active);
+        }
+    }
+}
+
+
+// -----------------------------------------------------------------------------
+// 
+// -----------------------------------------------------------------------------
+
+.dropdown {
+    &__list {
+        height: 0;
+        opacity: 0;
+        transform-origin: top left;
+        transform: translateY(.25rem) scale(.98);
+        transition: opacity .14s ease, transform .14s ease;
+        border-radius: var(--radius-s);
+    }
+
+    &__item {}
+
+    &__link {
+        --_subnav-link-foreground: var(--subnav-link-foreground, #{$subnav-link-foreground});
+        --_subnav-link-foreground-hover: var(--subnav-link-foreground-hover, #{$subnav-link-foreground-hover});
+        --_subnav-link-foreground-active: var(--subnav-link-foreground-active, #{$subnav-link-foreground-active});
+
+        --_subnav-link-background: var(--subnav-link-background, #{$subnav-link-background});
+        --_subnav-link-background-hover: var(--subnav-link-background-hover, #{$subnav-link-background-hover});
+        --_subnav-link-background-active: var(--subnav-link-background-active, #{$subnav-link-background-active});
+
+        color: var(--_subnav-link-foreground);
+        background: var(--_subnav-link-background);
+        display: block;
+        padding: .75rem 1.5rem;
+        text-decoration: none;
+
+        &:is(:hover, :focus-visible) {
+            --subnav-link-foreground: var(--_subnav-link-foreground-hover);
+            --subnav-link-background: var(--_subnav-link-background-hover);
+        }
+
+        &[aria-current="page"],
+        &[aria-current="true"] {
+            --subnav-link-foreground: var(--_subnav-link-foreground-active);
+            --subnav-link-background: var(--_subnav-link-background-active);
+        }
+    }
+}
+
+
+
+//
+    .nav.open .nav__list {
+        display: block;
+    }
+
+    .nav__item.is-open > .dropdown__list {
+        height: fit-content;
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateY(0) scale(1);
+    }
+
+//
+//
+//
+
+@media (width > 900px) {
+    .nav {
+        width: auto;
+
+        &__list {
+            display: flex;
+        }
+    }
+
+    .dropdown {
+        &__list {
+            position: absolute;
+            top: calc(100% + .125rem);
+            left: 0;
+            list-style: none;
+            padding: 0;
+        }
+    }
+}

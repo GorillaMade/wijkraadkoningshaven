@@ -1,0 +1,18 @@
+{{- $inner := . -}}
+{{- if or (eq $inner "") (eq $inner nil) -}}
+    {{- $inner = "Empty block found. Consider creating a 'content/blocks/contact.md' file." -}}
+    {{- with page.Site.GetPage "blocks/contact.md" -}}
+        {{- $inner = .RawContent -}}
+    {{- end -}}
+{{- end -}}
+<section class="vjw region">
+    <div class="wrapper wrapper--small text--center region">
+        {{- markdownify $inner -}}
+    </div>
+    <div class="wrapper wrapper--wide">
+        <!-- Container die vervangen wordt door HTMX -->
+        <div class="box" id="form-container">
+            {{- partial "form.html" (index page.Site.Data page.Site.Language.Lang).vjwform -}}
+        </div>
+    </div>
+</section>

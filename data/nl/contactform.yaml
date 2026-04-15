@@ -1,0 +1,31 @@
+action: /form.php
+placeholders: false
+fields:
+- name: title
+  input_type: html
+  label: <h3 class="mt-0">Kom in contact</h3>
+  required: true
+- name: name
+  input_type: text
+  label: Naam
+  required: true
+- name: phone
+  input_type: phone
+  label: Telefoonnummer
+  required: true
+- name: email
+  input_type: email
+  label: Email
+  required: true
+- name: message
+  input_type: textarea
+  label: Bericht
+  required: false
+# - name: terms
+#   input_type: checkbox
+#   label: I accept the terms and conditions
+#   required: true
+- name: submit
+  input_type: submit
+  label: Verzend
+  required: true

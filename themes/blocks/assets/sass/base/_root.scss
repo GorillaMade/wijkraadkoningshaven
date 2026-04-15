@@ -1,0 +1,40 @@
+@use "../abstracts" as *;
+
+:root {
+    @each $font, $value in $font-families {
+        --ff-#{$font}: #{$value};
+    }
+
+    @each $size, $value in $font-sizes {
+        --fs-#{$size}: #{$value};
+    }
+
+    @each $weight, $value in $font-weights {
+        --fw-#{$weight}: #{$value};
+    }
+
+    // Spaces
+    @each $space, $value in $space-sizes {
+        --space-#{$space}: #{$value};
+    }
+
+
+    // Radius
+    @each $prop, $value in $radius {
+        --radius-#{$prop}: #{$value};
+    }
+
+
+    // Radius
+    @each $prop, $value in $shadows {
+        --shadow-#{$prop}: #{$value};
+    }
+
+
+    // Default color theme (via $active-theme)
+    @each $color, $shade-map in $active-theme {
+        @each $shade, $value in $shade-map {
+            --#{$color}-#{$shade}: #{$value};
+        }
+    }
+}

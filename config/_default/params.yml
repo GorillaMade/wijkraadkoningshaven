@@ -1,0 +1,37 @@
+# -- Site specifieke params
+author: "Jouw Naam"
+description: ""
+keywords:
+  - hugo
+  - htmx
+  - SEO
+favicon: "/images/favicon.ico"
+logo: "/uploads/logo.svg"
+
+# -- Company params --
+company:
+  phone: "0612345678"
+  email: "info@wijkraadkoningshaven.nl"
+
+# -- SEO params --
+seo:
+  enable: true
+  twitter_card: "summary_large_image"
+  og_image: "/images/og-image.png"
+
+# -- Schema --
+schema:
+  type: "Organization"
+  name: "Stichting Wijkraad Koningshaven"
+  url: "https://wijkraadkoningshaven.nl"
+  logo: "/uploads/logo.png"
+  sameAs:
+    - "https://www.linkedin.com/company/voorbeeldbedrijf"
+    - "https://twitter.com/voorbeeldbedrijf"
+
+# -- Socials --
+social:
+  - name: "twitter"
+    url: "https://twitter.com/jouwaccount"
+  - name: "facebook"
+    url: "https://facebook.com/jouwaccount"

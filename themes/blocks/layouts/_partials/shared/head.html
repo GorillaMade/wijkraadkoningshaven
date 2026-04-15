@@ -1,0 +1,122 @@
+<!-- Basis meta -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Title & Meta Description -->
+<title>{{ with .Params.meta.title }}{{ . }}{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}</title>
+<meta name="description" content="{{ with .Params.meta.description }}{{ . }}{{ else }}{{ with .Params.description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}{{ end }}">
+<meta name="keywords" content="{{ with .Params.meta.keywords }}{{ . }}{{ else }}{{ delimit .Site.Params.keywords ", " }}{{ end }}">
+<meta name="author" content="{{ .Site.Params.author }}">
+<meta name="robots" content="index, follow">
+
+<!-- Canonical URL -->
+<link rel="canonical" href="{{ if .IsHome }}{{ .Site.BaseURL }}{{ else }}{{ .Permalink }}{{ end }}">
+
+<!-- Open Graph -->
+<meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
+<meta property="og:title" content="{{ with .Params.meta.title }}{{ . }}{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}">
+<meta property="og:description" content="{{ with .Params.meta.description }}{{ . }}{{ else }}{{ with .Params.description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}{{ end }}">
+<meta property="og:url" content="{{ .Permalink }}">
+<meta property="og:site_name" content="{{ .Site.Title }}">
+<meta property="og:image" content="{{ with .Params.images }}{{ index . 0 }}{{ else }}{{ .Site.Params.seo.og_image }}{{ end }}">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="{{ .Site.Params.seo.twitter_card }}">
+<meta name="twitter:title" content="{{ with .Params.meta.title }}{{ . }}{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}">
+<meta name="twitter:description" content="{{ with .Params.meta.description }}{{ . }}{{ else }}{{ with .Params.description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}{{ end }}">
+<meta name="twitter:image" content="{{ with .Params.images }}{{ index . 0 }}{{ else }}{{ .Site.Params.seo.og_image }}{{ end }}">
+
+<!-- FavIcon -->
+<link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
+<link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
+<link rel="shortcut icon" href="/favicon/favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+<meta name="apple-mobile-web-app-title" content="Q&A verzuimadvies" />
+<link rel="manifest" href="/favicon/site.webmanifest" />
+
+<!-- JSON-LD Schema: Organization & Article -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "{{ .Site.Title }}",
+  "url": "{{ site.BaseURL }}",
+  "logo": "{{ .Site.Params.schema.logo }}",
+  "sameAs": {{ jsonify .Site.Params.schema.sameAs }}
+}
+</script>
+
+{{ if .IsPage }}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "{{ .Title }}",
+  "description": "{{ with .Params.meta.description }}{{ . }}{{ else }}{{ with .Params.description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}{{ end }}",
+  "author": {
+    "@type": "Person",
+    "name": "{{ .Site.Params.author }}"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "{{ .Site.Title }}",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "{{ .Site.Params.schema.logo }}"
+    }
+  },
+  "datePublished": "{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}",
+  "image": "{{ with .Params.images }}{{ index . 0 }}{{ else }}{{ .Site.Params.seo.og_image }}{{ end }}"
+}
+</script>
+
+<!-- Breadcrumb schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "{{ site.BaseURL }}"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "{{ .Title }}",
+      "item": "{{ .Permalink }}"
+    }
+  ]
+}
+</script>
+
+<!-- FAQ schema (optioneel) -->
+{{ with .Params.faq }}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {{ range $index, $q := . }}
+    {{ if $index }},{{ end }}
+    {
+      "@type": "Question",
+      "name": "{{ $q.question }}",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "{{ $q.answer }}"
+      }
+    }
+    {{ end }}
+  ]
+}
+</script>
+{{ end }}
+{{ end }}
+
+<!-- CSS & JS -->
+{{- partialCached "head/css.html" . -}}
+{{- partialCached "head/js.html" . -}}
+<script src="/js/htmx.min.js" defer></script>

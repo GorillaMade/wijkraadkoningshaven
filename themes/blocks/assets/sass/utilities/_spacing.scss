@@ -1,0 +1,37 @@
+@use "../abstracts" as *;
+
+// -----------------------------------------------------------------------------
+//
+// -----------------------------------------------------------------------------
+
+
+$properties: (
+  "m": "margin",
+  "p": "padding",
+);
+
+$directions: (
+  "": (""), // all sides
+  "t": ("-top"),
+  "r": ("-right"),
+  "b": ("-bottom"),
+  "l": ("-left"),
+  "x": ("-inline"),
+  "y": ("-block"),
+);
+
+// -----------------------------------------------------------------------------
+//
+// -----------------------------------------------------------------------------
+
+@each $prop-key, $prop-name in $properties {
+    @each $dir-key, $dir-list in $directions {
+        @each $size-key, $size-val in $space-sizes {
+            .#{$prop-key}#{$dir-key}-#{$size-key} {
+                @each $dir in $dir-list {
+                    #{$prop-name}#{$dir}: #{$size-val};
+                }
+            }
+        }
+    }
+}

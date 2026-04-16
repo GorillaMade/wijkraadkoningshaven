@@ -35,7 +35,7 @@ Hart voor de wijk(en)
   
   {{< button label="Read more" link="/over-ons" variant="primary" ghost="true" >}}
   
-  ![](https://wijkraadkoningshaven.nl//images/about.jpg)
+  ![](/uploads/about.jpg)
   
 {{< /block_image >}}
 
@@ -44,7 +44,7 @@ Hart voor de wijk(en)
   
   De stichting zet zich actief in voor de wijk Koningshaven. Dit omvat de buurten Broekhoven 1, Fatima en Hoogvenne. Door het organiseren van activiteiten, het ondersteunen van initiatieven en het vertegenwoordigen van bewonersbelangen draagt de wijkraad bij aan een leefbare en betrokken wijk.
   
-  ![](https://wijkraadkoningshaven.nl/uploads/jubileum-2025/IMG-20250623-WA0018.jpg)
+  ![](/uploads/jubileum-2025/IMG-20250623-WA0018.jpg)
   
 {{< /block_image >}}
 {{< block_blogs >}}

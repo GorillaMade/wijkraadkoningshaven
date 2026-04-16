@@ -6,7 +6,7 @@ title: "Over ons"
 
 ## Over Stichting Wijkraad Koningshaven
 
-![](https://wijkraadkoningshaven.nl//images/about.jpg)
+![](/uploads/about.jpg)
 
 De Stichting Wijkraad Koningshaven is op 12 mei 1995 statutair opgericht en ingeschreven bij de Kamer van Koophandel. De Stichting gevestigd in de gemeente Tilburg heeft haar zetel in Wijkcentrum Koningshaven, Kruisvaardersstraat 32D.
 
@@ -21,35 +21,35 @@ De stichting richt zich bij haar activiteiten met name op de wijk Koningshaven, 
   
   ---
   
-  ![](https://wijkraadkoningshaven.nl/images/avatar-male.png)
+  ![](/uploads/avatar-male.png)
   ### Joost
   
   Voorzitter
   
   ---
   
-  ![](https://wijkraadkoningshaven.nl/images/avatar-female.png)
+  ![](/uploads/avatar-female.png)
   ### Anja
   
   Secretaris
   
   ---
   
-  ![](https://wijkraadkoningshaven.nl/images/avatar-male.png)
+  ![](/uploads/avatar-male.png)
   ### Ruud
   
   Penningmeester
   
   ---
   
-  ![](https://wijkraadkoningshaven.nl/images/avatar-male.png)
+  ![](/uploads/avatar-male.png)
   ### Paul
   
   Commissielid
   
   ---
   
-  ![](https://wijkraadkoningshaven.nl/images/avatar-male.png)
+  ![](/uploads/avatar-male.png)
   ### Nick
   
   Commissielid

@@ -6,7 +6,7 @@ meta:
   title: "Wijkraad Koningshaven 30 jarig Jubileum"
   description: "De wijkraad organiseert een debatavond over veiligheid, toegankelijkheid en de wijkvisie."
 
-image: "https://wijkraadkoningshaven.nl/uploads/Flyerfront.png"
+image: "/uploads/Flyerfront.png"
 
 tags:
   - "evenement"
@@ -35,4 +35,4 @@ Midden april ontvangt u een flyer in uw brievenbus. Met deze flyer kunt u zich g
 
 Kom samen met uw buren en vier dit zomerse jubileumfeest met ons! 🌞🍻🎶
 
-![](https://wijkraadkoningshaven.nl/uploads/Flyerfront.png)
+![](/uploads/Flyerfront.png)

@@ -1,50 +1,54 @@
-{{- $inner := . -}}
-{{- if or (eq $inner "") (eq $inner nil) -}}
+{{- $inner := .Inner -}}
+
+{{- if not $inner -}}
     {{- with page.Site.GetPage "blocks/posts.md" -}}
         {{- $inner = .RawContent -}}
     {{- end -}}
 {{- end -}}
 
-{{- $posts := where page.Site.RegularPages "Section" "posts" -}}
+{{- $posts := where site.RegularPages "Section" "posts" -}}
 
 <section class="posts">
 
     {{ if $inner }}
         <div class="wrapper wrapper--small text--center region">
-            {{- markdownify $inner -}}
+            {{- $inner | markdownify -}}
         </div>
     {{ end }}
 
     <div class="wrapper">
 
-        <div class="filter">
-            <select name="filter" id="filter"
-                class="multipleselecttags numbers_{{ page.Site.Data.settings.filter_has_numbers }}"
-                multiple autocomplete="off"
-                title="{{ i18n "filter tags" }}">
-                {{ range $name, $taxonomy := page.Site.Taxonomies.tags }}
-                    <option value="{{ $name }}">{{ $name }}</option>
+        <!-- FILTER -->
+        <details class="filter">
+            <summary class="button">{{ i18n "Filter tags" }}</summary>
+
+            <div class="filter__options">
+                {{ range $name, $taxonomy := site.Taxonomies.tags }}
+                    <label>
+                        <input type="checkbox" value="{{ $name | urlize }}" class="filter-tag">
+                        {{ $name }}
+                    </label>
                 {{ end }}
-            </select>
-        </div>
+            </div>
+        </details>
 
-        <ul class="posts__list grid" role="list"
-            data-pagesize="{{ page.Site.Data.settings.page_size }}" data-layout="thirds">
+        <ul class="posts__list grid"
+            role="list"
+            data-pagesize="{{ site.Data.settings.page_size }}"
+            data-layout="thirds">
 
-            {{ range $index, $post := $posts }}
-            <li class="post__item {{ range .Params.tags }}tag_{{ . }}{{ end }}">
+            {{ range $posts }}
+            <li class="post__item {{ range .Params.tags }}tag_{{ . | urlize }} {{ end }}">
 
-                {{- $page := .Page -}}
-                {{- $img := $page.Params.image -}}
+                {{- $img := .Params.image -}}
 
                 {{- if $img -}}
-                    <a href="{{ $page.RelPermalink }}">
+                    <a href="{{ .RelPermalink }}">
                         <img src="{{ $img }}"
-                             alt="{{ $page.Title }}"
+                             alt="{{ .Title }}"
                              class="featuredimage"
                              loading="lazy"
-                             decoding="async"
-                             onclick="document.location.href='{{ $page.RelPermalink }}'">
+                             decoding="async">
                     </a>
                 {{- end -}}
 
@@ -53,14 +57,20 @@
 
                     {{ if .Params.date }}
                         <div class="meta__date">
-                            <img src="/img/icons/calendar_month-fill.svg" class="black_2_textDark" alt="" />
+                            <img src="/img/icons/calendar_month-fill.svg"
+                                 class="black_2_textDark"
+                                 alt="" />
                             {{ .Date | time.Format ":date_medium" }}
                         </div>
                     {{ end }}
 
                     <div class="summary">
-                        <p>{{ substr (.Summary | plainify) 0 190 | safeHTML }}...</p>
-                        <p><a href="{{ .RelPermalink }}" class="button smaller">{{ i18n "Read more" }}</a></p>
+                        <p>{{ substr (.Summary | plainify) 0 120 }}...</p>
+                        <p>
+                            <a href="{{ .RelPermalink }}" class="button" data-button-ghost="">
+                                {{ i18n "Read more" }}
+                            </a>
+                        </p>
                     </div>
                 </div>
 
@@ -69,16 +79,31 @@
 
         </ul>
 
-        <p>
-            <a class="button"
-               data-button-ghost=""
-               id="loadmoreposts"
-               onclick="loadMorePosts();">
-               {{ i18n "Load more posts" }}...
-            </a>
-        </p>
-
-        <script src="/js/filter.js" defer></script>
-
     </div>
 </section>
+
+<!-- FILTER SCRIPT -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const checkboxes = document.querySelectorAll(".filter-tag");
+    const posts = document.querySelectorAll(".post__item");
+
+    checkboxes.forEach(cb => {
+        cb.addEventListener("change", () => {
+            const selected = Array.from(checkboxes)
+                .filter(i => i.checked)
+                .map(i => "tag_" + i.value.trim());
+
+            posts.forEach(post => {
+                if (selected.length === 0) {
+                    post.style.display = "";
+                    return;
+                }
+
+                const hasMatch = selected.some(tag => post.classList.contains(tag));
+                post.style.display = hasMatch ? "" : "none";
+            });
+        });
+    });
+});
+</script>

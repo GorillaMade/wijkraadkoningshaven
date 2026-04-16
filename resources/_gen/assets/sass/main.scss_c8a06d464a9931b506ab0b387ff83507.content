@@ -2029,8 +2029,27 @@ article.post .wrapper.title h1 {
   margin-block: var(--space-m);
 }
 
-filter {
-  margin-block: var(--space-s-l);
+.filter {
+  margin-block: var(--space-s);
+  max-width: max-content;
+  border-radius: var(--radius-xs);
+}
+.filter summary {
+  font-size: var(--fs-step--1);
+}
+.filter summary::marker {
+  display: none;
+}
+.filter__options {
+  background: var(--neutral-0);
+  border-radius: var(--radius-xs);
+}
+.filter__options label {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  padding: var(--space-xs);
+  cursor: pointer;
 }
 
 .meta {
@@ -2176,6 +2195,21 @@ section.about .wrapper p img {
   justify-self: center;
   margin-block: var(--space-s-l);
   display: block;
+}
+
+.profiles__item {
+  --flow-space: 1rem;
+  overflow: clip;
+  border-radius: var(--radius-l);
+  background: var(--neutral-0);
+  padding-block-end: var(--space-xs);
+  box-shadow: var(--shadow-xs);
+}
+.profiles__item > *:not(.image) {
+  padding-inline: var(--space-xs);
+}
+.profiles__item > .image {
+  margin-block-start: 0;
 }
 
 .post__item h3 {

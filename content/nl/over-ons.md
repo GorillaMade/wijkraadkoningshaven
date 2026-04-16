@@ -13,7 +13,7 @@ De Stichting Wijkraad Koningshaven is op 12 mei 1995 statutair opgericht en inge
 De stichting richt zich bij haar activiteiten met name op de wijk Koningshaven, bestaande uit de wijken Broekhoven 1, Fatima, Hoogvenne.
 
 {{< /block_image >}}
-{{< block_features >}}
+{{< block_team >}}
 
   ## Onze leden
   
@@ -54,4 +54,4 @@ De stichting richt zich bij haar activiteiten met name op de wijk Koningshaven, 
   
   Commissielid
 
-{{< /block_features >}}
+{{< /block_team >}}

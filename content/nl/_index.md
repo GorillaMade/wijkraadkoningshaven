@@ -47,4 +47,5 @@ Hart voor de wijk(en)
   ![](https://wijkraadkoningshaven.nl/uploads/jubileum-2025/IMG-20250623-WA0018.jpg)
   
 {{< /block_image >}}
+{{< block_blogs >}}
 {{< block_cta >}}{{< /block_cta >}}

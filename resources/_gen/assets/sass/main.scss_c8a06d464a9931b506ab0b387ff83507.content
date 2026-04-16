@@ -1996,10 +1996,13 @@ button:has(.button) {
 }
 
 .featuredimage {
-  margin-block: var(--space-s-l) var(--space-l);
   aspect-ratio: 16/9;
   object-fit: cover;
   border-radius: var(--radius-l);
+}
+
+.post .featuredimage {
+  margin-block: var(--space-s-l) var(--space-l);
 }
 
 section.title .wrapper,
@@ -2017,11 +2020,6 @@ section.posts .wrapper--small h1,
 section.posts .wrapper--wide h1,
 section.post .wrapper--small h1 {
   margin-block-start: var(--space-2xs);
-}
-
-.post__item:not(img) {
-  padding: var(--space-s) var(--space-m);
-  box-shadow: var(--shadow-s);
 }
 
 article.post .wrapper.title {
@@ -2137,7 +2135,7 @@ section.title.bgimage .wrapper {
 
 .features li {
   text-align: center;
-  padding: var(--space-m);
+  padding: var(--space-2xs);
   border: 1px solid var(--primary-100);
   border-radius: var(--radius-m);
   background: var(--primary-0);
@@ -2178,6 +2176,28 @@ section.about .wrapper p img {
   justify-self: center;
   margin-block: var(--space-s-l);
   display: block;
+}
+
+.post__item h3 {
+  font-size: var(--fs-step-2);
+  margin-block-start: var(--space-2xs);
+  line-height: 1;
+}
+.post__item h3 a {
+  text-decoration: none;
+}
+.post__item .button {
+  font-size: var(--fs-step--1);
+}
+
+.posts__list .post__item {
+  box-shadow: var(--shadow-xs);
+  border-radius: var(--radius-l);
+  background: var(--neutral-0);
+}
+.posts__list .content {
+  padding-inline: var(--space-xs);
+  padding-block-end: var(--space-m);
 }
 
 .contact ul {

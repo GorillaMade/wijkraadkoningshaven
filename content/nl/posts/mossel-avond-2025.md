@@ -16,7 +16,7 @@ Het is weer tijd voor onze jaarlijkse mosselavond.
 
 Opgeven kan alleen vanaf 1 oktober
 
-Stuur een mail naar info@wijkraadkoningshaven.nl
+Stuur een mail via ons [Contact formulier](/contact)
 
 Wij hebben plaats voor 80 personen. Ben er dus snel bij.
 

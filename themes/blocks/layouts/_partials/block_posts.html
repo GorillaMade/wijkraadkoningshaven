@@ -17,7 +17,7 @@
 
     <div class="wrapper">
 
-        <!--<div class="filter">
+        <div class="filter">
             <select name="filter" id="filter"
                 class="multipleselecttags numbers_{{ page.Site.Data.settings.filter_has_numbers }}"
                 multiple autocomplete="off"
@@ -26,7 +26,7 @@
                     <option value="{{ $name }}">{{ $name }}</option>
                 {{ end }}
             </select>
-        </div>-->
+        </div>
 
         <ul class="posts__list grid" role="list"
             data-pagesize="{{ page.Site.Data.settings.page_size }}" data-layout="thirds">
@@ -48,18 +48,20 @@
                     </a>
                 {{- end -}}
 
-                <h3>{{ .Title | safeHTML }}</h3>
+                <div class="content flow">
+                    <h3>{{ .Title | safeHTML }}</h3>
 
-                {{ if .Params.date }}
-                    <div class="meta__date">
-                        <img src="/img/icons/calendar_month-fill.svg" class="black_2_textDark" alt="" />
-                        {{ .Date | time.Format ":date_medium" }}
+                    {{ if .Params.date }}
+                        <div class="meta__date">
+                            <img src="/img/icons/calendar_month-fill.svg" class="black_2_textDark" alt="" />
+                            {{ .Date | time.Format ":date_medium" }}
+                        </div>
+                    {{ end }}
+
+                    <div class="summary">
+                        <p>{{ substr (.Summary | plainify) 0 190 | safeHTML }}...</p>
+                        <p><a href="{{ .RelPermalink }}" class="button smaller">{{ i18n "Read more" }}</a></p>
                     </div>
-                {{ end }}
-
-                <div class="summary">
-                    <p>{{ substr (.Summary | plainify) 0 190 | safeHTML }}...</p>
-                    <p><a href="{{ .RelPermalink }}" class="button smaller" data-button-ghost="">{{ i18n "Read more" }}</a></p>
                 </div>
 
             </li>
@@ -67,15 +69,16 @@
 
         </ul>
 
-        <!--<p>
-            <a class="button secondary ghost smaller"
+        <p>
+            <a class="button"
+               data-button-ghost=""
                id="loadmoreposts"
                onclick="loadMorePosts();">
                {{ i18n "Load more posts" }}...
             </a>
         </p>
 
-        <script src="/js/filter.js" defer></script>-->
+        <script src="/js/filter.js" defer></script>
 
     </div>
 </section>

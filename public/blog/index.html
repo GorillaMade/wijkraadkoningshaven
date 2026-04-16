@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="nl-nl" dir="ltr">
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=45725&amp;path=livereload" data-no-instant defer></script>
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
   
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,13 +13,13 @@
 <meta name="robots" content="index, follow">
 
 
-<link rel="canonical" href="http://localhost:45725/blog/">
+<link rel="canonical" href="http://localhost:1313/blog/">
 
 
 <meta property="og:type" content="article">
 <meta property="og:title" content="Blog | Wijkraad Koningshaven">
 <meta property="og:description" content="">
-<meta property="og:url" content="http://localhost:45725/blog/">
+<meta property="og:url" content="http://localhost:1313/blog/">
 <meta property="og:site_name" content="Wijkraad Koningshaven">
 <meta property="og:image" content="/images/og-image.png">
 
@@ -43,7 +43,7 @@
   "@context": "https://schema.org",
   "@type": "Organization",
   "name": "Wijkraad Koningshaven",
-  "url": "http:\/\/localhost:45725\/",
+  "url": "http:\/\/localhost:1313\/",
   "logo": "\/uploads\/logo.png",
   "sameAs": "[\"https://www.linkedin.com/company/voorbeeldbedrijf\",\"https://twitter.com/voorbeeldbedrijf\"]"
 }
@@ -83,13 +83,13 @@
       "@type": "ListItem",
       "position": 1,
       "name": "Home",
-      "item": "http:\/\/localhost:45725\/"
+      "item": "http:\/\/localhost:1313\/"
     },
     {
       "@type": "ListItem",
       "position": 2,
       "name": "Blog",
-      "item": "http:\/\/localhost:45725\/blog\/"
+      "item": "http:\/\/localhost:1313\/blog\/"
     }
   ]
 }
@@ -230,7 +230,18 @@
 
     <div class="wrapper">
 
-        
+        <div class="filter">
+            <select name="filter" id="filter"
+                class="multipleselecttags numbers_"
+                multiple autocomplete="off"
+                title="">
+                
+                    <option value="evenement">evenement</option>
+                
+                    <option value="jaarverslag">jaarverslag</option>
+                
+            </select>
+        </div>
 
         <ul class="posts__list grid" role="list"
             data-pagesize="" data-layout="thirds">
@@ -243,20 +254,22 @@
                              loading="lazy"
                              decoding="async"
                              onclick="document.location.href='\/blog\/debatavond-koningshaven-2026\/'">
-                    </a><h3>Debatavond Koningshaven 2026</h3>
+                    </a><div class="content flow">
+                    <h3>Debatavond Koningshaven 2026</h3>
 
-                
-                    <div class="meta__date">
-                        <img src="/img/icons/calendar_month-fill.svg" class="black_2_textDark" alt="" />
-                        10 jan 2026
-                    </div>
-                
+                    
+                        <div class="meta__date">
+                            <img src="/img/icons/calendar_month-fill.svg" class="black_2_textDark" alt="" />
+                            10 jan 2026
+                        </div>
+                    
 
-                <div class="summary">
-                    <p>Op dinsdag 10 februari 2026 organiseert de wijkraad een debatavond.
+                    <div class="summary">
+                        <p>Op dinsdag 10 februari 2026 organiseert de wijkraad een debatavond.
 Iedere bewoner is welkom om mee te praten en vragen te stellen.
 In gesprek met politieke partijen Tijdens de avond kunt u ...</p>
-                    <p><a href="/blog/debatavond-koningshaven-2026/" class="button smaller" data-button-ghost="">Lees verder</a></p>
+                        <p><a href="/blog/debatavond-koningshaven-2026/" class="button smaller">Lees verder</a></p>
+                    </div>
                 </div>
 
             </li>
@@ -268,21 +281,24 @@ In gesprek met politieke partijen Tijdens de avond kunt u ...</p>
                              loading="lazy"
                              decoding="async"
                              onclick="document.location.href='\/blog\/kom-jij-ook-gezellig-mosselen-eten\/'">
-                    </a><h3>Kom jij ook gezellig mosselen eten?</h3>
+                    </a><div class="content flow">
+                    <h3>Kom jij ook gezellig mosselen eten?</h3>
 
-                
-                    <div class="meta__date">
-                        <img src="/img/icons/calendar_month-fill.svg" class="black_2_textDark" alt="" />
-                        8 jan 2025
-                    </div>
-                
+                    
+                        <div class="meta__date">
+                            <img src="/img/icons/calendar_month-fill.svg" class="black_2_textDark" alt="" />
+                            8 jan 2025
+                        </div>
+                    
 
-                <div class="summary">
-                    <p>Het is weer tijd voor onze jaarlijkse mosselavond.
+                    <div class="summary">
+                        <p>Het is weer tijd voor onze jaarlijkse mosselavond.
 Opgeven kan alleen vanaf 1 oktober
-Stuur een mail naar info@wijkraadkoningshaven.nl
-Wij hebben plaats voor 80 personen. Ben er dus snel bij...</p>
-                    <p><a href="/blog/kom-jij-ook-gezellig-mosselen-eten/" class="button smaller" data-button-ghost="">Lees verder</a></p>
+Stuur een mail via ons Contact formulier
+Wij hebben plaats voor 80 personen. Ben er dus snel bij.
+Voor d...</p>
+                        <p><a href="/blog/kom-jij-ook-gezellig-mosselen-eten/" class="button smaller">Lees verder</a></p>
+                    </div>
                 </div>
 
             </li>
@@ -294,18 +310,20 @@ Wij hebben plaats voor 80 personen. Ben er dus snel bij...</p>
                              loading="lazy"
                              decoding="async"
                              onclick="document.location.href='\/blog\/wijkraad-koningshaven-30-jarig-jubileum\/'">
-                    </a><h3>Wijkraad Koningshaven 30 jarig Jubileum</h3>
+                    </a><div class="content flow">
+                    <h3>Wijkraad Koningshaven 30 jarig Jubileum</h3>
 
-                
-                    <div class="meta__date">
-                        <img src="/img/icons/calendar_month-fill.svg" class="black_2_textDark" alt="" />
-                        4 jan 2025
+                    
+                        <div class="meta__date">
+                            <img src="/img/icons/calendar_month-fill.svg" class="black_2_textDark" alt="" />
+                            4 jan 2025
+                        </div>
+                    
+
+                    <div class="summary">
+                        <p>Stichting Wijkraad Koningshaven viert 30-jarig jubileum! Dit jaar bestaat Stichting Wijkraad Koningshaven 30 jaar, en dat vieren we samen met de wijkbewoners met een feest in zomerse sferen:...</p>
+                        <p><a href="/blog/wijkraad-koningshaven-30-jarig-jubileum/" class="button smaller">Lees verder</a></p>
                     </div>
-                
-
-                <div class="summary">
-                    <p>Stichting Wijkraad Koningshaven viert 30-jarig jubileum! Dit jaar bestaat Stichting Wijkraad Koningshaven 30 jaar, en dat vieren we samen met de wijkbewoners met een feest in zomerse sferen:...</p>
-                    <p><a href="/blog/wijkraad-koningshaven-30-jarig-jubileum/" class="button smaller" data-button-ghost="">Lees verder</a></p>
                 </div>
 
             </li>
@@ -317,18 +335,20 @@ Wij hebben plaats voor 80 personen. Ben er dus snel bij...</p>
                              loading="lazy"
                              decoding="async"
                              onclick="document.location.href='\/blog\/jaarverslag-stichting-wijkraad-koningshaven-2024\/'">
-                    </a><h3>Jaarverslag Stichting Wijkraad Koningshaven 2024</h3>
+                    </a><div class="content flow">
+                    <h3>Jaarverslag Stichting Wijkraad Koningshaven 2024</h3>
 
-                
-                    <div class="meta__date">
-                        <img src="/img/icons/calendar_month-fill.svg" class="black_2_textDark" alt="" />
-                        1 jan 2024
+                    
+                        <div class="meta__date">
+                            <img src="/img/icons/calendar_month-fill.svg" class="black_2_textDark" alt="" />
+                            1 jan 2024
+                        </div>
+                    
+
+                    <div class="summary">
+                        <p>Januari Dit jaar is er geen nieuwjaarsreceptie georganiseerd. Penningmeester neemt deel in planteam Hopliedekade. Er zijn wat onduidelijkheden betreffende opruimen kerstboom. Centrum-manager...</p>
+                        <p><a href="/blog/jaarverslag-stichting-wijkraad-koningshaven-2024/" class="button smaller">Lees verder</a></p>
                     </div>
-                
-
-                <div class="summary">
-                    <p>Januari Dit jaar is er geen nieuwjaarsreceptie georganiseerd. Penningmeester neemt deel in planteam Hopliedekade. Er zijn wat onduidelijkheden betreffende opruimen kerstboom. Centrum-manager...</p>
-                    <p><a href="/blog/jaarverslag-stichting-wijkraad-koningshaven-2024/" class="button smaller" data-button-ghost="">Lees verder</a></p>
                 </div>
 
             </li>
@@ -336,7 +356,16 @@ Wij hebben plaats voor 80 personen. Ben er dus snel bij...</p>
 
         </ul>
 
-        
+        <p>
+            <a class="button"
+               data-button-ghost=""
+               id="loadmoreposts"
+               onclick="loadMorePosts();">
+               Laad meer berichten...
+            </a>
+        </p>
+
+        <script src="/js/filter.js" defer></script>
 
     </div>
 </section>

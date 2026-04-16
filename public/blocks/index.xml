@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Blocks on Wijkraad Koningshaven</title>
-    <link>http://localhost:45725/blocks/</link>
+    <link>http://localhost:1313/blocks/</link>
     <description>Recent content in Blocks on Wijkraad Koningshaven</description>
     <generator>Hugo</generator>
     <language>nl-nl</language>
-    <atom:link href="http://localhost:45725/blocks/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/blocks/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>cta</title>
-      <link>http://localhost:45725/blocks/cta/</link>
+      <link>http://localhost:1313/blocks/cta/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:45725/blocks/cta/</guid>
-      <description>&lt;h3 id=&#34;blijf-op-de-hoogte-van-jouw-buurt&#34;&gt;Blijf op de hoogte van jouw buurt!&lt;/h3&gt;&#xA;&lt;p&gt;Ontvang nieuws, evenementen en belangrijke updates rechtstreeks in je inbox. Schrijf je vandaag nog in en mis niets van wat er speelt in onze wijk!&lt;/p&gt;&#xA;&lt;a href=&#34;https://stats.sender.net/forms/e31Xrp/view&#34; class=&#34;button&#34; data-button-variant=&#34;accent&#34; title=&#34;Schrijf je nu in&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Schrijf je nu in&lt;/a&gt;&#xA;&#xA;&lt;p&gt;&lt;img src=&#34;http://localhost:45725/uploads/undraw_newsletter.svg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;</description>
+      <guid>http://localhost:1313/blocks/cta/</guid>
+      <description>&lt;h3 id=&#34;blijf-op-de-hoogte-van-jouw-buurt&#34;&gt;Blijf op de hoogte van jouw buurt!&lt;/h3&gt;&#xA;&lt;p&gt;Ontvang nieuws, evenementen en belangrijke updates rechtstreeks in je inbox. Schrijf je vandaag nog in en mis niets van wat er speelt in onze wijk!&lt;/p&gt;&#xA;&lt;a href=&#34;https://stats.sender.net/forms/e31Xrp/view&#34; class=&#34;button&#34; data-button-variant=&#34;accent&#34; title=&#34;Schrijf je nu in&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Schrijf je nu in&lt;/a&gt;&#xA;&#xA;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/uploads/undraw_newsletter.svg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

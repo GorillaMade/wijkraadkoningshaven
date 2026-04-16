@@ -1,0 +1,34 @@
+<section class="blog__list region flow bg-neutral-0">
+    <div class="wrapper wrapper--small title text--center">
+        <h2>Nieuws</h2>
+        <p>This is a demo of the blog. In ultricies vel enim vel pulvinar. Quisque finibus sem velit, sed consequat mi ullamcorper vitae. Proin finibus tristique sollicitudin.</p>
+    </div>
+    <div class="wrapper grid" data-layout="thirds">
+        {{ range first 3 (where .Site.RegularPages "Section" "posts") }}
+        <article class="post__item flow">
+            {{- $page := .Page -}}
+            {{- $img := $page.Params.image -}}
+            {{- if $img -}}
+                <a href="{{ $page.RelPermalink }}">
+                    <img src="{{ $img }}"
+                         alt="{{ $page.Title }}"
+                         class="featuredimage"
+                         loading="lazy"
+                         decoding="async"
+                         onclick="document.location.href='{{ $page.RelPermalink }}'">
+                </a>
+            {{- end -}}
+            <div class="content flow">
+                <h3>{{ .Title }}</h3>
+                {{ if .Params.date }}
+                    <div class="meta__date">
+                        <img src="/img/icons/calendar_month-fill.svg" class="black_2_textDark" alt="" />
+                        {{ .Date | time.Format ":date_medium" }}
+                    </div>
+                {{ end }}
+                <p><a href="{{ .RelPermalink }}" class="button smaller" data-button-ghost="">{{ i18n "Read more" }}</a></p>
+            </div>
+        </article>
+        {{ end }}
+    </div>
+</section>

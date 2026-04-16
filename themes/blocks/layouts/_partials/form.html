@@ -1,4 +1,4 @@
-<form id="contactform" class="form flow" method="POST" action="/send" hx-post="/send" hx-target="#form-container"
+<form id="{{ .form_for }}" class="form flow" method="POST" action="/send" hx-post="/send" hx-target="#form-container"
     hx-swap="innerHTML">
     <input type="text" name="honeypot_field" style="display:none">
     {{- range .fields -}}

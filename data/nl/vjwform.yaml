@@ -1,5 +1,6 @@
 action: /form.php
 placeholders: false
+form_for: verrijkjewijk
 fields:
   # - name: title
   #   input_type: html

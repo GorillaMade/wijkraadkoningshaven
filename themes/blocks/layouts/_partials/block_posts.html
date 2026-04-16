@@ -21,89 +21,45 @@
         <!-- FILTER -->
         <details class="filter">
             <summary class="button">{{ i18n "Filter tags" }}</summary>
-
             <div class="filter__options">
                 {{ range $name, $taxonomy := site.Taxonomies.tags }}
                     <label>
-                        <input type="checkbox" value="{{ $name | urlize }}" class="filter-tag">
+                        <input type="checkbox" value="{{ $name | urlize }}" class="filter-checkbox">
                         {{ $name }}
                     </label>
                 {{ end }}
             </div>
         </details>
 
-        <ul class="posts__list grid"
-            role="list"
-            data-pagesize="{{ site.Data.settings.page_size }}"
-            data-layout="thirds">
-
+        <ul class="posts__list contentitems grid" role="list" data-layout="thirds">
             {{ range $posts }}
-            <li class="post__item {{ range .Params.tags }}tag_{{ . | urlize }} {{ end }}">
-
+            <li class="post__item {{ range .Params.tags }}tag_{{ . | urlize }} {{ end }}" style="display:none">
                 {{- $img := .Params.image -}}
-
                 {{- if $img -}}
-                    <a href="{{ .RelPermalink }}">
-                        <img src="{{ $img }}"
-                             alt="{{ .Title }}"
-                             class="featuredimage"
-                             loading="lazy"
-                             decoding="async">
-                    </a>
+                <a href="{{ .RelPermalink }}">
+                    <img data-src="{{ $img }}" alt="{{ .Title }}" class="featuredimage" loading="lazy">
+                </a>
                 {{- end -}}
-
                 <div class="content flow">
                     <h3>{{ .Title | safeHTML }}</h3>
-
                     {{ if .Params.date }}
-                        <div class="meta__date">
-                            <img src="/img/icons/calendar_month-fill.svg"
-                                 class="black_2_textDark"
-                                 alt="" />
-                            {{ .Date | time.Format ":date_medium" }}
-                        </div>
+                    <div class="meta__date">
+                        <img src="/img/icons/calendar_month-fill.svg" class="black_2_textDark" alt="" />
+                        {{ .Date | time.Format ":date_medium" }}
+                    </div>
                     {{ end }}
-
                     <div class="summary">
-                        <p>{{ substr (.Summary | plainify) 0 120 }}...</p>
-                        <p>
-                            <a href="{{ .RelPermalink }}" class="button" data-button-ghost="">
-                                {{ i18n "Read more" }}
-                            </a>
-                        </p>
+                        <p>{{ substr (.Summary | plainify) 0 100 }}...</p>
+                        <p><a href="{{ .RelPermalink }}" class="button">{{ i18n "Read more" }}</a></p>
                     </div>
                 </div>
-
             </li>
             {{ end }}
-
         </ul>
 
+        <div class="text--center" style="margin-top: 1em;">
+            <button id="loadmoreposts" class="button">Load more</button>
+        </div>
+        <script src="/js/filter.js" charset="utf-8"></script>
     </div>
 </section>
-
-<!-- FILTER SCRIPT -->
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-    const checkboxes = document.querySelectorAll(".filter-tag");
-    const posts = document.querySelectorAll(".post__item");
-
-    checkboxes.forEach(cb => {
-        cb.addEventListener("change", () => {
-            const selected = Array.from(checkboxes)
-                .filter(i => i.checked)
-                .map(i => "tag_" + i.value.trim());
-
-            posts.forEach(post => {
-                if (selected.length === 0) {
-                    post.style.display = "";
-                    return;
-                }
-
-                const hasMatch = selected.some(tag => post.classList.contains(tag));
-                post.style.display = hasMatch ? "" : "none";
-            });
-        });
-    });
-});
-</script>

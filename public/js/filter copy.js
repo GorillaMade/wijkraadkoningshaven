@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-  const itemlist = document.querySelector('.contentitems');
+  const itemlist = document.querySelector('.posts__list');
   const loadmoreBtn = document.getElementById('loadmoreposts');
   const checkboxes = document.querySelectorAll('.filter-checkbox');
 

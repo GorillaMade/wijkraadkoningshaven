@@ -225,7 +225,8 @@
     <div class="wrapper wrapper--wide">
         
         <div class="box" id="form-container"><form id="contactform" class="form flow" method="POST" action="/send" hx-post="/send" hx-target="#form-container"
-    hx-swap="innerHTML"><div>
+    hx-swap="innerHTML">
+    <input type="text" name="honeypot_field" style="display:none"><div>
         <label class="inborder" for="naam">Naam</label>
         <input type="text" name="naam" id="naam" class="form-control"  required>
     </div><div>
@@ -274,7 +275,10 @@
         <label class="inborder" for="berekening">Noteer hier een berekening (begroting) zoals beschreven onder de spelregels van Verrijk je Wijk</label>
         <textarea name="berekening" name="berekening" id="berekening" cols="30" rows="10" class="form-control"  required></textarea>
     </div><div class="checkbox">
-        <label class="flex-group"><input type="checkbox" name="terms" value="Ik ga akkoord met de &lt;a href=&#34;/faqs&#34;&gt;voorwaarden&lt;/a&gt;" required>Ik ga akkoord met de <a href="/faqs">voorwaarden</a></label>
+        <label class="flex-group">
+            <input type="checkbox" name="terms" value="Ik ga akkoord met de &lt;a href=&#34;/faqs&#34;&gt;voorwaarden&lt;/a&gt;" required>
+            Ik ga akkoord met de <a href="/faqs">voorwaarden</a>
+        </label>
     </div><div class="submit">
         <div><input type="submit" value="Verzend" class="button" data-button-variant="accent" /></div>
     </div></form>

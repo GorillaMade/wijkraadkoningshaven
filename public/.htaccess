@@ -1,0 +1,113 @@
+# ------------------------------------------
+# Basisinstellingen
+# ------------------------------------------
+
+# Force UTF-8 encoding
+AddDefaultCharset UTF-8
+
+# Gebruik index.html als standaardbestand
+DirectoryIndex index.html
+
+# Verberg directory-index
+Options -Indexes
+
+# Zorg dat PHP werkt (voor formulierverzending)
+<FilesMatch "\.php$">
+  SetHandler application/x-httpd-php
+</FilesMatch>
+
+# ------------------------------------------
+# URL-rewriting
+# ------------------------------------------
+
+RewriteEngine On
+
+# Voorkom dat sitemap.xml en robots.txt worden herschreven
+RewriteCond %{REQUEST_URI} !^/(sitemap\.xml|robots\.txt)$
+
+# Formulierverwerking doorverwijzen
+RewriteRule ^send$ form.php [L]
+
+# Verwijder .html extensies uit URLs
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^([^/]+)/?$ $1.html [L]
+
+# Zorg dat sitemap.xml op meerdere manieren toegankelijk is
+RewriteCond %{REQUEST_URI} !^/sitemap\.xml$
+RewriteRule ^sitemap\.xml$ sitemap.xml [L]
+
+# ------------------------------------------
+# HTTPS en WWW redirect (optioneel activeren)
+# ------------------------------------------
+
+# Forceer HTTPS (indien gewenst inschakelen)
+# RewriteCond %{HTTPS} off
+# RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# WWW naar non-WWW (of omgekeerd aanpassen indien nodig)
+RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+RewriteRule ^ https://%1%{REQUEST_URI} [L,R=301]
+
+# ------------------------------------------
+# Caching voor statische assets
+# ------------------------------------------
+
+<IfModule mod_expires.c>
+  ExpiresActive On
+
+  # Images
+  ExpiresByType image/jpg "access plus 1 year"
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/gif "access plus 1 year"
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+
+  # CSS & JS
+  ExpiresByType text/css "access plus 1 month"
+  ExpiresByType text/javascript "access plus 1 month"
+  ExpiresByType application/javascript "access plus 1 month"
+
+  # Fonts
+  ExpiresByType application/font-woff2 "access plus 1 year"
+  ExpiresByType font/woff2 "access plus 1 year"
+</IfModule>
+
+# ------------------------------------------
+# Content-Type fixes
+# ------------------------------------------
+
+<FilesMatch "\.xml$">
+  Header set Content-Type "application/xml"
+</FilesMatch>
+
+<FilesMatch "\.svg$">
+  Header set Content-Type "image/svg+xml"
+</FilesMatch>
+
+<FilesMatch "\.webp$">
+  Header set Content-Type "image/webp"
+</FilesMatch>
+
+# ------------------------------------------
+# Security headers
+# ------------------------------------------
+
+<IfModule mod_headers.c>
+  # Verwijder foute/injecteerde header van hosting
+  Header always unset Permissions-Policy
+
+  # Voeg enkel ondersteunde features toe
+  Header always set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "DENY"
+  Header always set X-XSS-Protection "1; mode=block"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# ------------------------------------------
+# Foutpagina
+# ------------------------------------------
+
+ErrorDocument 404 /404/index.html

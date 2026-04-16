@@ -220,14 +220,15 @@
   <main>
     
     <section class="title "><div class="wrapper wrapper--small region"><ul class="breadcrumbs">
-  <li><a href="/">Home</a></li></ul>
+  <li><a href="/">Home</a></li><li><a href="/contact/">Contact</a></li></ul>
 <h1 id="contact">Contact</h1></div></section>
 
 <section class="contact region">
     <div class="wrapper switcher">
         
         <div class="box" id="form-container"><form id="contactform" class="form flow" method="POST" action="/send" hx-post="/send" hx-target="#form-container"
-    hx-swap="innerHTML"><h3 class="mt-0">Kom in contact</h3><div>
+    hx-swap="innerHTML">
+    <input type="text" name="honeypot_field" style="display:none"><h3 class="mt-0">Kom in contact</h3><div>
         <label class="inborder" for="name">Naam</label>
         <input type="text" name="name" id="name" class="form-control"  required>
     </div><div>

@@ -1,5 +1,6 @@
 <form id="contactform" class="form flow" method="POST" action="/send" hx-post="/send" hx-target="#form-container"
     hx-swap="innerHTML">
+    <input type="text" name="honeypot_field" style="display:none">
     {{- range .fields -}}
     {{- if eq .input_type `textarea` -}}
     <div>
@@ -13,8 +14,10 @@
     </div>
     {{- else if eq .input_type `checkbox` -}}
     <div class="checkbox">
-        <label class="flex-group"><input type="checkbox" name="{{ .name }}" value="{{ .label }}" required>{{ .label |
-            safeHTML }}</label>
+        <label class="flex-group">
+            <input type="checkbox" name="{{ .name }}" value="{{ .label }}" required>
+            {{ .label | safeHTML }}
+        </label>
     </div>
     {{- else if eq .input_type `html` -}}
     {{ .label | safeHTML }}

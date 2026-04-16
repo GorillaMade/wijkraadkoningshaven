@@ -4,19 +4,23 @@ header("Content-Type: text/html; charset=UTF-8");
 
 // 🌍 Configuratie
 $domain = "wijkraadkoningshaven.nl";
-$allowed_file_types = ["image/jpeg", "image/png"];
+$allowed_file_types = ["image/jpeg","image/png"];
 
 // 📨 Formulieren configureren
 $forms = [
     "contact" => [
         "from" => "contact@$domain",
         "to" => "info@$domain",
-        "timeout" => 1800 // 30 minuten
+        "timeout" => 1800, // 30 minuten
+        "required_fields" => ["name","email","message"]
     ],
     "verrijkjewijk" => [
         "from" => "verrijkjewijk@$domain",
         "to" => "vjw@$domain",
-        "timeout" => 3600 // 1 uur
+        "timeout" => 3600, // 1 uur
+        "required_fields" => [
+            "naam","telefoon","street","datum","lokatie","doelgroep","deelnemers","bedrag","bijdragen","terms","email"
+        ]
     ]
 ];
 
@@ -28,16 +32,17 @@ if (!isset($forms[$form_type])) {
     exit;
 }
 
-$form_config = $forms[$form_type];
-$from_email = $form_config["from"];
-$to = $form_config["to"];
-$form_timeout = $form_config["timeout"];
+$config = $forms[$form_type];
+$from_email = $config["from"];
+$to = $config["to"];
+$timeout = $config["timeout"];
+$required_fields = $config["required_fields"];
 
-// 🛡️ Rate limiting per formulier
+// 🛡️ Rate limiting
 $session_key = "last_email_time_" . $form_type;
-if (isset($_SESSION[$session_key]) && time() - $_SESSION[$session_key] < $form_timeout) {
+if (isset($_SESSION[$session_key]) && time() - $_SESSION[$session_key] < $timeout) {
     http_response_code(429);
-    echo "<p class='error'>Je kunt dit formulier slechts 1 keer per " . ($form_timeout/60) . " minuten verzenden.</p>";
+    echo "<p class='error'>Je kunt dit formulier slechts 1 keer per " . ($timeout/60) . " minuten verzenden.</p>";
     exit;
 }
 
@@ -48,11 +53,13 @@ if (!empty($_POST["honeypot_field"])) {
     exit;
 }
 
-// 🔧 Verplichte velden (pas aan per formulier indien nodig)
-if (empty($_POST["name"]) || empty($_POST["email"]) || empty($_POST["message"])) {
-    http_response_code(400);
-    echo "<p class='error'>Vul alle verplichte velden in.</p>";
-    exit;
+// 🔧 Verplichte velden checken
+foreach ($required_fields as $field) {
+    if (empty($_POST[$field])) {
+        http_response_code(400);
+        echo "<p class='error'>Vul alle verplichte velden in ($field ontbreekt).</p>";
+        exit;
+    }
 }
 
 // 📜 E-mail samenstellen
@@ -84,7 +91,6 @@ if (!empty($_FILES["attachment"]["name"])) {
 
 // 📩 E-mail headers
 $reply_to = $fields["email"] ?? $to;
-
 if ($attachment_path) {
     $boundary = md5(time());
     $headers = "From: $from_email\r\n";
@@ -111,8 +117,6 @@ if ($attachment_path) {
 // 📨 Verstuur e-mail
 if (mail($to, $subject, $email_body, $headers)) {
     $_SESSION[$session_key] = time();
-
-    // Als je HTMX gebruikt, geef een HTML-feedback terug
     echo "<p class='success'>Uw bericht is succesvol verzonden. We nemen snel contact met u op!</p>";
 } else {
     http_response_code(500);

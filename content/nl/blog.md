@@ -8,6 +8,6 @@ title: "Blog"
 
 # Nieuws
 
-This is a demo of the blog. In ultricies vel enim vel pulvinar. Quisque finibus sem velit, sed consequat mi ullamcorper vitae. Proin finibus tristique sollicitudin.
+Lees het laatste nieuws en de nieuwste updates op onze blog. Blijf op de hoogte van belangrijke ontwikkelingen en interessante inzichten
 
 {{< /block_posts >}}

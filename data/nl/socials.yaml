@@ -1,9 +1,9 @@
 list:
   - title: Facebook
-    link: https://www.facebook.com/Koningshaven.eu/
+    link: https://www.facebook.com/people/Stichting-Wijkraad-Koningshaven
     logo_image: /img/facebook.svg
   - title: Instagram
-    link: https://www.instagram.com/Koningshaven.eu/
+    link: https://www.instagram.com/Wijkraad.Koningshaven/
     logo_image: /img/instagram.svg
   - title: Email
     link: mailto:info@wijkraadkoningshaven.nl

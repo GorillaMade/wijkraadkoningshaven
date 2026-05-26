@@ -104,7 +104,7 @@ fields:
 
   - name: terms
     input_type: checkbox
-    label: Ik ga akkoord met de <a href="/faqs">voorwaarden</a>
+    label: Ik heb de <a href="/uploads/regels-vjw.pdf" target="_blank">regels en voorwaarden</a> gelezen en ga hiermee akkoord.
     required: true
 
   - name: submit

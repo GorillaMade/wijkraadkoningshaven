@@ -33,7 +33,7 @@
 
         <ul class="posts__list contentitems grid" role="list" data-layout="thirds">
             {{ range $posts }}
-            <li class="post__item {{ range .Params.tags }}tag_{{ . | urlize }} {{ end }}" style="display:none">
+            <li class="post__item {{ range .Params.tags }}tag_{{ . | urlize }} {{ end }}">
                 {{- $img := .Params.image -}}
                 {{- if $img -}}
                 <a href="{{ .RelPermalink }}">

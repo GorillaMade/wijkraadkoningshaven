@@ -6,9 +6,30 @@
     {{- end -}}
 {{- end -}}
 
-{{- $posts := where site.RegularPages "Section" "posts" -}}
+{{- $posts := (where site.RegularPages "Section" "posts").ByDate.Reverse -}}
 
-<section class="posts">
+<section class="posts"
+    x-data="{
+        selectedTags: [],
+        visibleCount: 6,
+        batchSize: 6,
+        matchesFilter(el) {
+            if (this.selectedTags.length === 0) return true;
+            const tags = (el.dataset.tags || '').split(' ').filter(Boolean);
+            return this.selectedTags.some(tag => tags.includes(tag));
+        },
+        filteredPosts(el) {
+            return Array.from(el.parentElement.children).filter(post => this.matchesFilter(post));
+        },
+        isVisible(el) {
+            const posts = this.filteredPosts(el);
+            return posts.indexOf(el) > -1 && posts.indexOf(el) < this.visibleCount;
+        },
+        hasMore() {
+            const posts = Array.from(this.$refs.postList.children).filter(post => this.matchesFilter(post));
+            return posts.length > this.visibleCount;
+        }
+    }">
 
     {{ if $inner }}
         <div class="wrapper wrapper--small text--center region">
@@ -24,20 +45,31 @@
             <div class="filter__options">
                 {{ range $name, $taxonomy := site.Taxonomies.tags }}
                     <label>
-                        <input type="checkbox" value="{{ $name | urlize }}" class="filter-checkbox">
+                        <input
+                            type="checkbox"
+                            value="{{ $name | urlize }}"
+                            x-model="selectedTags"
+                            @change="visibleCount = batchSize">
                         {{ $name }}
                     </label>
                 {{ end }}
             </div>
         </details>
 
-        <ul class="posts__list contentitems grid" role="list" data-layout="thirds">
+        <ul class="posts__list contentitems grid" role="list" data-layout="thirds" x-ref="postList">
             {{ range $posts }}
-            <li class="post__item {{ range .Params.tags }}tag_{{ . | urlize }} {{ end }}">
+            {{- $tags := slice -}}
+            {{- range .Params.tags -}}
+                {{- $tags = $tags | append (. | urlize) -}}
+            {{- end -}}
+            <li
+                class="post__item {{ range .Params.tags }}tag_{{ . | urlize }} {{ end }}"
+                data-tags="{{ delimit $tags " " }}"
+                x-show="isVisible($el)">
                 {{- $img := .Params.image -}}
                 {{- if $img -}}
                 <a href="{{ .RelPermalink }}">
-                    <img data-src="{{ $img }}" alt="{{ .Title }}" class="featuredimage" loading="lazy">
+                    <img src="{{ $img }}" alt="{{ .Title }}" class="featuredimage" loading="lazy">
                 </a>
                 {{- end -}}
                 <div class="content flow">
@@ -58,8 +90,14 @@
         </ul>
 
         <div class="text--center" style="margin-top: 1em;">
-            <button id="loadmoreposts" class="button">Load more</button>
+            <button
+                type="button"
+                class="button"
+                style="display: none;"
+                x-show="hasMore()"
+                @click="visibleCount += batchSize">
+                Meer laden
+            </button>
         </div>
-        <script src="/js/filter.js" charset="utf-8"></script>
     </div>
 </section>

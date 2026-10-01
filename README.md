@@ -19,7 +19,7 @@ Een schone Astro-starter met GorillaMade Sass-designsystem, herbruikbare compone
 **Belangrijk:** de voorbeeldidentiteit is fictief. Zet een echte site URL, beschrijving en organisatiegegevens voordat je publiceert. Een OG-afbeelding is bewust niet ingesteld totdat je er zelf een toevoegt.
 
 
-## Wijkraad v7 componentarchitectuur
+## Wijkraad componentarchitectuur
 - `BaseLayout.astro` plaatst `Nieuwsbrief.astro` automatisch boven de footer op alle pagina's.
 - `components/sections/faq/FAQ.astro` rendert FAQ-groepen uit `src/data/faqs.ts`.
 - Pagina-layouts gebruiken `Section.astro` en `Grid.astro` voor standaard secties en kolommen.

@@ -1,0 +1,93 @@
+name: Build and deploy Astro v2
+
+on:
+  push:
+    branches:
+      - v2/astro
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: astro-v2-deploy
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Astro source
+        uses: actions/checkout@v4
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build and check Astro
+        run: npm run build
+
+      - name: Upload built website
+        uses: actions/upload-artifact@v4
+        with:
+          name: astro-v2-dist
+          path: dist/
+          if-no-files-found: error
+
+  deploy:
+    if: github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/v2/astro'
+    needs: build
+    runs-on: ubuntu-latest
+    environment: astro-staging
+    steps:
+      - name: Download built website
+        uses: actions/download-artifact@v4
+        with:
+          name: astro-v2-dist
+          path: dist/
+
+      - name: Configure SSH and deploy to staging
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          CPANEL_USER: ${{ secrets.CPANEL_USER }}
+          CPANEL_HOST: ${{ secrets.CPANEL_HOST }}
+          ASTRO_DEPLOY_PATH: ${{ vars.ASTRO_DEPLOY_PATH }}
+        run: |
+          set -euo pipefail
+          : "${SSH_PRIVATE_KEY:?Missing SSH_PRIVATE_KEY}"
+          : "${CPANEL_USER:?Missing CPANEL_USER}"
+          : "${CPANEL_HOST:?Missing CPANEL_HOST}"
+          : "${ASTRO_DEPLOY_PATH:?Set ASTRO_DEPLOY_PATH in the astro-staging environment}"
+
+          # Never deploy to the live document root.
+          case "$ASTRO_DEPLOY_PATH" in
+            "/home/$CPANEL_USER/public_html"|"/home/$CPANEL_USER/public_html/")
+              echo "Refusing to overwrite the live Hugo website."
+              exit 1
+              ;;
+            "/home/$CPANEL_USER/"*)
+              ;;
+            *)
+              echo "Deployment path must be inside this cPanel user's home directory."
+              exit 1
+              ;;
+          esac
+
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+          printf '%s\n' "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -p 4000 -H "$CPANEL_HOST" >> ~/.ssh/known_hosts
+
+          ssh -p 4000 "$CPANEL_USER@$CPANEL_HOST" \
+            "mkdir -p '$ASTRO_DEPLOY_PATH'"
+
+          rsync -avz --delete -e "ssh -p 4000" \
+            dist/ "$CPANEL_USER@$CPANEL_HOST:$ASTRO_DEPLOY_PATH/"
+
+          echo "Astro staging deployment complete."

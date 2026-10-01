@@ -1,0 +1,178 @@
+---
+/**
+ * RichText — GorillaMade Design System
+ *
+ * Een herbruikbare wrapper voor opgemaakte tekst.
+ *
+ * GEBRUIK
+ *
+ * <RichText>
+ *   <h2>Een titel</h2>
+ *   <p>Een paragraaf met <strong>opmaak</strong>.</p>
+ * </RichText>
+ *
+ * <RichText variant="large" maxWidth={65}>
+ *   <p>Een grotere introductietekst.</p>
+ * </RichText>
+ *
+ * <RichText as="article" variant="main">
+ *   <Content />
+ * </RichText>
+ *
+ * VERANTWOORDELIJKHEDEN
+ *
+ * - .prose uit het globale Sass-designsystem verzorgt
+ *   de algemene opmaak van rich-text-elementen.
+ * - Dit component verzorgt varianten, breedte en
+ *   de HTML-wrapper.
+ * - Gebruik Heading.astro voor losse headings en
+ *   RichText.astro voor samengestelde tekst.
+ */
+
+import type { HTMLAttributes } from "astro/types";
+
+type RichTextVariant =
+    | "inherit"
+    | "display"
+    | "h1"
+    | "h2"
+    | "h3"
+    | "h4"
+    | "h5"
+    | "h6"
+    | "large"
+    | "main"
+    | "small";
+
+interface Props extends HTMLAttributes<"div"> {
+    /** HTML-element van de wrapper. */
+    as?: "div" | "article" | "section";
+
+    /** Render de component conditioneel. */
+    render?: boolean;
+
+    /** Typografische variant. */
+    variant?: RichTextVariant;
+
+    /** Maximale regellengte in karakters. */
+    maxWidth?: number;
+}
+
+const {
+    as: Tag = "div",
+    render = true,
+    variant = "inherit",
+    maxWidth,
+    class: className,
+    style,
+    ...rest
+} = Astro.props;
+
+const hasContent = Astro.slots.has("default");
+
+const validMaxWidth =
+    typeof maxWidth === "number" &&
+    Number.isFinite(maxWidth) &&
+    maxWidth > 0
+        ? maxWidth
+        : undefined;
+---
+
+{
+    render && hasContent && (
+        <Tag
+            {...rest}
+            class:list={["rich-text", "prose", "flow", className]}
+            data-variant={variant}
+            style={[
+                validMaxWidth !== undefined &&
+                    { "--_rich-text-max-width": `${validMaxWidth}ch` },
+                style,
+            ]}
+        >
+            <slot />
+        </Tag>
+    )
+}
+
+<style lang="scss">
+    .rich-text {
+        // --------------------------------------------------
+        // Private component tokens
+        // --------------------------------------------------
+
+        --_rich-text-max-width: none;
+        --_rich-text-font-size: inherit;
+        --_rich-text-line-height: inherit;
+
+        // --------------------------------------------------
+        // Layout
+        // --------------------------------------------------
+
+        width: 100%;
+        max-width: var(--_rich-text-max-width);
+
+        // --------------------------------------------------
+        // Typography
+        // --------------------------------------------------
+
+        font-size: var(--_rich-text-font-size);
+        line-height: var(--_rich-text-line-height);
+
+        // --------------------------------------------------
+        // Variants
+        // --------------------------------------------------
+
+        &[data-variant="large"] {
+            --_rich-text-font-size: var(
+                --text-large,
+                1.25rem
+            );
+        }
+
+        &[data-variant="main"] {
+            --_rich-text-font-size: var(
+                --text-base,
+                1rem
+            );
+        }
+
+        &[data-variant="small"] {
+            --_rich-text-font-size: var(
+                --text-small,
+                0.875rem
+            );
+        }
+
+        // Heading variants use the existing
+        // semantic typography tokens.
+
+        &[data-variant="display"] {
+            --_rich-text-font-size: var(--text-display);
+        }
+
+        &[data-variant="h1"] {
+            --_rich-text-font-size: var(--text-h1);
+        }
+
+        &[data-variant="h2"] {
+            --_rich-text-font-size: var(--text-h2);
+        }
+
+        &[data-variant="h3"] {
+            --_rich-text-font-size: var(--text-h3);
+        }
+
+        &[data-variant="h4"] {
+            --_rich-text-font-size: var(--text-h4);
+        }
+
+        &[data-variant="h5"] {
+            --_rich-text-font-size: var(--text-h5);
+        }
+
+        &[data-variant="h6"] {
+            --_rich-text-font-size: var(--text-h6);
+        }
+    }
+</style>

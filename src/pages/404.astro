@@ -1,0 +1,14 @@
+---
+import Heading from '@/components/typography/Heading.astro';
+import Paragraph from '@/components/typography/Paragraph.astro';
+import Section from '@/components/wrapper/Section.astro';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+---
+<BaseLayout title="Pagina niet gevonden" description="Deze pagina bestaat niet." noindex>
+    <Section width="m">
+        <Heading tag="h1">Pagina niet gevonden</Heading>
+        <Paragraph>
+            <a href="/">Terug naar home</a>
+        </Paragraph>
+    </Section>
+</BaseLayout>

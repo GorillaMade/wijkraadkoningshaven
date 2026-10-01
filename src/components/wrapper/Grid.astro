@@ -1,0 +1,123 @@
+---
+/**
+ * Grid — GorillaMade Design System
+ *
+ * Intrinsiek responsieve grid op basis van
+ * sass/patterns/_grid.scss.
+ *
+ * STANDAARD
+ * <Grid>
+ *   <Card />
+ *   <Card />
+ *   <Card />
+ * </Grid>
+ *
+ * TWEE KOLOMMEN
+ * <Grid layout="halves">
+ *   <Card />
+ *   <Card />
+ * </Grid>
+ *
+ * DRIE KOLOMMEN
+ * <Grid layout="thirds" gap="l">
+ *   <Card />
+ *   <Card />
+ *   <Card />
+ * </Grid>
+ *
+ * AANGEPASTE MINIMALE BREEDTE
+ * <Grid minItemSize="20rem" placement="auto-fit">
+ *   <Card />
+ *   <Card />
+ * </Grid>
+ */
+
+import type { HTMLAttributes } from "astro/types";
+
+type Space =
+    | "none"
+    | "2xs"
+    | "xs"
+    | "s"
+    | "m"
+    | "l"
+    | "xl"
+    | "2xl";
+
+type GridLayout = "default" | "halves" | "thirds";
+type GridPlacement = "auto-fit" | "auto-fill";
+
+interface Props extends HTMLAttributes<"div"> {
+    /** Render de grid conditioneel. */
+    render?: boolean;
+
+    /** Vooraf ingestelde gridverdeling. */
+    layout?: GridLayout;
+
+    /** Minimale breedte van ieder grid-item. */
+    minItemSize?: string;
+
+    /** Verdeling van de beschikbare ruimte. */
+    placement?: GridPlacement;
+
+    /** Ruimte tussen de grid-items. */
+    gap?: Space;
+}
+
+const {
+    render = true,
+    layout = "default",
+    minItemSize,
+    placement,
+    gap,
+    class: className,
+    style,
+    ...rest
+} = Astro.props;
+
+const hasContent = Astro.slots.has("default");
+
+const gapValues: Record<Space, string> = {
+    none: "0",
+    "2xs": "var(--space-2xs)",
+    xs: "var(--space-xs)",
+    s: "var(--space-s)",
+    m: "var(--space-m)",
+    l: "var(--space-l)",
+    xl: "var(--space-xl)",
+    "2xl": "var(--space-2xl)",
+};
+
+const customProperties = [
+    minItemSize &&
+        `--grid-min-item-size: ${minItemSize}`,
+
+    placement &&
+        `--grid-placement: ${placement}`,
+
+    gap &&
+        `--grid-gap: ${gapValues[gap]}`,
+]
+    .filter(Boolean)
+    .join("; ");
+---
+
+{
+    render && hasContent && (
+        <div
+            {...rest}
+            class:list={["grid", className]}
+            data-layout={
+                layout === "default"
+                    ? undefined
+                    : layout
+            }
+            style={[
+                customProperties,
+                style
+            ].filter(Boolean).join('; ')}
+        >
+            <slot />
+        </div>
+    )
+}

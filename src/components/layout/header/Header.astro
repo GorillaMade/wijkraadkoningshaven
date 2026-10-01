@@ -1,0 +1,38 @@
+---
+import Brand from '@/components/ui/brand/Brand.astro';
+import Nav from '@/components/layout/nav/Nav.astro';
+import Hamburger from '@/components/ui/hamburger/Hamburger.astro';
+import Button from '@/components/ui/button/Button.astro';
+---
+<header class="site-header" x-data="{ open: false }">
+    <div class="site-header__inner wrapper">
+        <Brand name="Wijkraad Koningshaven" logo="/logo-wijkraad.svg" alt="Wijkraad Koningshaven" />
+        <Hamburger />
+        <Nav />
+        <Button
+            href="/verrijk-je-wijk/"
+            variant="primary"
+            size="small"
+        >
+            Verrijk je wijk
+        </Button>
+    </div>
+</header>
+<style lang="scss">
+    .site-header {
+        padding-block: var(--space-s-m);
+        background: var(--surface-page);
+
+        &__inner {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+
+            @media (width < 975px) {
+                justify-content: center;
+            }
+        }
+    }
+</style>

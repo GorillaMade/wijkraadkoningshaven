@@ -1,0 +1,36 @@
+---
+// Eén item in het broodkruimelpad
+interface Item {
+    label: string;
+    href?: string;
+}
+
+interface Props {
+    items: Item[];
+}
+
+const { items } = Astro.props;
+---
+
+<nav class="breadcrumbs" aria-label="Broodkruimelnavigatie">
+    <ol>
+        <li>
+            <a href="/">Home</a>
+        </li>
+
+        {items.map((item, index) => {
+            // Het laatste item is de huidige pagina
+            const isLaatste = index === items.length - 1;
+
+            return (
+                <li aria-current={isLaatste ? "page" : undefined}>
+                    {item.href && !isLaatste ? (
+                        <a href={item.href}>{item.label}</a>
+                    ) : (
+                        item.label
+                    )}
+                </li>
+            );
+        })}
+    </ol>
+</nav>

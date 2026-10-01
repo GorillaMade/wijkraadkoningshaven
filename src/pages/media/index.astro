@@ -1,0 +1,30 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Section from '@/components/wrapper/Section.astro';
+import Grid from '@/components/wrapper/Grid.astro';
+import Eyebrow from '@/components/typography/Eyebrow.astro';
+import Heading from '@/components/typography/Heading.astro';
+import Paragraph from '@/components/typography/Paragraph.astro';
+import AlbumCard from '@/components/media/AlbumCard.astro';
+import {getCollection as getMediaCollection} from 'astro:content';
+const albums=(await getMediaCollection('media')).map(entry=>({slug:entry.id,...entry.data,images:entry.data.images.map(image=>image.src)}));
+---
+<BaseLayout title="Media & fotoalbums" description="Fotoalbums van activiteiten en evenementen in Koningshaven.">
+  <Section width="xl" paddingTop="xl" paddingBottom="xl">
+    <div class="intro flow">
+      <Eyebrow label="Het leven in Koningshaven" />
+      <Heading tag="h1" variant="display">Momenten om<br /><em>te bewaren.</em></Heading>
+      <Paragraph variant="large">Van Burendag tot jubileum: ontdek de mensen en momenten die onze buurten verbinden.</Paragraph>
+    </div>
+    <Grid layout="thirds" gap="l">{albums.map(album=>
+      <AlbumCard album={album} />)}
+    </Grid>
+  </Section>
+</BaseLayout>
+<style>
+  .intro {
+    max-width: 52rem;
+    margin-bottom: clamp(2.5rem, 6vw, 5rem)
+  }
+
+</style>

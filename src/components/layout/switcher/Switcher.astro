@@ -1,0 +1,144 @@
+---
+/**
+ * Switcher — GorillaMade Design System
+ *
+ * Een intrinsiek responsieve layout voor twee
+ * primaire elementen.
+ *
+ * De daadwerkelijke layout wordt verzorgd door:
+ * sass/patterns/_switcher.scss
+ *
+ * VOORBEELDEN
+ *
+ * Standaard:
+ *
+ * <Switcher>
+ *   <div>Tekst</div>
+ *   <div>Afbeelding</div>
+ * </Switcher>
+ *
+ * Aangepaste omschakelbreedte:
+ *
+ * <Switcher threshold="48rem" gap="xl">
+ *   <div>Tekst</div>
+ *   <div>Afbeelding</div>
+ * </Switcher>
+ *
+ * Verticaal gecentreerd:
+ *
+ * <Switcher align="center">
+ *   <div>Tekst</div>
+ *   <div>Afbeelding</div>
+ * </Switcher>
+ *
+ * LET OP
+ * - Gebruik bij voorkeur twee directe kinderen.
+ * - Extra kinderen nemen de volledige breedte in.
+ * - Geef spacing door via de bestaande design tokens.
+ */
+
+import type { HTMLAttributes } from "astro/types";
+
+type Space =
+    | "none"
+    | "2xs"
+    | "xs"
+    | "s"
+    | "m"
+    | "l"
+    | "xl"
+    | "2xl"
+    | "m-l"
+    | "l-xl";
+
+type Alignment =
+    | "start"
+    | "center"
+    | "end"
+    | "stretch";
+
+interface Props extends HTMLAttributes<"div"> {
+    /** Render de component conditioneel. */
+    render?: boolean;
+
+    /** Ruimte tussen de directe kinderen. */
+    gap?: Space;
+
+    /** Verticale uitlijning. */
+    align?: Alignment;
+
+    /**
+     * Beschikbare breedte waaronder de
+     * elementen onder elkaar komen.
+     *
+     * Accepteert een CSS-lengte, bijvoorbeeld:
+     * "40rem", "48rem" of "600px".
+     */
+    threshold?: string;
+}
+
+const {
+    render = true,
+    gap,
+    align,
+    threshold,
+    class: className,
+    style,
+    ...rest
+} = Astro.props;
+
+const hasContent = Astro.slots.has("default");
+
+const gapValues: Record<Space, string> = {
+    none: "0",
+    "2xs": "var(--space-2xs)",
+    xs: "var(--space-xs)",
+    s: "var(--space-s)",
+    m: "var(--space-m)",
+    l: "var(--space-l)",
+    xl: "var(--space-xl)",
+    "2xl": "var(--space-2xl)",
+    "m-l": "var(--space-m-l)",
+    "l-xl": "var(--space-l-xl)",
+};
+
+const alignValues: Record<Alignment, string> = {
+    start: "flex-start",
+    center: "center",
+    end: "flex-end",
+    stretch: "stretch",
+};
+
+const customStyles = [
+    gap ? `--switcher-gap: ${gapValues[gap]}` : null,
+
+    align
+        ? `--switcher-vertical-alignment: ${alignValues[align]}`
+        : null,
+
+    threshold
+        ? `--switcher-target-container-width: ${threshold}`
+        : null,
+]
+    .filter(Boolean)
+    .join("; ");
+
+const combinedStyle = [
+    customStyles,
+    typeof style === "string" ? style : "",
+]
+    .filter(Boolean)
+    .join("; ");
+---
+
+{
+    render && hasContent && (
+        <div
+            {...rest}
+            class:list={["switcher", className]}
+            style={combinedStyle || undefined}
+        >
+            <slot />
+        </div>
+    )
+}

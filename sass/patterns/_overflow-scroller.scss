@@ -1,0 +1,46 @@
+// -----------------------------------------------------------------------------
+// Overflow Scroller
+// -----------------------------------------------------------------------------
+// Creates a horizontally scrollable row of items with configurable sizing,
+// spacing, and scroll snapping.
+//
+// Public custom properties:
+// --overflow-scroller-item-size
+// --overflow-scroller-gap
+// --overflow-scroller-snap-type
+// --overflow-scroller-snap-align
+// -----------------------------------------------------------------------------
+
+.overflow-scroller {
+    --_overflow-scroller-item-size: var(
+        --overflow-scroller-item-size,
+        18.75rem
+    );
+
+    --_overflow-scroller-gap: var(
+        --overflow-scroller-gap,
+        var(--gutter)
+    );
+
+    --_overflow-scroller-snap-type: var(
+        --overflow-scroller-snap-type,
+        x mandatory
+    );
+
+    --_overflow-scroller-snap-align: var(
+        --overflow-scroller-snap-align,
+        center
+    );
+
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: var(--_overflow-scroller-item-size);
+    gap: var(--_overflow-scroller-gap);
+
+    overflow-x: scroll;
+    scroll-snap-type: var(--_overflow-scroller-snap-type);
+
+    > * {
+        scroll-snap-align: var(--_overflow-scroller-snap-align);
+    }
+}

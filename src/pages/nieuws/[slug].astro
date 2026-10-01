@@ -1,0 +1,170 @@
+---
+import { getCollection, render } from 'astro:content';
+import Heading from '@/components/typography/Heading.astro';
+import Paragraph from '@/components/typography/Paragraph.astro';
+import Eyebrow from '@/components/typography/Eyebrow.astro';
+import RichText from '@/components/typography/RichText.astro';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Section from '@/components/wrapper/Section.astro';
+import ResponsiveImage from '@/components/ui/responsive-image/ResponsiveImage.astro';
+import Button from '@/components/ui/button/Button.astro';
+import { formatNieuwsDate, googleCalendarUrl } from '@/lib/nieuws';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('nieuws');
+  return posts.map((post) => ({
+    params: { slug: post.id.replace(/\.(md|mdx)$/, '') },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const tag = post.data.tags[0] ?? 'Nieuws';
+const calendarUrl = post.data.event ? googleCalendarUrl(post) : undefined;
+---
+
+<BaseLayout title={post.data.title} description={post.data.description} schemaType="BlogPosting" publishedTime={post.data.date}>
+  <Section width="l" paddingTop="xl" paddingBottom="m" containerClass="article-hero stack">
+    <div class="article-hero__copy stack">
+      <a class="article-back" href="/nieuws/">← Terug naar nieuws</a>
+      <Eyebrow label={`${tag} · ${formatNieuwsDate(post.data.date)}`} />
+      <Heading tag="h1" variant="h1">{post.data.title}</Heading>
+      <Paragraph variant="large" maxWidth={62}>{post.data.description}</Paragraph>
+      {calendarUrl && (
+        <div class="flex-group article-hero__actions">
+          <Button href={calendarUrl} target="_blank" rel="noopener noreferrer" variant="outline">+ Google Agenda</Button>
+          <Button href="/agenda/" variant="ghost">Bekijk agenda</Button>
+        </div>
+      )}
+    </div>
+
+    {post.data.image && (
+      <div class="article-media">
+        <ResponsiveImage class="article-media__image" src={post.data.image} alt={post.data.imageAlt} priority={true} sizes="(min-width: 72rem) 72rem, 100vw" />
+      </div>
+    )}
+  </Section>
+
+  <Section width="l" paddingTop="m" paddingBottom="2xl" containerClass="article-layout with-aside">
+    <article class="article-body">
+      <RichText as="div" variant="main" maxWidth={68}>
+        <Content />
+      </RichText>
+    </article>
+
+    <aside class="article-aside stack" aria-label="Over dit bericht">
+      <Eyebrow label="Koningshaven" />
+      <Heading tag="h2" variant="h4">Samen maken we de wijk.</Heading>
+      <Paragraph variant="small">Nieuws, activiteiten en initiatieven uit Broekhoven 1, Fatima en Hoogvenne.</Paragraph>
+      <Button href="/nieuws/" variant="outline">Meer nieuws</Button>
+    </aside>
+  </Section>
+</BaseLayout>
+
+<style lang="scss">
+  :global(.article-hero) {
+    --stack-gap: var(--space-xl-2xl);
+  }
+
+  .article-hero__copy {
+    --stack-gap: var(--space-m);
+    width: min(100%, 58rem);
+  }
+
+  .article-back {
+    width: fit-content;
+    color: var(--text-muted);
+    font-size: var(--text-small);
+    font-weight: var(--fw-semibold);
+    text-decoration: none;
+    transition: color var(--duration-fast) var(--ease-ease-out);
+  }
+
+  .article-back:hover {
+    color: var(--text-brand);
+  }
+
+  .article-hero__actions {
+    --flex-group-gap: var(--space-xs);
+  }
+
+  .article-media {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-xl);
+    background: var(--surface-subtle);
+    box-shadow: var(--shadow-l);
+  }
+
+  .article-media::after {
+    content: '';
+    position: absolute;
+    inset: auto var(--space-l) 0 auto;
+    width: clamp(4rem, 10vw, 8rem);
+    height: .35rem;
+    border-radius: var(--radius-full) var(--radius-full) 0 0;
+    background: var(--color-brand-600);
+  }
+
+  .article-media :global(.article-media__image) {
+    display: block;
+    width: 100%;
+    max-height: 42rem;
+    object-fit: contain;
+  }
+
+  :global(.article-layout) {
+    --with-aside-main-min-width: min(100%, 38rem);
+    --with-aside-width: 18rem;
+    --with-aside-gap: var(--space-2xl-3xl);
+    align-items: flex-start;
+  }
+
+  .article-body {
+    min-width: 0;
+  }
+
+  .article-body :global(.prose) {
+    --prose-max-width: 68ch;
+    --prose-flow-space: var(--space-m-l);
+  }
+
+  .article-body :global(.prose > h2) {
+    margin-block-start: var(--space-xl);
+  }
+
+  .article-body :global(.prose > h3) {
+    margin-block-start: var(--space-l);
+  }
+
+  .article-body :global(.prose blockquote) {
+    padding: var(--space-m) var(--space-l);
+    border-inline-start-width: .3rem;
+    border-radius: 0 var(--radius-m) var(--radius-m) 0;
+    background: var(--surface-subtle);
+  }
+
+  .article-aside {
+    --stack-gap: var(--space-s);
+    position: sticky;
+    top: calc(var(--space-xl) + 4rem);
+    padding: var(--space-l);
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-l);
+    background: var(--surface-subtle);
+  }
+
+  .article-aside :global(.text),
+  .article-aside :global(.heading) {
+    margin: 0;
+  }
+
+  @media (max-width: 52rem) {
+    .article-aside {
+      position: static;
+      max-width: 68ch;
+    }
+  }
+</style>

@@ -1,0 +1,268 @@
+
+---
+/**
+ * FaqItem
+ *
+ * Herbruikbaar FAQ-item met de oorspronkelijke
+ * kaartstyling van Wijkraad Koningshaven.
+ *
+ * Voorbeeld:
+ *
+ * <FaqItem number={1} question="Hoe werkt het?" name="faq-home">
+ *     <Paragraph>Hier komt het antwoord.</Paragraph>
+ * </FaqItem>
+ */
+
+interface Props {
+    number?: string | number;
+    question: string;
+    name?: string;
+}
+
+const {
+    number,
+    question,
+    name,
+} = Astro.props;
+
+const formattedNumber =
+    typeof number === "number"
+        ? String(number).padStart(2, "0")
+        : number;
+
+const hasNumber =
+    formattedNumber !== undefined &&
+    formattedNumber !== "";
+---
+
+<details
+    class:list={[
+        "faq-item",
+        { "faq-item--without-number": !hasNumber },
+    ]}
+    name={name}
+>
+    <summary class="faq-item__summary">
+        {
+            hasNumber && (
+                <span
+                    class="faq-item__number"
+                    aria-hidden="true"
+                >
+                    {formattedNumber}
+                </span>
+            )
+        }
+
+        <span class="faq-item__question">
+            {question}
+        </span>
+
+        <span
+            class="faq-item__icon"
+            aria-hidden="true"
+        ></span>
+    </summary>
+
+    <div class="faq-item__answer">
+        <slot />
+    </div>
+</details>
+
+<style lang="scss">
+    .faq-item {
+        /*
+         * Variabelen voor de interne uitlijning.
+         * Zo blijven het nummer en antwoord
+         * altijd netjes op elkaar afgestemd.
+         */
+        --faq-number-size: 2.25rem;
+        --faq-gap: var(--space-s);
+        --faq-padding: var(--space-m);
+
+        overflow: hidden;
+
+        border: 1px solid var(--border-default);
+        border-radius: var(--radius-m);
+
+        background: var(--surface-page);
+        color: var(--text-primary);
+
+        transition:
+            border-color var(--duration-fast) ease,
+            box-shadow var(--duration-fast) ease;
+
+        /*
+         * Geopende kaart.
+         */
+        &[open] {
+            border-color: var(--color-brand-500);
+
+            box-shadow:
+                0 0.75rem 2rem rgb(0 64 154 / 8%);
+        }
+
+        /*
+         * Klikbare vraag.
+         */
+        &__summary {
+            display: grid;
+
+            grid-template-columns:
+                var(--faq-number-size)
+                minmax(0, 1fr)
+                1.25rem;
+
+            align-items: center;
+            gap: var(--faq-gap);
+
+            padding: var(--faq-padding);
+
+            cursor: pointer;
+            list-style: none;
+
+            &::-webkit-details-marker {
+                display: none;
+            }
+
+            &:focus-visible {
+                outline:
+                    var(--focus-width, 2px)
+                    solid
+                    var(--focus-color, currentColor);
+
+                outline-offset: -4px;
+            }
+        }
+
+        /*
+         * Rond nummer.
+         */
+        &__number {
+            display: grid;
+            place-items: center;
+
+            width: var(--faq-number-size);
+            height: var(--faq-number-size);
+
+            border-radius: 50%;
+
+            background: var(--color-brand-100);
+            color: var(--color-brand-700);
+
+            font-size: var(--text-small);
+            font-weight: var(--fw-semibold);
+            font-variant-numeric: tabular-nums;
+        }
+
+        /*
+         * Vraagtekst.
+         */
+        &__question {
+            min-width: 0;
+
+            font-family: var(--font-heading);
+            font-size: var(--text-large);
+            font-weight: var(--fw-semibold);
+            line-height: 1.2;
+        }
+
+        /*
+         * Plus- en minicoon.
+         */
+        &__icon {
+            position: relative;
+
+            width: 1.25rem;
+            height: 1.25rem;
+
+            color: var(--text-primary);
+
+            &::before,
+            &::after {
+                content: "";
+
+                position: absolute;
+
+                top: 50%;
+                left: 0;
+
+                width: 100%;
+                height: 2px;
+
+                border-radius: 100px;
+                background: currentColor;
+
+                transition:
+                    transform
+                    var(--duration-fast)
+                    ease;
+            }
+
+            &::after {
+                transform: rotate(90deg);
+            }
+        }
+
+        /*
+         * Plus verandert in min.
+         */
+        &[open] &__icon::after {
+            transform: rotate(0);
+        }
+
+        /*
+         * Antwoord uitlijnen met de vraagtekst.
+         */
+        &__answer {
+            padding:
+                0
+                var(--faq-padding)
+                var(--faq-padding);
+
+            padding-inline-start: calc(
+                var(--faq-padding) +
+                var(--faq-number-size) +
+                var(--faq-gap)
+            );
+
+            color: var(--text-secondary);
+
+            :global(.text) {
+                margin: 0;
+                color: inherit;
+            }
+        }
+
+        /*
+         * Optionele weergave zonder nummer.
+         */
+        &--without-number {
+            .faq-item__summary {
+                grid-template-columns:
+                    minmax(0, 1fr)
+                    1.25rem;
+            }
+
+            .faq-item__answer {
+                padding-inline-start: var(--faq-padding);
+            }
+        }
+    }
+
+    @media (max-width: 48rem) {
+        .faq-item {
+            &__answer {
+                padding-inline-start: var(--faq-padding);
+            }
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .faq-item,
+        .faq-item__icon::before,
+        .faq-item__icon::after {
+            transition: none;
+        }
+    }
+</style>

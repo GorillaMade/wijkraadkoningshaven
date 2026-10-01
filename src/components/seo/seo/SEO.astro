@@ -1,0 +1,38 @@
+---
+/**
+ * SEO: één plek voor title, description, canonical, robots en social tags.
+ * Normaal hoef je dit component nooit direct te importeren: gebruik BaseLayout.
+ * Geef `noindex` alleen door wanneer een pagina niet geïndexeerd mag worden.
+ * Op niet-productie omgevingen staat indexering standaard uit via PUBLIC_SITE_ENV.
+ */
+import { business } from '@/data/business';
+import { siteConfig } from '@/config/site';
+interface Props {
+  title?: string; description?: string; canonical?: string;
+  noindex?: boolean; nofollow?: boolean; image?: string;
+  isHome?: boolean; type?: 'website' | 'article';
+}
+const { title, description = business.description, canonical, noindex = false,
+  nofollow = false, image = siteConfig.defaultOgImage, isHome = false,
+  type = 'website' } = Astro.props;
+const finalTitle = !title ? business.name : isHome || title.includes(business.name)
+  ? title : `${title} ${siteConfig.titleSeparator} ${business.name}`;
+const canonicalURL = new URL(canonical ?? Astro.url.pathname, Astro.site);
+const imageURL = image ? new URL(image, Astro.site) : undefined;
+const blockIndex = noindex || import.meta.env.PUBLIC_SITE_ENV === 'staging';
+---
+<title>{finalTitle}</title>
+<meta name="description" content={description} />
+<meta name="robots" content={`${blockIndex ? 'noindex' : 'index'},${nofollow ? 'nofollow' : 'follow'}`} />
+<link rel="canonical" href={canonicalURL} />
+<meta property="og:title" content={finalTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:type" content={type} />
+<meta property="og:url" content={canonicalURL} />
+<meta property="og:site_name" content={business.name} />
+<meta property="og:locale" content={siteConfig.ogLocale} />
+{imageURL && <meta property="og:image" content={imageURL} />}
+<meta name="twitter:card" content={imageURL ? 'summary_large_image' : 'summary'} />
+<meta name="twitter:title" content={finalTitle} />
+<meta name="twitter:description" content={description} />
+{imageURL && <meta name="twitter:image" content={imageURL} />}

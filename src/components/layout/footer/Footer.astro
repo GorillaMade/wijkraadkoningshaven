@@ -1,0 +1,297 @@
+
+---
+import { business } from '@/data/business';
+
+import Grid from '@/components/wrapper/Grid.astro';
+import Button from '@/components/ui/button/Button.astro';
+import Eyebrow from '@/components/typography/Eyebrow.astro';
+import Heading from '@/components/typography/Heading.astro';
+import Paragraph from '@/components/typography/Paragraph.astro';
+
+const navigation = [
+    { label: 'Over ons', href: '/over-ons/' },
+    { label: 'Nieuws', href: '/nieuws/' },
+    { label: 'Agenda', href: '/agenda/' },
+    { label: 'Media', href: '/media/' },
+    { label: 'Verrijk je wijk', href: '/verrijk-je-wijk/' },
+];
+
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer" data-theme="brand">
+    <div class="wrapper">
+        <!-- Grote afsluitende CTA -->
+        <div class="site-footer__cta">
+            <div class="flow site-footer__cta-content">
+                <Eyebrow label="Samen voor Koningshaven" />
+
+                <Heading
+                    tag="h2"
+                    variant="display"
+                    class="site-footer__statement"
+                >
+                    Een sterke wijk begint
+                    <em>bij ons samen.</em>
+                </Heading>
+
+                <Paragraph variant="large">
+                    Een idee, vraag of initiatief? We horen graag van je.
+                </Paragraph>
+            </div>
+
+            <div class="site-footer__cta-action">
+                <Button href="/contact/" variant="outline">
+                    Neem contact op
+                    <span aria-hidden="true">↗</span>
+                </Button>
+            </div>
+        </div>
+
+        <div class="site-footer__divider"></div>
+
+        <!-- Hoofdnavigatie en contact -->
+        <Grid
+            minItemSize="13rem"
+            placement="auto-fit"
+            gap="xl"
+            class="site-footer__grid"
+        >
+            <div class="site-footer__identity stack">
+                <a
+                    href="/"
+                    class="site-footer__logo"
+                    aria-label="Wijkraad Koningshaven - home"
+                >
+                    Wijkraad<br />
+                    Koningshaven<span aria-hidden="true">.</span>
+                </a>
+
+                <Paragraph>
+                    Hart voor Broekhoven 1, Fatima en Hoogvenne.
+                </Paragraph>
+            </div>
+
+            <nav
+                class="site-footer__column stack"
+                aria-label="Footernavigatie"
+            >
+                <Heading tag="h2" variant="h4">
+                    Ontdek
+                </Heading>
+
+                <ul class="site-footer__links">
+                    {navigation.map((item) => (
+                        <li>
+                            <a href={item.href}>{item.label}</a>
+                        </li>
+                    ))}
+                </ul>
+            </nav>
+
+            <div class="site-footer__column stack">
+                <Heading tag="h2" variant="h4">
+                    Bezoek ons
+                </Heading>
+
+                <address class="site-footer__address">
+                    Wijkcentrum Koningshaven<br />
+                    Kruisvaardersstraat 32D<br />
+                    Tilburg
+                </address>
+
+                <a
+                    class="site-footer__text-link"
+                    href="https://www.google.com/maps/search/?api=1&query=Kruisvaardersstraat+32D+Tilburg"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    Bekijk de route
+                    <span aria-hidden="true">↗</span>
+                </a>
+            </div>
+
+            <div class="site-footer__column stack">
+                <Heading tag="h2" variant="h4">
+                    Blijf betrokken
+                </Heading>
+
+                <Paragraph>
+                    Ontvang nieuws en updates uit onze wijk.
+                </Paragraph>
+
+                <a
+                    class="site-footer__text-link"
+                    href="https://stats.sender.net/forms/e31Xrp/view"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    Aanmelden nieuwsbrief
+                    <span aria-hidden="true">↗</span>
+                </a>
+            </div>
+        </Grid>
+
+        <!-- Onderste balk -->
+        <div class="site-footer__bottom">
+            <small>
+                © {year} {business.legalName}
+            </small>
+
+            <span class="site-footer__signature">
+                Met hart voor de wijk
+                <span aria-hidden="true">♡</span>
+            </span>
+        </div>
+    </div>
+</footer>
+
+<style lang="scss">
+    .site-footer {
+        padding-block:
+            clamp(4rem, 8vw, 8rem)
+            var(--space-m);
+
+        background: var(--surface-page);
+        color: var(--text-primary);
+
+        // Algemene links
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        a:focus-visible {
+            outline: 2px solid currentColor;
+            outline-offset: 5px;
+            border-radius: 2px;
+        }
+
+        &__cta {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            flex-wrap: wrap;
+
+            gap: var(--space-xl);
+
+            padding-bottom: clamp(3rem, 6vw, 6rem);
+        }
+
+        &__cta-content {
+            max-width: 55rem;
+        }
+
+        &__statement {
+            max-width: 14ch;
+        }
+
+        &__cta-action {
+            flex-shrink: 0;
+            padding-bottom: var(--space-xs);
+        }
+
+        &__divider {
+            height: 1px;
+            background: var(--border-default);
+        }
+
+        &__grid {
+            padding-block: clamp(3rem, 5vw, 5rem);
+        }
+
+        &__identity {
+            align-content: start;
+            max-width: 18rem;
+        }
+
+        &__logo {
+            display: inline-block;
+            width: fit-content;
+
+            font-size: clamp(1.75rem, 3vw, 2.5rem);
+            font-weight: var(--fw-bold);
+            line-height: 1.05;
+            letter-spacing: -0.045em;
+
+            span {
+                color: var(--text-brand);
+            }
+        }
+
+        &__column {
+            align-content: start;
+        }
+
+        &__links {
+            display: grid;
+            gap: var(--space-s);
+
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        &__links a,
+        &__text-link {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-xs);
+
+            width: fit-content;
+
+            color: var(--text-secondary);
+            transition:
+                color 200ms ease,
+                transform 200ms ease;
+
+            &:hover {
+                color: var(--text-primary);
+                transform: translateX(3px);
+            }
+        }
+
+        &__address {
+            color: var(--text-secondary);
+            font-style: normal;
+            line-height: 1.8;
+        }
+
+        &__text-link {
+            color: var(--text-brand);
+            font-weight: var(--fw-semibold);
+        }
+
+        &__bottom {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+
+            gap: var(--space-m);
+
+            padding-top: var(--space-l);
+            border-top: 1px solid var(--border-default);
+
+            color: var(--text-secondary);
+            font-size: var(--fs--2);
+        }
+
+        &__signature {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-xs);
+
+            span {
+                color: var(--text-brand);
+                font-size: 1.25rem;
+            }
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .site-footer a {
+            transition: none;
+        }
+    }
+</style>

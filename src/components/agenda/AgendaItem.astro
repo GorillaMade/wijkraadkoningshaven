@@ -1,0 +1,171 @@
+---
+import Eyebrow from '@/components/typography/Eyebrow.astro';
+import Heading from '@/components/typography/Heading.astro';
+import Paragraph from '@/components/typography/Paragraph.astro';
+import Button from '@/components/ui/button/Button.astro';
+import type { NieuwsEntry } from '@/lib/nieuws';
+import { googleCalendarUrl, nieuwsHref } from '@/lib/nieuws';
+
+const { post } = Astro.props as { post: NieuwsEntry };
+const event = post.data.event!;
+const calendarUrl = googleCalendarUrl(post)!;
+const href = nieuwsHref(post);
+const start = event.start;
+const day = new Intl.DateTimeFormat('nl-NL', { day: '2-digit' }).format(start);
+const month = new Intl.DateTimeFormat('nl-NL', { month: 'short' }).format(start).replace('.', '');
+const weekday = new Intl.DateTimeFormat('nl-NL', { weekday: 'long' }).format(start);
+const time = new Intl.DateTimeFormat('nl-NL', { hour: '2-digit', minute: '2-digit' }).format(start);
+---
+
+<article class="event-card">
+  <div class="event-card__date stack" aria-label={`${weekday} ${day} ${month}`}>
+    <span class="event-card__weekday">{weekday}</span>
+    <strong>{day}</strong>
+    <span class="event-card__month">{month}</span>
+  </div>
+
+  <div class="event-card__content stack">
+    <Eyebrow label="Evenement" />
+    <Heading tag="h2" variant="h3" class="event-card__title">
+      <a href={href}>{post.data.title}</a>
+    </Heading>
+    <Paragraph>{event.description ?? post.data.description}</Paragraph>
+
+    <div class="event-card__meta flex-group" aria-label="Evenementgegevens">
+      <span>🕒 {time} uur</span>
+      {event.location && <span>⌖ {event.location}</span>}
+    </div>
+
+    <div class="event-card__actions flex-group">
+      <Button href={href} variant="ghost">Bekijk activiteit</Button>
+      <Button href={calendarUrl} target="_blank" rel="noopener noreferrer" variant="outline">+ Google Agenda</Button>
+    </div>
+  </div>
+</article>
+
+<style lang="scss">
+  .event-card {
+    display: grid;
+    grid-template-columns: minmax(7.5rem, 9.5rem) 1fr;
+    gap: var(--space-l-xl);
+    align-items: stretch;
+    padding: var(--space-s);
+    overflow: hidden;
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-xl);
+    background: var(--surface-page);
+    box-shadow: var(--shadow-s);
+    transition: transform var(--duration-fast) var(--ease-ease-out), box-shadow var(--duration-fast) var(--ease-ease-out), border-color var(--duration-fast) var(--ease-ease-out);
+  }
+
+  .event-card:hover {
+    transform: translateY(-0.25rem);
+    border-color: var(--border-strong);
+    box-shadow: var(--shadow-l);
+  }
+
+  .event-card__date {
+    --stack-gap: var(--space-2xs);
+    min-height: 12rem;
+    padding: var(--space-m);
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border-radius: calc(var(--radius-xl) - var(--space-2xs));
+    background: var(--color-brand-700);
+    color: var(--color-neutral-50);
+  }
+
+  .event-card__date strong {
+    font-family: var(--font-heading);
+    font-size: clamp(3.5rem, 8vw, 6.5rem);
+    font-weight: var(--fw-heading);
+    line-height: .72;
+    letter-spacing: -.055em;
+  }
+
+  .event-card__weekday,
+  .event-card__month {
+    font-size: var(--text-small);
+    font-weight: var(--fw-semibold);
+    letter-spacing: .12em;
+    text-transform: uppercase;
+  }
+
+  .event-card__content {
+    --stack-gap: var(--space-s);
+    align-self: center;
+    padding: var(--space-m) var(--space-m) var(--space-m) 0;
+  }
+
+  .event-card__content :global(.text),
+  .event-card__content :global(.heading) {
+    margin: 0;
+  }
+
+  .event-card__title a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .event-card__title a::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  .event-card__title {
+    position: relative;
+  }
+
+  .event-card__meta {
+    --flex-group-gap: var(--space-xs-s);
+    color: var(--text-muted);
+    font-size: var(--text-small);
+    font-weight: var(--fw-semibold);
+  }
+
+  .event-card__meta span {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2xs);
+  }
+
+  .event-card__actions {
+    position: relative;
+    z-index: 1;
+    --flex-group-gap: var(--space-xs);
+    padding-block-start: var(--space-xs);
+  }
+
+  @media (max-width: 42rem) {
+    .event-card {
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+
+    .event-card__date {
+      min-height: auto;
+      flex-direction: row;
+      justify-content: flex-start;
+      padding: var(--space-s-m);
+      border-end-start-radius: var(--radius-m);
+      border-end-end-radius: var(--radius-m);
+    }
+
+    .event-card__date strong {
+      font-size: var(--heading-h2);
+      line-height: 1;
+      order: -1;
+    }
+
+    .event-card__weekday {
+      display: none;
+    }
+
+    .event-card__content {
+      padding: var(--space-m);
+    }
+  }
+</style>

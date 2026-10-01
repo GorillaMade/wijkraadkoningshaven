@@ -1,0 +1,207 @@
+// -----------------------------------------------------------------------------
+// Themes
+// -----------------------------------------------------------------------------
+// Defines theme-specific mappings for semantic color tokens.
+// Each theme exposes the same complete semantic color API.
+// -----------------------------------------------------------------------------
+
+[data-theme="light"] {
+    // Surfaces
+    --surface-page: var(--color-brand-50);
+    --surface-subtle: var(--color-brand-100);
+    --surface-emphasis: var(--color-secondary-500);
+    --surface-strong: var(--color-neutral-900);
+    --surface-brand: var(--color-brand-500);
+
+    // Text
+    --text-primary: var(--color-neutral-900);
+    --text-secondary: var(--color-neutral-700);
+    --text-muted: var(--color-neutral-500);
+    --text-inverse: var(--color-neutral-50);
+    --text-brand: var(--color-brand-700);
+
+    // Borders
+    --border-default: var(--color-neutral-200);
+    --border-strong: var(--color-neutral-400);
+    --border-inverse: var(--color-neutral-700);
+    --border-brand: var(--color-brand-600);
+
+    // Primary action
+    --action-primary: var(--color-brand-700);
+    --action-primary-hover: var(--color-brand-800);
+    --action-primary-active: var(--color-brand-900);
+    --action-primary-text: var(--color-neutral-50);
+
+    // Secondary action
+    --action-secondary: var(--color-neutral-900);
+    --action-secondary-hover: var(--color-neutral-800);
+    --action-secondary-active: var(--color-neutral-700);
+    --action-secondary-text: var(--color-neutral-50);
+
+    // Outline action
+    --action-outline: transparent;
+    --action-outline-hover: var(--surface-subtle);
+    --action-outline-active: var(--surface-emphasis);
+    --action-outline-text: var(--text-primary);
+    --action-outline-border: var(--border-strong);
+
+    // Ghost action
+    --action-ghost: transparent;
+    --action-ghost-hover: var(--surface-subtle);
+    --action-ghost-active: var(--surface-emphasis);
+    --action-ghost-text: var(--text-primary);
+
+    // Focus
+    --focus-color: var(--color-brand-500);
+}
+
+[data-theme="dark"] {
+    // Surfaces
+    --surface-page: var(--color-neutral-900);
+    --surface-subtle: var(--color-neutral-800);
+    --surface-emphasis: var(--color-neutral-700);
+    --surface-strong: var(--color-neutral-50);
+    --surface-brand: var(--color-brand-400);
+
+    // Text
+    --text-primary: var(--color-neutral-50);
+    --text-secondary: var(--color-neutral-300);
+    --text-muted: var(--color-neutral-400);
+    --text-inverse: var(--color-neutral-900);
+    --text-brand: var(--color-brand-300);
+
+    // Borders
+    --border-default: var(--color-neutral-700);
+    --border-strong: var(--color-neutral-500);
+    --border-inverse: var(--color-neutral-300);
+    --border-brand: var(--color-brand-400);
+
+    // Primary action
+    --action-primary: var(--color-brand-400);
+    --action-primary-hover: var(--color-brand-300);
+    --action-primary-active: var(--color-brand-200);
+    --action-primary-text: var(--color-neutral-900);
+
+    // Secondary action
+    --action-secondary: var(--color-neutral-50);
+    --action-secondary-hover: var(--color-neutral-100);
+    --action-secondary-active: var(--color-neutral-200);
+    --action-secondary-text: var(--color-neutral-900);
+
+    // Outline action
+    --action-outline: transparent;
+    --action-outline-hover: var(--surface-subtle);
+    --action-outline-active: var(--surface-emphasis);
+    --action-outline-text: var(--text-primary);
+    --action-outline-border: var(--border-strong);
+
+    // Ghost action
+    --action-ghost: transparent;
+    --action-ghost-hover: var(--surface-subtle);
+    --action-ghost-active: var(--surface-emphasis);
+    --action-ghost-text: var(--text-primary);
+
+    // Focus
+    --focus-color: var(--color-brand-400);
+}
+
+[data-theme="secondary"] {
+    // Surfaces
+    --surface-page: var(--color-secondary-500);
+    --surface-subtle: var(--color-secondary-300);
+    --surface-emphasis: var(--color-secondary-700);
+    --surface-strong: var(--color-neutral-900);
+    --surface-brand: var(--color-brand-500);
+
+    // Text
+    --text-primary: var(--color-neutral-900);
+    --text-secondary: var(--color-neutral-700);
+    --text-muted: var(--color-neutral-600);
+    --text-inverse: var(--color-secondary-50);
+    --text-brand: var(--color-brand-800);
+
+    // Borders
+    --border-default: var(--color-secondary-600);
+    --border-strong: var(--color-secondary-800);
+    --border-inverse: var(--color-neutral-700);
+    --border-brand: var(--color-brand-700);
+
+    // Primary action
+    --action-primary: var(--color-neutral-900);
+    --action-primary-hover: var(--color-neutral-800);
+    --action-primary-active: var(--color-neutral-700);
+    --action-primary-text: var(--color-secondary-50);
+
+    // Secondary action
+    --action-secondary: var(--color-secondary-700);
+    --action-secondary-hover: var(--color-secondary-800);
+    --action-secondary-active: var(--color-secondary-900);
+    --action-secondary-text: var(--color-secondary-50);
+
+    // Outline action
+    --action-outline: transparent;
+    --action-outline-hover: var(--surface-subtle);
+    --action-outline-active: var(--surface-emphasis);
+    --action-outline-text: var(--text-primary);
+    --action-outline-border: var(--border-strong);
+
+    // Ghost action
+    --action-ghost: transparent;
+    --action-ghost-hover: var(--surface-subtle);
+    --action-ghost-active: var(--surface-emphasis);
+    --action-ghost-text: var(--text-primary);
+
+    // Focus
+    --focus-color: var(--color-neutral-900);
+}
+
+[data-theme="brand"] {
+    // Surfaces
+    --surface-page: var(--color-brand-700);
+    --surface-subtle: var(--color-brand-600);
+    --surface-emphasis: var(--color-brand-700);
+    --surface-strong: var(--color-neutral-900);
+    --surface-brand: var(--color-brand-600);
+
+    // Text
+    --text-primary: var(--color-neutral-50);
+    --text-secondary: var(--color-brand-100);
+    --text-muted: var(--color-brand-200);
+    --text-inverse: var(--color-brand-50);
+    --text-brand: var(--color-neutral-50);
+    --heading-highlight: #f1d56d;
+
+    // Borders
+    --border-default: var(--color-brand-500);
+    --border-strong: var(--color-brand-300);
+    --border-inverse: var(--color-neutral-700);
+    --border-brand: var(--color-brand-900);
+
+    // Primary action
+    --action-primary: var(--color-neutral-900);
+    --action-primary-hover: var(--color-neutral-800);
+    --action-primary-active: var(--color-neutral-700);
+    --action-primary-text: var(--color-brand-50);
+
+    // Secondary action
+    --action-secondary: var(--color-brand-700);
+    --action-secondary-hover: var(--color-brand-800);
+    --action-secondary-active: var(--color-brand-900);
+    --action-secondary-text: var(--color-brand-50);
+
+    // Outline action
+    --action-outline: transparent;
+    --action-outline-hover: var(--surface-subtle);
+    --action-outline-active: var(--surface-emphasis);
+    --action-outline-text: var(--text-primary);
+    --action-outline-border: var(--border-strong);
+
+    // Ghost action
+    --action-ghost: transparent;
+    --action-ghost-hover: var(--surface-subtle);
+    --action-ghost-active: var(--surface-emphasis);
+    --action-ghost-text: var(--text-primary);
+
+    // Focus
+    --focus-color: var(--color-neutral-900);
+}

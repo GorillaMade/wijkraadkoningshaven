@@ -1,0 +1,131 @@
+---
+import Section from '@/components/wrapper/Section.astro';
+import Grid from '@/components/wrapper/Grid.astro';
+import Button from '@/components/ui/button/Button.astro';
+import Eyebrow from '@/components/typography/Eyebrow.astro';
+import Heading from '@/components/typography/Heading.astro';
+import Paragraph from '@/components/typography/Paragraph.astro';
+---
+    <Section class="hero" paddingTop="xl" paddingBottom="xl" width="xl">
+      <Grid layout="halves" gap="xl" class="hero__grid">
+        <div class="flow hero__copy">
+          <Eyebrow label="Broekhoven 1 · Fatima · Hoogvenne" />
+          <Heading tag="h1" variant="display" class="hero__title">Drie buurten.<br /><span>Één hart.</span></Heading>
+          <Paragraph variant="large" maxWidth={54}>Wijkraad Koningshaven brengt bewoners, organisaties en gemeente bij elkaar. Voor ideeën die de buurt sterker maken, signalen die gehoord moeten worden en activiteiten die mensen verbinden.</Paragraph>
+          <div class="flex-group">
+              <Button href="/verrijk-je-wijk/">Verrijk je wijk</Button>
+              <Button href="/contact/" variant="outline">Vertel wat er speelt</Button>
+          </div>
+        </div>
+        <div class="hero__map" aria-label="De drie buurten van Koningshaven">
+          <div class="district district--a"><span>01</span><strong>Broekhoven 1</strong></div>
+          <div class="district district--b"><span>02</span><strong>Fatima</strong></div>
+          <div class="district district--c"><span>03</span><strong>Hoogvenne</strong></div>
+          <div class="hero__badge"><small>Sinds</small><b>1995</b><small>actief voor<br />de wijk</small></div>
+        </div>
+      </Grid>
+    </Section>
+<style lang="scss">
+  .hero__title span {
+    color: var(--brand-700)
+  }
+
+  .hero__copy {
+    padding-block: var(--space-l)
+  }
+
+  .hero__map {
+    position: relative;
+    min-height: 36rem;
+    background: #00409a;
+    border-radius: 2rem;
+    overflow: hidden;
+    isolation: isolate;
+    box-shadow: 0 1.5rem 4rem rgba(0, 64, 154, .16)
+  }
+
+  .district {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 1.35rem;
+    border-radius: 2rem;
+    color: #111;
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .06);
+    transform: rotate(var(--r));
+    transition: transform .25s ease
+  }
+
+  .district:hover {
+    transform: rotate(0) translateY(-4px)
+  }
+
+  .district span {
+    font-size: .8rem;
+    font-weight: 800;
+    letter-spacing: .08em
+  }
+
+  .district strong {
+    font-size: clamp(1.4rem, 2.5vw, 2.4rem);
+    line-height: .95
+  }
+
+  .district--a {
+    --r: -5deg;
+    left: 7%;
+    top: 8%;
+    width: 52%;
+    height: 43%;
+    background: #d9e8ff
+  }
+
+  .district--b {
+    --r: 4deg;
+    right: 5%;
+    top: 22%;
+    width: 42%;
+    height: 42%;
+    background: #d9e8ff
+  }
+
+  .district--c {
+    --r: -2deg;
+    left: 20%;
+    bottom: 4%;
+    width: 57%;
+    height: 38%;
+    background: #b9d4ff
+  }
+
+  .hero__badge {
+    position: absolute;
+    right: 4%;
+    bottom: 5%;
+    z-index: 3;
+    width: 8.5rem;
+    height: 8.5rem;
+    border-radius: 50%;
+    background: #fff;
+    display: grid;
+    place-content: center;
+    text-align: center;
+    transform: rotate(8deg)
+  }
+
+  .hero__badge b {
+    font-size: 2rem;
+    color: #00409a;
+    line-height: 1
+  }
+
+  .hero__badge small {
+    text-transform: uppercase;
+    font-weight: 800;
+    letter-spacing: .08em;
+    font-size: .65rem
+  }
+
+
+</style>

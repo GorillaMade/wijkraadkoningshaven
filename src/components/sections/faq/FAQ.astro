@@ -1,0 +1,67 @@
+---
+import Section from '@/components/wrapper/Section.astro';
+import Grid from '@/components/wrapper/Grid.astro';
+import Eyebrow from '@/components/typography/Eyebrow.astro';
+import Heading from '@/components/typography/Heading.astro';
+import Paragraph from '@/components/typography/Paragraph.astro';
+import FaqItem from '@/components/ui/faq/FaqItem.astro';
+import { faqGroups } from '@/data/faqs';
+
+type Theme = 'inherit' | 'light' | 'dark' | 'secondary' | 'brand';
+type Group = 'Algemene vragen' | 'Verrijk je wijk';
+
+interface Props {
+    group?: Group;
+    theme?: Theme;
+    heading?: string;
+    description?: string;
+}
+
+const {
+    group = 'Algemene vragen',
+    theme = 'light',
+    heading = 'Veelgestelde vragen.',
+    description = 'Een snel antwoord op vragen die we regelmatig uit de wijk krijgen.',
+} = Astro.props;
+
+const items = faqGroups.find((item) => item.title === group)?.items ?? [];
+const accordionName = `faq-${Astro.url.pathname.replace(/[^a-z0-9]/gi, '-')}-${group.replace(/[^a-z0-9]/gi, '-')}`;
+---
+
+<Section theme={theme} width="xl" paddingTop="xl" paddingBottom="xl" class="faq-section">
+    <Grid layout="halves" gap="xl">
+        <div class="faq-intro flow">
+            <Eyebrow label={group} />
+            <Heading tag="h2" variant="h1">{heading}</Heading>
+            <Paragraph variant="large">{description}</Paragraph>
+        </div>
+
+        <div class="faq-list stack">
+            {items.map(({ question, answer }, index) => (
+                <FaqItem question={question} number={index + 1} name={accordionName}>
+                    <Paragraph>{answer}</Paragraph>
+                </FaqItem>
+            ))}
+        </div>
+    </Grid>
+</Section>
+
+<style lang="scss">
+    .faq-intro {
+        position: sticky;
+        top: var(--space-xl);
+        align-self: start;
+        max-width: 32rem;
+    }
+
+    .faq-list {
+        --stack-gap: var(--space-xs);
+        min-width: 0;
+    }
+
+    @media (max-width: 48rem) {
+        .faq-intro {
+            position: static;
+        }
+    }
+</style>

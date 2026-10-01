@@ -1,0 +1,23 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Eyebrow from '@/components/typography/Eyebrow.astro';
+import Heading from '@/components/typography/Heading.astro';
+import Paragraph from '@/components/typography/Paragraph.astro';
+import Section from '@/components/wrapper/Section.astro';
+import Grid from '@/components/wrapper/Grid.astro';
+import NewsCard from '@/components/news/NewsCard.astro';
+const news=(await getCollection('nieuws')).sort((a,b)=>b.data.date.getTime()-a.data.date.getTime());
+---
+<BaseLayout title="Nieuws" description="Nieuws, activiteiten en updates van Wijkraad Koningshaven.">
+    <Section width="xl" paddingTop="xl" paddingBottom="l">
+        <Eyebrow label="Uit de wijk"/>
+        <Heading tag="h1" variant="display">Nieuws, plannen<br/>en <em>momenten.</em></Heading>
+        <Paragraph variant="large">Blijf op de hoogte van wat er speelt in Broekhoven 1, Fatima en Hoogvenne.</Paragraph>
+    </Section>
+    <Section width="xl" paddingTop="m">
+        <Grid layout="thirds" gap="l">
+            {news.map(post=><NewsCard post={post}/>)}
+        </Grid>
+    </Section>
+</BaseLayout>

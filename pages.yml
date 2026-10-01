@@ -1,0 +1,152 @@
+
+# .pages.yml
+
+media:
+  - name: uploads
+    label: Afbeeldingen
+    input: public/uploads
+    output: /uploads
+    categories:
+      - image
+    extensions:
+      - jpg
+      - jpeg
+      - png
+      - webp
+    rename: safe
+
+content:
+  # Nieuws
+  - name: nieuws
+    label: Nieuws
+    type: collection
+    path: src/content/nieuws
+    format: yaml-frontmatter
+    filename: "{primary}.md"
+
+    view:
+      fields:
+        - title
+        - date
+        - description
+      primary: title
+      sort:
+        - date
+        - title
+      default:
+        sort: date
+        order: desc
+
+    fields:
+      - name: title
+        label: Titel
+        type: string
+        required: true
+
+      - name: description
+        label: Korte omschrijving
+        type: text
+        required: true
+
+      - name: date
+        label: Publicatiedatum
+        type: date
+        required: true
+
+      - name: image
+        label: Omslagafbeelding
+        type: image
+        options:
+          media: uploads
+
+      - name: imageAlt
+        label: Alternatieve tekst afbeelding
+        type: string
+
+      - name: tags
+        label: Tags
+        type: string
+        list: true
+
+      - name: event
+        label: Evenement
+        type: object
+        fields:
+          - name: start
+            label: Startdatum
+            type: date
+            required: true
+
+          - name: end
+            label: Einddatum
+            type: date
+
+          - name: location
+            label: Locatie
+            type: string
+
+          - name: description
+            label: Omschrijving
+            type: text
+
+      - name: seo
+        label: SEO
+        type: object
+        fields:
+          - name: title
+            label: SEO-titel
+            type: string
+
+          - name: description
+            label: SEO-omschrijving
+            type: text
+
+          - name: noindex
+            label: Niet indexeren
+            type: boolean
+            default: false
+
+      - name: body
+        label: Inhoud
+        type: rich-text
+
+  # Fotoalbums
+  - name: media
+    label: Fotoalbums
+    type: collection
+    path: src/content/media
+    format: yaml-frontmatter
+    filename: "{primary}.md"
+
+    view:
+      fields:
+        - title
+        - description
+      primary: title
+
+    fields:
+      - name: title
+        label: Albumtitel
+        type: string
+        required: true
+
+      - name: description
+        label: Omschrijving
+        type: text
+        required: true
+
+      - name: images
+        label: Foto's
+        type: object
+        list: true
+        fields:
+          - name: src
+            label: Afbeelding
+            type: image
+            required: true
+            options:
+              media: uploads
+
+          - name: alt
+            label: Alternatieve tekst
+            type: string

@@ -1,0 +1,5 @@
+@layer base, patterns, utilities;
+
+@import "./base.css" layer(base);
+@import "./patterns.css" layer(patterns);
+@import "./utilities.css" layer(utilities);

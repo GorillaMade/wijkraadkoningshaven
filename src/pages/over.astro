@@ -1,0 +1,105 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Eyebrow from '@/components/typography/Eyebrow.astro';
+import Heading from '@/components/typography/Heading.astro';
+import Paragraph from '@/components/typography/Paragraph.astro';
+import Grid from '@/components/wrapper/Grid.astro';
+import Section from '@/components/wrapper/Section.astro';
+import Button from '@/components/ui/button/Button.astro';
+import Pillar from '@/components/ui/pillar/Pillar.astro';
+import TeamCard from '@/components/team/TeamCard.astro';
+import { team } from '@/data/team';
+---
+<BaseLayout title="Over de wijkraad" description="Lees wie Stichting Wijkraad Koningshaven is en wat we doen voor Broekhoven 1, Fatima en Hoogvenne.">
+    <Section width="xl" paddingTop="xl">
+        <Eyebrow label="Sinds 12 mei 1995" />
+        <Heading tag="h1" variant="display">Hart voor<br/><em>Koningshaven.</em></Heading>
+        <Paragraph variant="large">Stichting Wijkraad Koningshaven zet zich in voor bewoners van Broekhoven 1, Fatima en Hoogvenne — en voor alles wat hun woonomgeving sterker, socialer en leefbaarder maakt.</Paragraph>
+    </Section>
+<Section width="xl" theme="brand">
+    <Grid layout="halves" gap="xl" class="split">
+        <div>
+            <Eyebrow label="Sinds 12 mei 1995" />
+            <Heading tag="h2" variant="h1">Een wijkraad die dicht bij de buurt blijft.</Heading>
+        </div>
+        <div class="flow">
+            <Paragraph variant="large">De stichting is statutair opgericht op 12 mei 1995 en heeft haar zetel in Wijkcentrum Koningshaven aan de Kruisvaardersstraat 32D in Tilburg.</Paragraph>
+            <Paragraph>De aandacht gaat onder meer uit naar wonen en woonomgeving, volkshuisvesting en ruimtelijke ordening, sociale en culturele activiteiten, onderwijs, hulpverlening en volksgezondheid, recreatie en bredere maatschappelijke ontwikkelingen.</Paragraph>
+            <Button href="/contact/" variant="primary">Praat met ons</Button>
+        </div>
+    </Grid>
+</Section>
+<Section width="xl">
+    <div class="flow pillars-intro">
+        <Eyebrow label="Wat we doen" />
+
+        <Heading tag="h2" variant="h1">
+            Vier manieren waarop we
+            <em>het verschil maken.</em>
+        </Heading>
+
+        <Paragraph variant="large">
+            We luisteren naar de wijk, verbinden mensen en
+            helpen goede ideeën verder.
+        </Paragraph>
+    </div>
+
+    <Grid layout="halves" gap="l">
+        <Pillar number={1} title="Luisteren">
+            <Paragraph>
+                We halen vragen, ideeën en signalen op uit
+                de straten en buurten.
+            </Paragraph>
+        </Pillar>
+
+        <Pillar number={2} title="Verbinden">
+            <Paragraph>
+                We brengen bewoners, organisaties,
+                ondernemers en gemeente bij elkaar.
+            </Paragraph>
+        </Pillar>
+
+        <Pillar number={3} title="Ondersteunen">
+            <Paragraph>
+                We helpen bewonersinitiatieven en activiteiten
+                verder, onder andere via Verrijk je Wijk.
+            </Paragraph>
+        </Pillar>
+
+        <Pillar number={4} title="Vertegenwoordigen">
+            <Paragraph>
+                We vragen aandacht voor onderwerpen die
+                belangrijk zijn voor de leefbaarheid
+                van Koningshaven.
+            </Paragraph>
+        </Pillar>
+    </Grid>
+</Section>
+<Section theme="light" width="xl">
+    <div class="team-head flow">
+        <Eyebrow label="De wijkraad" />
+        <Heading tag="h2" variant="h1">Mensen uit en voor de wijk.</Heading>
+        <Paragraph>Maak kennis met de mensen achter Wijkraad Koningshaven.</Paragraph>
+    </div>
+    <Grid layout="thirds" gap="m" class="team">
+        {team.map(member=><TeamCard member={member}/>)}
+    </Grid>
+</Section>
+</BaseLayout>
+
+<style lang="scss">
+  em {
+    font-family: var(--font-heading);
+    font-weight: inherit
+  }
+
+.pillars-intro {
+    max-width: 46rem;
+    margin-bottom: clamp(2.5rem, 5vw, 4.5rem);
+
+}
+
+  .team {
+    margin-top: var(--space-xl)
+  }
+</style>

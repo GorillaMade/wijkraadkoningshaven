@@ -1,0 +1,99 @@
+
+---
+/**
+ * Pillar
+ *
+ * Compact inhoudsblok voor pijlers en stappen.
+ *
+ * Voorbeelden:
+ *
+ * <Pillar number={1} title="Maak je plan concreet">
+ *     <Paragraph>Beschrijving...</Paragraph>
+ * </Pillar>
+ *
+ * <Pillar title="Een leefbare wijk">
+ *     <Paragraph>Beschrijving...</Paragraph>
+ * </Pillar>
+ */
+
+import Heading from '@/components/typography/Heading.astro';
+
+interface Props {
+    number?: string | number;
+    title: string;
+    headingTag?: 'h2' | 'h3' | 'h4';
+}
+
+const {
+    number,
+    title,
+    headingTag = 'h3',
+} = Astro.props;
+
+const formattedNumber =
+    number !== undefined
+        ? String(number).padStart(2, '0')
+        : undefined;
+---
+
+<article class="pillar">
+    {
+        formattedNumber && (
+            <span class="pillar__number" aria-hidden="true">
+                {formattedNumber}
+            </span>
+        )
+    }
+
+    <div class="pillar__content">
+        <Heading tag={headingTag} variant="h3">
+            {title}
+        </Heading>
+
+        <div class="pillar__description">
+            <slot />
+        </div>
+    </div>
+</article>
+
+<style lang="scss">
+    .pillar {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-m);
+
+        min-width: 0;
+        padding-top: var(--space-m);
+
+        border-top: 3px solid var(--text-brand);
+
+        color: var(--text-primary);
+
+        &__number {
+            color: var(--text-brand);
+
+            font-size: var(--text-small);
+            font-weight: var(--fw-semibold);
+            line-height: 1;
+            font-variant-numeric: tabular-nums;
+        }
+
+        &__content {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-s);
+
+            width: 100%;
+        }
+
+        &__description {
+            color: var(--text-secondary);
+
+            :global(.text) {
+                margin: 0;
+                color: inherit;
+            }
+        }
+    }
+</style>

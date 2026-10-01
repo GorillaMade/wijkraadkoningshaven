@@ -1,0 +1,114 @@
+---
+import Section from '@/components/wrapper/Section.astro';
+import Grid from '@/components/wrapper/Grid.astro';
+import Eyebrow from '@/components/typography/Eyebrow.astro';
+import Heading from '@/components/typography/Heading.astro';
+import Paragraph from '@/components/typography/Paragraph.astro';
+const cards=[
+ {label:'Jouw initiatief',title:'Verrijk je wijk',description:'Van een goed idee naar iets moois voor jouw buurt.',href:'/verrijk-je-wijk/',action:'Start jouw idee',number:'01'},
+ {label:'We luisteren',title:'Laat van je horen',description:'Deel je vraag, signaal of voorstel met de wijkraad.',href:'/contact/',action:'Neem contact op',number:'02'},
+ {label:'Samen beleven',title:'Doe mee in de wijk',description:'Ontdek activiteiten, bijeenkomsten en ontmoetingen.',href:'/agenda/',action:'Bekijk de agenda',number:'03'}
+];
+---
+<Section width="xl" class="action-cards">
+  <div class="flow action-cards__intro">
+    <Eyebrow label="Begin hier" />
+    <Heading tag="h2" variant="h1">Wat kunnen we <em>samen doen?</em></Heading>
+    <Paragraph variant="large">Kies wat bij jou past. Elke verandering begint met een eerste stap.</Paragraph>
+  </div>
+  <Grid layout="thirds" gap="l">
+      {cards.map(card => (
+        <a
+          href={card.href}
+          class="action-card alpine-reveal"
+          x-data="{ visible: false, active: false }"
+          x-intersect.once="visible = true"
+          x-on:mouseenter="active = true"
+          x-on:mouseleave="active = false"
+          x-on:focusin="active = true"
+          x-on:focusout="active = false"
+          x-bind:data-theme="active ? 'brand' : null"
+          x-bind:class="visible && 'is-visible'"
+        >
+          <div class="repel">
+            <Eyebrow label={card.label} />
+            <span class="action-card__arrow" aria-hidden="true">↗</span>
+          </div>
+
+          <div class="flow">
+            <Heading tag="h3" variant="h3">{card.title}</Heading>
+            <Paragraph>{card.description}</Paragraph>
+          </div>
+
+          <span class="action-card__link">
+            {card.action} →
+          </span>
+        </a>
+      ))}
+  </Grid>
+</Section>
+
+<style lang="scss">
+
+.action-cards__intro {
+    margin-block-end: var(--space-l);
+}
+
+.action-card {
+    min-height: 21rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: var(--space-l);
+
+    padding: clamp(1.5rem, 3vw, 2.4rem);
+    border: 1px solid var(--border-default);
+    border-radius: 1.5rem;
+
+    background: var(--surface-subtle);
+    color: var(--text-primary);
+    text-decoration: none;
+
+    transition:
+        background 300ms ease,
+        color 300ms ease,
+        border-color 300ms ease,
+        transform 300ms ease,
+        box-shadow 300ms ease;
+
+    &:hover,
+    &:focus-visible {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-lg);
+    }
+
+    &:focus-visible {
+        outline: 3px solid var(--color-brand-500);
+        outline-offset: 3px;
+    }
+
+    &__arrow {
+        font-size: 2rem;
+        transition: transform 300ms ease;
+    }
+
+    &:hover &__arrow,
+    &:focus-visible &__arrow {
+        transform: translate(4px, -4px);
+    }
+
+    &__link {
+        padding-top: var(--space-m);
+        border-top: 1px solid currentColor;
+        font-weight: var(--fw-semibold);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .action-card,
+    .action-card__arrow {
+        transition: none;
+    }
+}
+
+</style>

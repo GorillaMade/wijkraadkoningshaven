@@ -1,0 +1,122 @@
+
+---
+import { siteConfig } from "@/config/site";
+
+interface Props {
+    name?: string;
+    href?: string;
+    logo?: string;
+    alt?: string;
+    variant?: "default" | "light" | "dark";
+    hideNameOnSmallScreens?: boolean;
+    class?: string;
+}
+
+const {
+    name = siteConfig.name,
+    href = "/",
+    logo,
+    alt = "",
+    variant = "default",
+    hideNameOnSmallScreens = false,
+    class: className,
+} = Astro.props;
+---
+
+<a
+    class:list={[
+        "brand",
+        className,
+        {
+            "brand--compact": hideNameOnSmallScreens,
+        },
+    ]}
+    href={href}
+    aria-label={`${name} – naar de homepage`}
+    data-variant={variant}
+>
+    {
+        logo && (
+            <img
+                class="brand__logo"
+                src={logo}
+                alt={alt}
+                decoding="async"
+            />
+        )
+    }
+
+    <span class="brand__name">
+        {name}
+    </span>
+</a>
+
+<style lang="scss">
+    .brand {
+        display: inline-flex;
+        align-items: center;
+        flex-shrink: 0;
+        gap: var(--space-xs);
+
+        min-width: 0;
+
+        color: var(--text-primary, currentColor);
+        text-decoration: none;
+
+        &__logo {
+            display: block;
+            flex-shrink: 0;
+
+            width: auto;
+            max-width: 100%;
+            height: var(--brand-height, 2.5rem);
+        }
+
+        &__name {
+            min-width: 0;
+
+            font-family: var(--font-anybody, inherit);
+            font-size: var(--fs-0);
+            font-weight: var(--fw-bold, 700);
+            line-height: 1.05;
+        }
+
+        &:focus-visible {
+            outline:
+                var(--focus-width, 2px) solid
+                var(--focus-color, currentColor);
+
+            outline-offset: var(--focus-offset, 4px);
+        }
+
+        &[data-variant="light"] {
+            color: var(--brand-light-color, white);
+        }
+
+        &[data-variant="dark"] {
+            color: var(--brand-dark-color, black);
+        }
+    }
+
+    /*
+     * Mobiel:
+     * Het merk neemt de beschikbare ruimte in,
+     * zodat de menuknop rechts blijft staan.
+     */
+    @media (max-width: 975px) {
+        .brand {
+            flex: 1 1 auto;
+        }
+    }
+
+    /*
+     * Optioneel:
+     * Verberg uitsluitend de merknaam op
+     * zeer smalle schermen.
+     */
+    @media (max-width: 450px) {
+        .brand--compact .brand__name {
+            display: none;
+        }
+    }
+</style>

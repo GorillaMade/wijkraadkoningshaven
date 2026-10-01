@@ -1,0 +1,140 @@
+---
+/**
+ * <Button href="/contact/" variant="primary">Contact</Button> -> link.
+ * <Button type="submit" variant="secondary">Verzenden</Button> -> button.
+ * Styling gebruikt data-variant/data-size en de globale semantische tokens.
+ */
+import type { HTMLAttributes } from 'astro/types';
+
+type Variant = 'primary' | 'secondary' | 'outline' | 'ghost';
+type Size = 'small' | 'medium' | 'large';
+
+// Gedeelde props voor zowel link als button
+type Base = {
+    variant?: Variant;
+    size?: Size;
+    fullWidth?: boolean;
+    class?: string;
+};
+
+// Met href wordt het een <a>, zonder href een <button>
+type LinkProps = Base &
+    Omit<HTMLAttributes<'a'>, 'class'> & {
+        href: string;
+    };
+
+type NativeButtonProps = Base &
+    Omit<HTMLAttributes<'button'>, 'class'> & {
+        href?: never;
+    };
+
+type Props = LinkProps | NativeButtonProps;
+
+const {
+    variant = 'primary',
+    size = 'medium',
+    fullWidth = false,
+    class: className,
+    ...rest
+} = Astro.props;
+
+const isLink = typeof rest.href === 'string';
+const linkProps = rest as LinkProps;
+const buttonProps = rest as NativeButtonProps;
+---
+
+{isLink ? (
+    <a
+        {...linkProps}
+        class:list={['button', className]}
+        data-variant={variant}
+        data-size={size}
+        data-full-width={fullWidth || undefined}
+    >
+        <slot />
+    </a>
+) : (
+    <button
+        {...buttonProps}
+        type={buttonProps.type ?? 'button'}
+        class:list={['button', className]}
+        data-variant={variant}
+        data-size={size}
+        data-full-width={fullWidth || undefined}
+    >
+        <slot />
+    </button>
+)}
+<style lang="scss">
+    .button {
+        --_bg: var(--action-primary);
+        --_hover: var(--action-primary-hover);
+        --_color: var(--action-primary-text);
+        --_border: transparent;
+        display: inline-flex;
+        gap: var(--space-2xs);
+        align-items: center;
+        justify-content: center;
+        min-block-size: 2.75rem;
+        padding: var(--space-xs) var(--space-m);
+        color: var(--_color);
+        background: var(--_bg);
+        border: 1px solid var(--_border);
+        border-radius: var(--radius-s);
+        font: inherit;
+        font-weight: var(--fw-semibold);
+        text-decoration: none;
+        cursor: pointer;
+        transition: background-color var(--duration-fast) ease-out;
+    }
+
+    .button:hover { background: var(--_hover); }
+
+    .button:focus-visible {
+        outline: var(--focus-width) solid var(--focus-color);
+        outline-offset: var(--focus-offset);
+    }
+
+    .button:disabled,
+    .button[aria-disabled="true"] {
+        opacity: .5;
+        cursor: not-allowed;
+    }
+
+    .button[data-variant="secondary"] {
+        --_bg: var(--action-secondary);
+        --_hover: var(--action-secondary-hover);
+        --_color: var(--action-secondary-text);
+    }
+
+    .button[data-variant="outline"] {
+        --_bg: var(--action-outline);
+        --_hover: var(--action-outline-hover);
+        --_color: var(--action-outline-text);
+        --_border: var(--action-outline-border);
+    }
+
+    .button[data-variant="ghost"] {
+        --_bg: var(--action-ghost);
+        --_hover: var(--action-ghost-hover);
+        --_color: var(--action-ghost-text);
+    }
+
+    .button[data-size="small"] {
+        min-block-size: 2.25rem;
+        padding: var(--space-2xs) var(--space-s);
+        font-size: var(--text-small);
+    }
+
+    .button[data-size="large"] {
+        min-block-size: 3.25rem;
+        padding: var(--space-xs) var(--space-l);
+        font-size: var(--text-large);
+    }
+
+    .button[data-full-width] { inline-size: 100%; }
+
+    @media (prefers-reduced-motion: reduce) {
+        .button { transition: none; }
+    }
+</style>

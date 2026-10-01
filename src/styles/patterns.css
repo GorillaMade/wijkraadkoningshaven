@@ -1,0 +1,309 @@
+.grid {
+  --_grid-placement: var(--grid-placement, auto-fill);
+  --_grid-min-item-size: var(--grid-min-item-size, 16rem);
+  --_grid-gap: var(--grid-gap, var(--gutter));
+  display: grid;
+  grid-template-columns: repeat(var(--_grid-placement), minmax(min(var(--_grid-min-item-size), 100%), 1fr));
+  gap: var(--_grid-gap);
+}
+
+.grid[data-layout=halves] {
+  --grid-placement: auto-fit;
+  --grid-min-item-size: clamp(16em, 50dvw, 32rem);
+}
+.grid[data-layout=thirds] {
+  --grid-placement: auto-fit;
+  --grid-min-item-size: clamp(16em, 33%, 24rem);
+}
+
+.overflow-scroller {
+  --_overflow-scroller-item-size: var(
+      --overflow-scroller-item-size,
+      18.75rem
+  );
+  --_overflow-scroller-gap: var(
+      --overflow-scroller-gap,
+      var(--gutter)
+  );
+  --_overflow-scroller-snap-type: var(
+      --overflow-scroller-snap-type,
+      x mandatory
+  );
+  --_overflow-scroller-snap-align: var(
+      --overflow-scroller-snap-align,
+      center
+  );
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: var(--_overflow-scroller-item-size);
+  gap: var(--_overflow-scroller-gap);
+  overflow-x: scroll;
+  scroll-snap-type: var(--_overflow-scroller-snap-type);
+}
+.overflow-scroller > * {
+  scroll-snap-align: var(--_overflow-scroller-snap-align);
+}
+
+.pile {
+  display: grid;
+  grid-template-areas: "pile";
+  place-items: center;
+}
+.pile > * {
+  grid-area: pile;
+}
+
+.prose {
+  --_prose-max-width: var(
+      --prose-max-width,
+      var(--container-s)
+  );
+  --_prose-flow-space: var(
+      --prose-flow-space,
+      var(--space-m)
+  );
+  width: 100%;
+  max-width: var(--_prose-max-width);
+  --flow-space: var(--_prose-flow-space);
+}
+
+.prose p {
+  color: var(--text-secondary);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  font-weight: var(--fw-body);
+  line-height: var(--lh-body);
+  letter-spacing: var(--ls-body);
+}
+
+.prose h2,
+.prose h3,
+.prose h4,
+.prose h5,
+.prose h6 {
+  color: var(--text-primary);
+  font-family: var(--font-heading);
+  font-weight: var(--fw-heading);
+  line-height: var(--lh-heading);
+  letter-spacing: var(--ls-heading);
+  text-wrap: balance;
+}
+
+.prose h2 {
+  font-size: var(--heading-h2);
+}
+
+.prose h3 {
+  font-size: var(--heading-h3);
+}
+
+.prose h4 {
+  font-size: var(--heading-h4);
+}
+
+.prose h5 {
+  font-size: var(--heading-h5);
+}
+
+.prose h6 {
+  font-size: var(--heading-h6);
+}
+
+.prose strong {
+  color: var(--text-primary);
+  font-weight: var(--fw-strong);
+}
+
+.prose em {
+  color: var(--text-secondary);
+}
+
+.prose a {
+  color: var(--text-brand);
+  text-decoration-thickness: 1px;
+  text-underline-offset: var(--space-3xs);
+  transition: color var(--duration-fast) var(--ease-ease-out);
+}
+
+.prose a:hover {
+  color: var(--text-primary);
+}
+
+.prose a:focus-visible {
+  outline: var(--focus-width) solid var(--focus-color);
+  outline-offset: var(--focus-offset);
+}
+
+.prose ul,
+.prose ol {
+  display: grid;
+  gap: var(--space-xs);
+  margin-block: 0;
+  padding-inline-start: var(--space-m);
+  color: var(--text-secondary);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: var(--lh-body);
+}
+
+.prose li::marker {
+  color: var(--text-brand);
+}
+
+.prose blockquote {
+  margin-inline: 0;
+  padding-inline-start: var(--space-m);
+  color: var(--text-primary);
+  border-inline-start: 2px solid var(--border-brand);
+  font-family: var(--font-heading);
+  font-size: var(--text-large);
+  font-weight: var(--fw-heading);
+  line-height: var(--lh-heading);
+  letter-spacing: var(--ls-heading);
+}
+
+.prose blockquote p {
+  color: inherit;
+  font: inherit;
+  letter-spacing: inherit;
+}
+
+.prose code {
+  font-family: var(--ff-mono);
+}
+
+.prose pre {
+  overflow-x: auto;
+  padding: var(--space-m);
+  background-color: var(--surface-subtle);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-m);
+  font-family: var(--ff-mono);
+  font-size: var(--text-small);
+  line-height: var(--lh-relaxed);
+}
+
+.prose pre code {
+  font-size: inherit;
+}
+
+.prose img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-m);
+}
+
+.prose hr {
+  width: 100%;
+  height: 1px;
+  background-color: var(--border-default);
+  border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .prose a {
+    transition: none;
+  }
+}
+.section {
+  padding-block: var(--section-space, var(--section-medium));
+  background-color: var(--surface-page);
+  color: var(--text-primary);
+}
+
+.section[data-space=small] {
+  --section-space: var(--section-small);
+}
+
+.section[data-space=large] {
+  --section-space: var(--section-large);
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--stack-gap, var(--gutter));
+}
+
+.switcher {
+  --_switcher-gap: var(--switcher-gap, var(--space-l-xl));
+  --_switcher-vertical-alignment: var(
+      --switcher-vertical-alignment,
+      flex-start
+  );
+  --_switcher-target-container-width: var(
+      --switcher-target-container-width,
+      40rem
+  );
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--_switcher-gap);
+  align-items: var(--_switcher-vertical-alignment);
+}
+.switcher > * {
+  flex-grow: 1;
+  flex-basis: calc((var(--_switcher-target-container-width) - 100%) * 999);
+}
+.switcher > :nth-child(n+3) {
+  flex-basis: 100%;
+}
+
+.with-aside {
+  --_with-aside-main-min-width: var(
+      --with-aside-main-min-width,
+      50%
+  );
+  --_with-aside-width: var(
+      --with-aside-width,
+      23rem
+  );
+  --_with-aside-gap: var(
+      --with-aside-gap,
+      var(--space-2xl-3xl)
+  );
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--_with-aside-gap);
+}
+.with-aside > :not(aside) {
+  flex-basis: 0;
+  flex-grow: 999;
+  min-inline-size: var(--_with-aside-main-min-width);
+}
+.with-aside > aside {
+  flex-basis: var(--_with-aside-width);
+  flex-grow: 1;
+}
+.with-aside[data-direction=reverse] {
+  flex-direction: row-reverse;
+}
+
+.wrapper {
+  --_wrapper-max-width: var(
+      --wrapper-max-width,
+      var(--container-large)
+  );
+  --_wrapper-gutter: var(
+      --wrapper-gutter,
+      var(--gutter)
+  );
+  width: min(100% - var(--_wrapper-gutter) * 2, var(--_wrapper-max-width));
+  margin-inline: auto;
+}
+
+.wrapper[data-width=small] {
+  --wrapper-max-width: var(--container-small);
+}
+
+.wrapper[data-width=medium] {
+  --wrapper-max-width: var(--container-medium);
+}
+
+.wrapper[data-width=large] {
+  --wrapper-max-width: var(--container-large);
+}
+
+.wrapper[data-width=xlarge] {
+  --wrapper-max-width: var(--container-xlarge);
+}

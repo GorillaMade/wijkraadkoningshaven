@@ -1,0 +1,75 @@
+---
+/**
+ * BASISLAYOUT — gebruik op iedere pagina.
+ *
+ * <BaseLayout title="Webdesign" description="Unieke beschrijving" />
+ * - canonical wordt automatisch bepaald vanuit het pad.
+ * - `noindex` voor pagina's die niet in Google mogen verschijnen.
+ * - `schemaType="Service"` voor een echte dienstpagina.
+ * - `schemaType="BlogPosting"` + publishedTime voor een artikel.
+ * - `additionalSchema` voor extra JSON-LD nodes (bijv. BreadcrumbList).
+ * - Configureer site in astro.config.mjs en src/config/site.ts.
+ * - Configureer organisatiegegevens in src/data/business.ts.
+ * - Importeer alleen de gegenereerde global.css, niet de Sass-entrypoints.
+ */
+import '@/styles/global.css';
+import SEO from '@/components/seo/seo/SEO.astro';
+import Schema from '@/components/seo/structured-data/Schema.astro';
+import Header from '@/components/layout/header/Header.astro';
+import Footer from '@/components/layout/footer/Footer.astro';
+import { siteConfig } from '@/config/site';
+import { business } from '@/data/business';
+type Node = Record<string, unknown>;
+interface Props {
+  title?: string; description?: string; canonical?: string; noindex?: boolean;
+  nofollow?: boolean; image?: string; isHome?: boolean;
+  schemaType?: 'WebPage' | 'Service' | 'BlogPosting';
+  publishedTime?: Date; modifiedTime?: Date;
+  additionalSchema?: Node | Node[];
+}
+const p = Astro.props;
+const canonicalURL = new URL(p.canonical ?? Astro.url.pathname, Astro.site);
+const schemaTitle = p.title ?? business.name;
+---
+<!doctype html>
+<html lang="nl" data-theme={siteConfig.defaultTheme}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content={siteConfig.themeColor} />
+    <SEO {...p} type={p.schemaType === 'BlogPosting' ? 'article' : 'website'} />
+    <Schema title={schemaTitle} description={p.description ?? business.description}
+      canonical={canonicalURL} type={p.schemaType} publishedTime={p.publishedTime}
+      modifiedTime={p.modifiedTime} additionalSchema={p.additionalSchema} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Ga naar hoofdinhoud</a>
+    <Header />
+    <main id="main"><slot /></main>
+    <Footer />
+    <script src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.4/dist/htmx.min.js" defer></script>
+    <script>
+      import Alpine from 'alpinejs';
+      import intersect from '@alpinejs/intersect';
+      Alpine.plugin(intersect);
+      Alpine.start();
+    </script>
+  </body>
+</html>
+<style lang="scss">
+  .skip-link { position: fixed; inset-block-start: 1rem; inset-inline-start: 1rem;
+    z-index: 9999; padding: .75rem 1rem; color: #fff; background: #111;
+    transform: translateY(-200%); }
+  .skip-link:focus { transform: translateY(0); }
+</style>
+
+<style is:global>
+@media(prefers-reduced-motion:no-preference){
+
+}
+</style>
+
+<style is:global>
+@media(prefers-reduced-motion:no-preference){.alpine-reveal{transition:opacity .65s ease,transform .65s ease}.alpine-reveal.is-visible{animation:alpine-appear .65s both}@keyframes alpine-appear{from{opacity:.35;transform:translateY(15px)}to{opacity:1;transform:translateY(0)}}}
+</style>

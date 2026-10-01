@@ -1,0 +1,37 @@
+---
+import Section from '@/components/wrapper/Section.astro';
+import Grid from '@/components/wrapper/Grid.astro';
+import Button from '@/components/ui/button/Button.astro';
+import Eyebrow from '@/components/typography/Eyebrow.astro';
+import Heading from '@/components/typography/Heading.astro';
+import Paragraph from '@/components/typography/Paragraph.astro';
+import ResponsiveImage from '@/components/ui/responsive-image/ResponsiveImage.astro';
+const image='/images/puishaven.avif';
+---
+<Section class="hero-modern" width="xl" paddingTop="xl" paddingBottom="xl">
+ <Grid layout="halves" gap="xl">
+  <div class="flow hero-modern__copy">
+   <Eyebrow label="Broekhoven 1 · Fatima · Hoogvenne"/>
+   <Heading tag="h1" variant="display">Drie buurten.<br/><em>Eén hart.</em></Heading>
+   <Paragraph variant="large" maxWidth={54}>Een wijk groeit wanneer mensen elkaar vinden. We verbinden ideeën, bewoners en organisaties om samen Koningshaven mooier te maken.</Paragraph>
+   <div class="flex-group"><Button href="/verrijk-je-wijk/">Verrijk je wijk</Button><Button href="/media/" variant="outline">Ontdek onze wijk</Button></div>
+  </div>
+  <div class="hero-modern__visual alpine-reveal" x-data="{ visible: false }" x-intersect.once="visible = true" :class="visible && 'is-visible'">
+   <ResponsiveImage src={image} alt="Bewoners ontmoeten elkaar tijdens het jubileum van Wijkraad Koningshaven"/>
+   <div class="hero-modern__badge"><small>Sinds</small><strong>1995</strong><small>Actief voor<br/>de wijk</small></div>
+   <span class="hero-modern__caption">Koningshaven · Mark Kieboom</span>
+  </div>
+ </Grid>
+</Section>
+<style lang="scss">
+.hero-modern__copy{align-self:center;padding-block:var(--space-l)}
+
+.hero-modern__visual{position:relative;isolation:isolate;min-height:clamp(26rem,44vw,39rem);border-radius:2rem;overflow:visible}
+.hero-modern__visual :global(img){width:100%;height:100%;position:absolute;inset:0;object-fit:cover;border-radius:2rem;box-shadow:0 28px 70px #00327525}
+.hero-modern__visual:after{content:'';position:absolute;inset:45% 0 0;border-radius:0 0 2rem 2rem;background:linear-gradient(transparent,#001c4599);pointer-events:none}
+.hero-modern__badge{position:absolute;right:-1rem;bottom:3rem;z-index:2;display:grid;place-content:center;text-align:center;width:9rem;height:9rem;border-radius:50%;background:white;box-shadow:0 12px 35px #00295530;transform:rotate(8deg);color:#00409a}
+.hero-modern__badge strong{font-size:2.3rem;line-height:1.1}
+.hero-modern__badge small{font-size:.7rem;text-transform:uppercase;font-weight:800;letter-spacing:.08em}
+.hero-modern__caption{position:absolute;z-index:2;bottom:1.5rem;left:1.5rem;color:white;font-size:.85rem;letter-spacing:.04em}
+@media(max-width:52rem){.hero-modern__badge{right:.5rem;bottom:2rem}}
+</style>

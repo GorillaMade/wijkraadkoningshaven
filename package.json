@@ -1,0 +1,28 @@
+{
+  "name": "gorillamade-core-starter",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "styles:build": "sass --no-source-map sass/base.scss:src/styles/base.css sass/patterns.scss:src/styles/patterns.css sass/utilities.scss:src/styles/utilities.css sass/global.scss:src/styles/global.css",
+    "styles:watch": "sass --watch --no-source-map sass/base.scss:src/styles/base.css sass/patterns.scss:src/styles/patterns.css sass/utilities.scss:src/styles/utilities.css sass/global.scss:src/styles/global.css",
+    "predev": "npm run styles:build",
+    "dev": "concurrently -k -n styles,astro \"npm:styles:watch\" \"astro dev\"",
+    "prebuild": "npm run styles:build",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "check": "astro check"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.7.4",
+    "astro": "^7.3.3",
+    "sass": "^1.92.1",
+    "alpinejs": "^3.14.9",
+    "@alpinejs/intersect": "^3.14.9"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.4",
+    "typescript": "^5.9.2",
+    "concurrently": "^9.2.1"
+  }
+}

@@ -1,0 +1,150 @@
+---
+/**
+ * Section — GorillaMade Design System
+ *
+ * Een semantische paginasectie met een interne wrapper.
+ *
+ * Voorbeelden:
+ *
+ * <Section>
+ *   <h2>Onze diensten</h2>
+ * </Section>
+ *
+ * <Section theme="dark" width="m" paddingTop="xl">
+ *   <h2>Over ons</h2>
+ * </Section>
+ *
+ * <Section as="div" paddingTop="none" gap="s">
+ *   <p>Compacte inhoud</p>
+ * </Section>
+ *
+ * <Section>
+ *   <Fragment slot="background">
+ *     <div class="decorative-background"></div>
+ *   </Fragment>
+ *
+ *   <h2>Hero</h2>
+ * </Section>
+ *
+ * Houd component-specifieke styling in de component
+ * die Section gebruikt. Section beheert uitsluitend
+ * de algemene layout.
+ */
+
+import type { HTMLAttributes } from "astro/types";
+
+type Space =
+    | "none"
+    | "2xs"
+    | "xs"
+    | "s"
+    | "m"
+    | "l"
+    | "xl"
+    | "2xl";
+
+type Theme =
+    | "inherit"
+    | "light"
+    | "dark"
+    | "secondary"
+    | "brand";
+
+type Width = "s" | "m" | "l" | "xl" | "full";
+
+interface Props extends HTMLAttributes<"section"> {
+    /** HTML-element. Gebruik 'div' als section semantisch niet past. */
+    as?: "section" | "div" | "article" | "aside";
+
+    /** Render de volledige sectie conditioneel. */
+    render?: boolean;
+
+    /** Semantisch kleurenthema uit het design system. */
+    theme?: Theme;
+
+    /** Verticale ruimte boven de inhoud. */
+    paddingTop?: Space;
+
+    /** Verticale ruimte onder de inhoud. */
+    paddingBottom?: Space;
+
+    /** Ruimte tussen directe kinderen. */
+    gap?: Space;
+
+    /** Horizontale uitlijning van de inhoud. */
+    align?: "start" | "center" | "end";
+
+    /** Geef de sectie minimaal de schermhoogte. */
+    fullHeight?: boolean;
+
+    /** Maximale breedte van de interne wrapper. */
+    width?: Width;
+
+    /** Extra class voor de interne wrapper. */
+    containerClass?: string;
+
+    /** Aanvullende attributen voor de interne wrapper. */
+    containerAttrs?: HTMLAttributes<"div">;
+}
+
+const {
+    as: Tag = "section",
+    render = true,
+    theme = "inherit",
+    paddingTop = "l",
+    paddingBottom = "l",
+    gap = "l",
+    align = "start",
+    fullHeight = false,
+    width = "l",
+    containerClass,
+    containerAttrs = {},
+    class: className,
+    ...rest
+} = Astro.props;
+
+const {
+    class: containerAttrsClass,
+    ...containerRest
+} = containerAttrs;
+
+const hasContent = Astro.slots.has("default");
+const hasBackground = Astro.slots.has("background");
+---
+
+{
+    render && (hasContent || hasBackground) && (
+        <Tag
+            {...rest}
+            class:list={["section", className]}
+            data-theme={theme === "inherit" ? undefined : theme}
+            data-padding-top={paddingTop}
+            data-padding-bottom={paddingBottom}
+            data-full-height={fullHeight || undefined}
+        >
+            {hasBackground && (
+                <div class="section__background" aria-hidden="true">
+                    <slot name="background" />
+                </div>
+            )}
+
+            {hasContent && (
+                <div
+                    {...containerRest}
+                    class:list={[
+                        "section__container",
+                        "wrapper",
+                        "flow",
+                        containerClass,
+                        containerAttrsClass,
+                    ]}
+                    data-width={width}
+                    data-gap={gap}
+                    data-align={align}
+                >
+                    <slot />
+                </div>
+            )}
+        </Tag>
+    )
+}

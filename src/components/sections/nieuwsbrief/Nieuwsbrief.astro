@@ -1,0 +1,74 @@
+---
+/**
+ * Nieuwsbrief — Wijkraad Koningshaven
+ *
+ * Herbruikbare nieuwsbriefsectie opgebouwd uit de bestaande
+ * GorillaMade Core Starter design-systemcomponenten.
+ *
+ * Standaard:
+ * <Nieuwsbrief />
+ *
+ * Variant:
+ * <Nieuwsbrief theme="brand" heading="Blijf betrokken bij Koningshaven." />
+ */
+import Section from '@/components/wrapper/Section.astro';
+import Grid from '@/components/wrapper/Grid.astro';
+import Eyebrow from '@/components/typography/Eyebrow.astro';
+import Heading from '@/components/typography/Heading.astro';
+import Paragraph from '@/components/typography/Paragraph.astro';
+import Button from '@/components/ui/button/Button.astro';
+
+type Theme = 'inherit' | 'light' | 'dark' | 'secondary' | 'brand';
+
+interface Props {
+    theme?: Theme;
+    eyebrow?: string;
+    heading?: string;
+    text?: string;
+    buttonLabel?: string;
+    href?: string;
+}
+
+const {
+    theme = 'brand',
+    eyebrow = 'Nieuwsbrief',
+    heading = 'Blijf op de hoogte van jouw buurt.',
+    text = 'Ontvang nieuws, evenementen en belangrijke updates uit Broekhoven 1, Fatima en Hoogvenne rechtstreeks in je inbox.',
+    buttonLabel = 'Schrijf je in voor de nieuwsbrief',
+    href = 'https://stats.sender.net/forms/e31Xrp/view',
+} = Astro.props;
+---
+
+<Section
+    theme={theme}
+    width="xl"
+    paddingTop="xl"
+    paddingBottom="xl"
+    gap="none"
+    class="nieuwsbrief"
+>
+    <Grid layout="halves" gap="xl" class="nieuwsbrief__grid">
+        <div class="stack nieuwsbrief__intro">
+            <Eyebrow label={eyebrow} />
+            <Heading tag="h2" variant="h1">{heading}</Heading>
+        </div>
+
+        <div class="stack nieuwsbrief__content">
+            <Paragraph variant="large" maxWidth={48}>{text}</Paragraph>
+            <Button
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                variant="outline"
+                size="large"
+            >
+                {buttonLabel}
+                <span aria-hidden="true">↗</span>
+            </Button>
+        </div>
+    </Grid>
+</Section>
+
+<style lang="scss">
+    .nieuwsbrief :global(.stack) { --stack-gap: var(--space-m); align-items: flex-start; }
+</style>

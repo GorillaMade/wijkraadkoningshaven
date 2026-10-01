@@ -1,0 +1,255 @@
+
+---
+/**
+ * MediaCard
+ *
+ * Fotoalbum met informatie die bij hover
+ * als overlay over de afbeelding verschijnt.
+ *
+ * Op apparaten zonder hover blijft
+ * de informatie standaard zichtbaar.
+ */
+
+import ResponsiveImage from '@/components/ui/responsive-image/ResponsiveImage.astro';
+import Heading from '@/components/typography/Heading.astro';
+import Paragraph from '@/components/typography/Paragraph.astro';
+
+type MediaAlbum = {
+    slug: string;
+    title: string;
+    description: string;
+    images: string[];
+};
+
+interface Props {
+    album: MediaAlbum;
+}
+
+const { album } = Astro.props;
+
+const imageCount = album.images.length;
+
+const photoLabel =
+    imageCount === 1
+        ? '1 foto'
+        : `${imageCount} foto's`;
+---
+
+<a
+    class="album alpine-reveal"
+    href={`/media/${album.slug}/`}
+    x-data="{ visible: false }"
+    x-intersect.once="visible = true"
+    :class="visible && 'is-visible'"
+>
+    <div class="album__image">
+        {
+            imageCount > 0 && (
+                <ResponsiveImage
+                    src={album.images[0]}
+                    alt=""
+                />
+            )
+        }
+
+        <span class="album__count">
+            {photoLabel}
+        </span>
+    </div>
+
+    <div class="album__overlay">
+        <div class="album__information">
+            <Paragraph variant="small">
+                Terugblik · Koningshaven
+            </Paragraph>
+
+            <Heading tag="h2" variant="h3">
+                {album.title}
+            </Heading>
+
+            <Paragraph>
+                {album.description}
+            </Paragraph>
+        </div>
+
+        <span class="album__link">
+            Bekijk album
+            <span aria-hidden="true">↗</span>
+        </span>
+    </div>
+</a>
+
+<style lang="scss">
+    .album {
+        position: relative;
+
+        display: block;
+        min-width: 0;
+
+        aspect-ratio: 4 / 3;
+        overflow: hidden;
+
+        border-radius: var(--radius-m);
+        background: var(--surface-subtle);
+
+        color: white;
+        text-decoration: none;
+
+        /*
+         * Afbeelding
+         */
+        &__image {
+            position: absolute;
+            inset: 0;
+
+            :global(img) {
+                display: block;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+
+                transition:
+                    transform 500ms ease;
+            }
+        }
+
+        /*
+         * Fototeller
+         */
+        &__count {
+            position: absolute;
+            top: var(--space-m);
+            right: var(--space-m);
+            z-index: 2;
+
+            padding:
+                var(--space-xs)
+                var(--space-s);
+
+            border-radius: var(--radius-s);
+
+            background: var(--surface-page);
+            color: var(--text-primary);
+
+            font-size: var(--text-small);
+            font-weight: var(--fw-semibold);
+            line-height: 1;
+        }
+
+        /*
+         * Overlay met informatie
+         */
+        &__overlay {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            gap: var(--space-m);
+
+            padding: clamp(1.25rem, 3vw, 2rem);
+
+            background:
+                linear-gradient(
+                    to top,
+                    rgb(0 25 55 / 95%) 0%,
+                    rgb(0 25 55 / 80%) 55%,
+                    rgb(0 25 55 / 30%) 100%
+                );
+
+            opacity: 0;
+            transform: translateY(12px);
+
+            transition:
+                opacity 300ms ease,
+                transform 300ms ease;
+        }
+
+        /*
+         * Tekst
+         */
+        &__information {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-s);
+
+            min-width: 0;
+
+            :global(h2),
+            :global(p) {
+                margin: 0;
+                color: inherit;
+            }
+
+            :global(p:first-child) {
+                font-size: var(--text-small);
+                font-weight: var(--fw-semibold);
+                letter-spacing: 0.06em;
+                text-transform: uppercase;
+                opacity: 0.8;
+            }
+        }
+
+        /*
+         * Bekijk-album-link
+         */
+        &__link {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-xs);
+
+            font-weight: var(--fw-semibold);
+        }
+
+        /*
+         * Hover en toetsenbordfocus
+         */
+        &:hover,
+        &:focus-visible {
+            .album__overlay {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            .album__image :global(img) {
+                transform: scale(1.04);
+            }
+        }
+
+        &:focus-visible {
+            outline:
+                var(--focus-width, 2px)
+                solid
+                var(--focus-color, currentColor);
+
+            outline-offset: var(--focus-offset, 4px);
+        }
+    }
+
+    /*
+     * Touchscreens:
+     * Toon de informatie altijd.
+     */
+    @media (hover: none) {
+        .album {
+            &__overlay {
+                opacity: 1;
+                transform: none;
+            }
+        }
+    }
+
+    /*
+     * Minder beweging wanneer gewenst.
+     */
+    @media (prefers-reduced-motion: reduce) {
+        .album {
+            &__overlay,
+            &__image :global(img) {
+                transition: none;
+            }
+        }
+    }
+</style>

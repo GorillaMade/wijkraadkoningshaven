@@ -1,0 +1,127 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Eyebrow from '@/components/typography/Eyebrow.astro';
+import Heading from '@/components/typography/Heading.astro';
+import Paragraph from '@/components/typography/Paragraph.astro';
+import Section from '@/components/wrapper/Section.astro';
+import Grid from '@/components/wrapper/Grid.astro';
+import FAQ from '@/components/sections/faq/FAQ.astro';
+import Button from '@/components/ui/button/Button.astro';
+import Pillar from '@/components/ui/pillar/Pillar.astro';
+---
+<BaseLayout title="Verrijk je wijk" description="Een idee voor Broekhoven 1, Fatima of Hoogvenne? Ontdek hoe je via Verrijk je Wijk ondersteuning kunt aanvragen.">
+  <Section theme="brand" width="xl" paddingTop="xl" paddingBottom="xl">
+    <Eyebrow label="Verrijk je wijk" />
+    <Heading tag="h1" variant="display">Goed idee?<br />Geef het <em>ruimte.</em></Heading>
+    <Paragraph variant="large">De gemeente Tilburg stimuleert bewonersinitiatieven die de sociale samenhang en leefbaarheid van straat, buurt of wijk versterken. Voor Koningshaven loopt die aanvraag via de wijkraad.</Paragraph><Button href="#aanvraag" variant="secondary" size="large">Start je aanvraag</Button>
+  </Section>
+
+  <Section width="xl">
+      <Grid layout="thirds" gap="l">
+          <Pillar
+              number={1}
+              title="Maak je plan concreet"
+              headingTag="h2"
+          >
+              <Paragraph>
+                  Wat wil je organiseren, waar vindt het plaats,
+                  voor wie is het bedoeld en hoeveel deelnemers
+                  verwacht je?
+              </Paragraph>
+          </Pillar>
+
+          <Pillar
+              number={2}
+              title="Maak een begroting"
+              headingTag="h2"
+          >
+              <Paragraph>
+                  Noteer de verwachte kosten en vermeld ook
+                  bijdragen die je elders hebt aangevraagd
+                  of al toegezegd hebt gekregen.
+              </Paragraph>
+          </Pillar>
+
+          <Pillar
+              number={3}
+              title="Dien je aanvraag in"
+              headingTag="h2"
+          >
+              <Paragraph>
+                  De wijkraad beoordeelt of je initiatief
+                  past binnen de voorwaarden van
+                  Verrijk je Wijk.
+              </Paragraph>
+          </Pillar>
+      </Grid>
+  </Section>
+
+  <FAQ group="Verrijk je wijk" heading="Even checken vóór je aanvraagt." />
+  <Section id="aanvraag" width="m">
+    <Eyebrow label="Aanvraagformulier" />
+    <Heading tag="h2">Vertel over je plan.</Heading>
+    <Paragraph variant="large">Onderstaande velden volgen de aanvraag die in de oude wijkraadsite werd gebruikt.</Paragraph>
+    <form class="form stack" method="post" action="/form.php" hx-post="/form.php" hx-target="#verrijk-feedback" hx-swap="innerHTML" enctype="multipart/form-data" hx-encoding="multipart/form-data">
+      <input type="hidden" name="_form" value="verrijkjewijk" />
+      <input type="hidden" name="_next" value="/verrijk-je-wijk/" />
+      <div class="form__honeypot" aria-hidden="true">
+        <label>Laat dit veld leeg<input name="honeypot_field" tabindex="-1" autocomplete="off" /></label>
+      </div>
+      <Grid layout="halves" gap="m" class="two">
+          <label class="stack">Naam<input name="naam" required /></label>
+          <label class="stack">Telefoon<input name="telefoon" required /></label>
+      </Grid>
+      <Grid layout="halves" gap="m" class="two"><label class="stack">Adres<input name="street" required /></label><label class="stack">Postcode<input name="postcode" /></label></Grid>
+      <Grid layout="halves" gap="m" class="two"><label class="stack">Woonplaats<input name="woonplaats" /></label><label class="stack">E-mail<input type="email" name="email" required /></label></Grid><label class="stack">Namens wie vraag je aan?<input name="aanvrager" placeholder="Bijv. straat, buurt of vereniging" /></label><label class="stack">Wat wil je organiseren?<textarea name="event_description" rows="5"></textarea></label>
+      <Grid layout="halves" gap="m" class="two"><label class="stack">Datum<input type="date" name="datum" required /></label><label class="stack">Waar vindt het plaats?<input name="lokatie" required /></label></Grid>
+      <Grid layout="halves" gap="m" class="two"><label class="stack">Welke doelgroep nodig je uit?<input name="doelgroep" required /></label><label class="stack">Hoeveel deelnemers verwacht je?<input name="deelnemers" required /></label></Grid>
+      <label class="stack">Hoeveel wil je aanvragen?<input name="bedrag" required /></label>
+      <label class="stack">Heb je elders een bijdrage aangevraagd?<textarea name="bijdragen" rows="3" required></textarea></label>
+      <label class="stack">Wat is elders aangevraagd of toegezegd?<textarea name="bijdragen_toegezegd" rows="3"></textarea></label>
+      <label class="stack">Begroting<textarea name="berekening" rows="6" placeholder="Noteer alle verwachte kosten en bedragen."></textarea>
+      </label><label class="stack">Bijlage (optioneel, JPG of PNG, maximaal 5 MB)<input type="file" name="attachment" accept="image/jpeg,image/png" /></label>
+      <label class="check flex-group"><input type="checkbox" name="terms" value="on" required /><span>Ik heb de regels en voorwaarden gelezen en ga hiermee akkoord.</span></label>
+      <Button type="submit" size="large">Aanvraag versturen</Button>
+      <div id="verrijk-feedback" class="form-feedback" role="status" aria-live="polite"></div>
+    </form>
+  </Section>
+</BaseLayout>
+
+<style lang="scss">
+
+  .form__honeypot {
+    position: absolute;
+    left: -9999px;
+  }
+
+  .form {
+    --stack-gap: var(--space-m);
+    margin-top: var(--space-l)
+  }
+
+  label {
+    --stack-gap: .4rem;
+    font-weight: var(--fw-semibold)
+  }
+
+  input,
+  textarea,
+  select {
+    width: 100%;
+    padding: .85rem 1rem;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-s);
+    background: white;
+    font: inherit
+  }
+
+  .check {
+    --flex-group-align: flex-start
+  }
+
+  .check input {
+    width: 1.2rem;
+    height: 1.2rem;
+    margin-top: .2rem
+  }
+</style>

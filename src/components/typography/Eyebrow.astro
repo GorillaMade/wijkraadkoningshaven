@@ -1,0 +1,65 @@
+
+---
+interface Props {
+    label: string;
+    number?: string | number;
+}
+
+const { label, number } = Astro.props;
+
+const formattedNumber =
+    typeof number === "number"
+        ? String(number).padStart(2, "0")
+        : number;
+---
+
+<div class="eyebrow">
+    <span class="eyebrow__marker" aria-hidden="true"></span>
+
+    {formattedNumber && (
+        <span class="eyebrow__number">
+            {formattedNumber}
+        </span>
+    )}
+
+    <span class="eyebrow__label">{label}</span>
+</div>
+
+<style lang="scss">
+    .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: var(--space-s);
+
+        width: fit-content;
+        max-width: 100%;
+
+        color: var(--text-brand);
+
+        font-size: var(--fs--2);
+        font-weight: var(--fw-semibold);
+        line-height: 1.4;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+
+        &__marker {
+            flex: 0 0 auto;
+
+            width: 3px;
+            height: 1.15em;
+
+            border-radius: var(--radius-full, 100px);
+            background: currentColor;
+        }
+
+        &__number {
+            color: var(--text-muted);
+            font-variant-numeric: tabular-nums;
+            letter-spacing: 0;
+        }
+
+        &__label {
+            min-width: 0;
+        }
+    }
+</style>

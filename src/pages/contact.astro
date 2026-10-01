@@ -1,0 +1,87 @@
+---
+import Eyebrow from '@/components/typography/Eyebrow.astro';
+import Heading from '@/components/typography/Heading.astro';
+import Paragraph from '@/components/typography/Paragraph.astro';
+import BaseLayout from '@/layouts/BaseLayout.astro'; import Grid from '@/components/wrapper/Grid.astro'; import Section from '@/components/wrapper/Section.astro'; import Button from '@/components/ui/button/Button.astro';
+---
+<BaseLayout title="Contact" description="Neem contact op met Stichting Wijkraad Koningshaven in Tilburg.">
+  <Section width="xl" paddingTop="xl">
+    <Grid layout="halves" gap="xl" class="contact">
+      <div class="flow">
+        <Eyebrow label="Kom in contact" />
+        <Heading tag="h1" variant="display">Wat speelt er<br /><em>in jouw buurt?</em></Heading>
+        <Paragraph variant="large">Een vraag, idee of zorg over Broekhoven 1, Fatima of Hoogvenne? Laat van je horen. De wijkraad luistert, denkt mee en kan onderwerpen verder brengen.</Paragraph>
+
+      </div>
+      <form
+        class="form stack"
+        method="post"
+        action="/form.php"
+        hx-post="/form.php"
+        hx-target="#contact-feedback"
+        hx-swap="innerHTML"
+      >
+        <input type="hidden" name="_form" value="contact" />
+        <input type="hidden" name="_next" value="/contact/" />
+        <div class="form__honeypot" aria-hidden="true">
+          <label>Laat dit veld leeg<input name="honeypot_field" tabindex="-1" autocomplete="off" /></label>
+        </div>
+        <div class="form__tag">Bericht aan de wijkraad</div><label class="stack">Naam<input name="name" autocomplete="name" required /></label><label class="stack">Telefoonnummer<input type="tel" name="phone" autocomplete="tel" required /></label><label class="stack">E-mailadres<input type="email" name="email" autocomplete="email" required /></label><label class="stack">Bericht<textarea name="message" rows="7" required></textarea></label><Button type="submit" size="large">Verstuur bericht</Button>
+        <div id="contact-feedback" class="form-feedback" role="status" aria-live="polite"></div>
+      </form>
+    </Grid>
+  </Section>
+</BaseLayout>
+
+
+<style lang="scss">
+
+.address {
+    margin-top: var(--space-xl);
+    padding-top: var(--space-m);
+    border-top: 4px solid var(--color-brand-600)
+  }
+
+  .address span {
+    display: block;
+    text-transform: uppercase;
+    font-size: var(--text-small);
+    letter-spacing: .1em;
+    font-weight: var(--fw-semibold);
+    margin-bottom: .5rem
+  }
+
+  .form__honeypot {
+    position: absolute;
+    left: -9999px;
+  }
+
+  .form {
+    padding: var(--space-l);
+    background: var(--surface-subtle);
+    border-radius: var(--radius-l);
+    --stack-gap: var(--space-m);
+    box-shadow: .8rem .8rem 0 var(--color-brand-600)
+  }
+
+  label {
+    --stack-gap: .4rem;
+    font-weight: var(--fw-semibold)
+  }
+
+  input,
+  textarea {
+    width: 100%;
+    padding: .85rem 1rem;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-s);
+    background: white;
+    font: inherit
+  }
+
+  input:focus,
+  textarea:focus {
+    outline: var(--focus-width) solid var(--focus-color);
+    outline-offset: var(--focus-offset)
+  }
+</style>

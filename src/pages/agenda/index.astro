@@ -1,0 +1,74 @@
+---
+import { getCollection } from 'astro:content';
+import Eyebrow from '@/components/typography/Eyebrow.astro';
+import Heading from '@/components/typography/Heading.astro';
+import Paragraph from '@/components/typography/Paragraph.astro';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Section from '@/components/wrapper/Section.astro';
+import Button from '@/components/ui/button/Button.astro';
+import Grid from '@/components/wrapper/Grid.astro';
+import AgendaItem from '@/components/agenda/AgendaItem.astro';
+
+const events = (await getCollection('nieuws'))
+  .filter(({ data }) => Boolean(data.event))
+  .sort((a, b) => a.data.event!.start.getTime() - b.data.event!.start.getTime());
+---
+
+<BaseLayout title="Agenda" description="Activiteiten en bijeenkomsten in Koningshaven.">
+  <Section width="xl" paddingTop="xl" paddingBottom="2xl" gap="xl">
+    <div class="agenda-intro stack">
+      <Eyebrow label="Agenda" />
+      <Heading tag="h1" variant="display">Ontmoet.<br /><em>Praat mee.</em></Heading>
+      <Paragraph variant="large" maxWidth={58}>Van buurtactiviteiten tot bijeenkomsten: ontdek wat er speelt in Koningshaven en zet een activiteit direct in je Google Agenda.</Paragraph>
+    </div>
+
+    {events.length ? (
+      <Grid layout="halves" gap="l">
+        {events.map((post) => <AgendaItem post={post} />)}
+      </Grid>
+    ) : (
+      <div class="empty stack">
+        <Eyebrow label="Binnenkort" />
+        <Heading tag="h2" variant="h3">Er staan momenteel geen activiteiten gepland.</Heading>
+        <Paragraph>Zodra een nieuwsbericht eventgegevens krijgt, verschijnt het hier automatisch.</Paragraph>
+      </div>
+    )}
+
+    <div class="agenda-footer repel">
+      <Paragraph variant="small">Organiseer je iets voor de buurt dat hier thuishoort?</Paragraph>
+      <Button href="/contact/" variant="outline">Breng het onder de aandacht</Button>
+    </div>
+  </Section>
+</BaseLayout>
+
+<style lang="scss">
+  .agenda-intro {
+    --stack-gap: var(--space-m);
+    max-width: 58rem;
+    margin-block-end: var(--space-l);
+  }
+
+  :global(.agenda-grid) {
+    align-items: stretch;
+  }
+
+  .empty {
+    --stack-gap: var(--space-s);
+    max-width: 48rem;
+    padding: var(--space-xl);
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-xl);
+    background: var(--surface-subtle);
+  }
+
+  .empty :global(.text),
+  .empty :global(.heading) {
+    margin: 0;
+  }
+
+  .agenda-footer {
+    --repel-gap: var(--space-m);
+    padding-block-start: var(--space-l);
+    border-block-start: 1px solid var(--border-default);
+  }
+</style>

@@ -1,0 +1,44 @@
+---
+/**
+ * Eén JSON-LD @graph per pagina. Basis: Organization, WebSite en WebPage.
+ * `schemaType="Service"` voegt Service toe; BlogPosting vereist een echte publicatiedatum.
+ * `additionalSchema` is voor geldige pagina-specifieke nodes, bijv. BreadcrumbList.
+ * Publiceer LocalBusiness, reviews en adresgegevens NIET automatisch zonder echte gegevens.
+ */
+import { business } from '@/data/business';
+import { siteConfig } from '@/config/site';
+type Node = Record<string, unknown>;
+interface Props {
+  title: string; description: string; canonical: URL;
+  type?: 'WebPage' | 'Service' | 'BlogPosting';
+  publishedTime?: Date; modifiedTime?: Date;
+  additionalSchema?: Node | Node[];
+}
+const { title, description, canonical, type = 'WebPage', publishedTime, modifiedTime,
+  additionalSchema } = Astro.props;
+const root = new URL('/', Astro.site).href;
+const orgId = `${root}#organization`, websiteId = `${root}#website`;
+const pageId = `${canonical.href}#webpage`;
+const org: Node = { '@type': 'Organization', '@id': orgId, name: business.name,
+  legalName: business.legalName, url: root, description: business.description,
+  email: business.email, ...(business.telephone ? { telephone: business.telephone } : {}),
+  ...(business.sameAs.length ? { sameAs: business.sameAs } : {}) };
+const graph: Node[] = [org,
+  { '@type': 'WebSite', '@id': websiteId, url: root, name: business.name,
+    publisher: { '@id': orgId }, inLanguage: siteConfig.locale },
+  { '@type': 'WebPage', '@id': pageId, url: canonical.href, name: title,
+    description, isPartOf: { '@id': websiteId }, about: { '@id': orgId },
+    inLanguage: siteConfig.locale },
+];
+if (type === 'Service') graph.push({ '@type': 'Service', '@id': `${canonical.href}#service`,
+  name: title, description, url: canonical.href, provider: { '@id': orgId } });
+if (type === 'BlogPosting' && publishedTime) graph.push({
+  '@type': 'BlogPosting', '@id': `${canonical.href}#article`, headline: title,
+  description, url: canonical.href, mainEntityOfPage: { '@id': pageId },
+  publisher: { '@id': orgId }, datePublished: publishedTime.toISOString(),
+  dateModified: (modifiedTime ?? publishedTime).toISOString(),
+});
+if (additionalSchema) graph.push(...(Array.isArray(additionalSchema) ? additionalSchema : [additionalSchema]));
+const jsonLd = JSON.stringify({ '@context': 'https://schema.org', '@graph': graph }).replace(/</g, '\\u003c');
+---
+<script type="application/ld+json" set:html={jsonLd} />

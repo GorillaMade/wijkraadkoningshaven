@@ -6,7 +6,7 @@ meta:
   title: "Mosselavond 2026 | Wijkraad Koningshaven"
   description: "Op 17 oktober organiseert Stichting Wijkraad Koningshaven haar jaarlijkse mosselavond bij Bet Kolen. Schrijf je vanaf 1 oktober in en geniet samen met buurtgenoten van een gezellige avond."
 
-image: "/uploads/mosselavond-2026.jpg"
+image: "/static/uploads/mosselavond-2026.png"
 
 tags:
   - "evenement"

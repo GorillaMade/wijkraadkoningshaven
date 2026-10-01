@@ -13,4 +13,4 @@ dist/
 build/
 
 # Uitsluiten van de public folder
-public/
+# public/

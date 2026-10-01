@@ -1,0 +1,86 @@
+
+name: Deploy Astro to cPanel
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: cpanel-production
+  cancel-in-progress: false
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  build-and-deploy:
+    name: Build and deploy Astro
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      # npm automatically executes prebuild first.
+      # Your prebuild script compiles Sass.
+      - name: Build Astro website
+        run: npm run build
+
+      - name: Verify build output
+        run: |
+          test -f dist/index.html
+          test -d dist/_astro
+
+      - name: Deploy to cPanel
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          CPANEL_USER: ${{ secrets.CPANEL_USER }}
+          CPANEL_HOST: ${{ secrets.CPANEL_HOST }}
+          CPANEL_PORT: "4000"
+        run: |
+          set -euo pipefail
+
+          DEPLOY_PATH="/home/$CPANEL_USER/public_html/"
+
+          # Verify required secrets.
+          : "${SSH_PRIVATE_KEY:?Missing SSH_PRIVATE_KEY}"
+          : "${CPANEL_USER:?Missing CPANEL_USER}"
+          : "${CPANEL_HOST:?Missing CPANEL_HOST}"
+
+          # Configure SSH.
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+
+          printf '%s\n' "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+
+          ssh-keyscan -p "$CPANEL_PORT" -H "$CPANEL_HOST" \
+            >> ~/.ssh/known_hosts
+
+          # Test SSH connection.
+          ssh -p "$CPANEL_PORT" \
+            "$CPANEL_USER@$CPANEL_HOST" \
+            "echo 'SSH connection successful'"
+
+          # Upload the generated Astro website.
+          rsync -avz --delete \
+            -e "ssh -p $CPANEL_PORT" \
+            dist/ \
+            "$CPANEL_USER@$CPANEL_HOST:$DEPLOY_PATH"
+
+          echo "Astro deployment completed!"

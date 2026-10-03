@@ -3,7 +3,7 @@ title: "Mosselavond 2026: schuif gezellig bij ons aan!"
 description: "Op 17 oktober organiseert Stichting Wijkraad Koningshaven haar jaarlijkse mosselavond bij Bet Kolen. Schrijf je vanaf 1 oktober in en geniet samen met buurtgenoten van een gezellige avond."
 date: 2026-10-01
 
-image: "/images/nieuws/mosselavond-2026.jpg"
+image: "/uploads/flyers/mosselavond-2026.png"
 imageAlt: "Flyer van de jaarlijkse Mosselavond van Stichting Wijkraad Koningshaven op 17 oktober"
 
 tags:

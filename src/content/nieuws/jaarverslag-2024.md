@@ -2,7 +2,7 @@
 title: "Jaarverslag Stichting Wijkraad Koningshaven 2024"
 description: "Het jaarverslag Stichting Wijkraad Koningshaven 2024"
 date: 2024-01-01
-image: "https://raw.githubusercontent.com/GorillaMade/wijkraadkoningshaven/main/static/uploads/agenda.jpg"
+image: "/uploads/agenda.jpg"
 imageAlt: "Agenda en notities"
 tags: ["Jaarverslag"]
 ---

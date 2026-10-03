@@ -2,7 +2,7 @@
 title: "Kom jij ook gezellig mosselen eten?"
 description: "Het is weer tijd voor onze jaarlijkse mosselavond."
 date: 2025-01-08
-image: "https://raw.githubusercontent.com/GorillaMade/wijkraadkoningshaven/main/static/uploads/mosselen-2025.jpg"
+image: "/uploads/flyers/mosselen-2025.jpg"
 imageAlt: "Mosselen voor de jaarlijkse mosselavond"
 tags: ["evenement"]
 ---

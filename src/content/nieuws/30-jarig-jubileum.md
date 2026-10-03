@@ -2,7 +2,7 @@
 title: "Wijkraad Koningshaven 30 jarig Jubileum"
 description: "Stichting Wijkraad Koningshaven viert haar 30-jarig jubileum."
 date: 2025-01-04
-image: "https://raw.githubusercontent.com/GorillaMade/wijkraadkoningshaven/main/static/uploads/Flyerfront.png"
+image: "/uploads/flyers/Flyerfront.png"
 imageAlt: "Flyer voor het 30-jarig jubileum"
 tags: ["evenement"]
 ---

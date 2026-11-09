@@ -1,18 +1,24 @@
 ---
 title: "Kerstevent 2026: samen het licht in de boom aan"
-description: "Vier zaterdag 19 december samen met de wijkraad het Kerstevent in Wijkcentrum Koningshaven, met gratis winterse lekkernijen, kinderactiviteiten en de kerstman."
+description: Vier zaterdag 19 december samen met de wijkraad het Kerstevent in
+  Wijkcentrum Koningshaven, met gratis winterse lekkernijen, kinderactiviteiten
+  en de kerstman.
 date: 2026-11-09
 tags:
   - evenement
   - kerst
   - wijkcentrum
 event:
-  start: 2026-12-19T17:00:00+01:00
-  end: 2026-12-19T20:00:00+01:00
-  location: "Wijkcentrum Koningshaven, Kruisvaardersstraat 32c, Tilburg"
-  description: "Samen ontsteken we rond 17.30 uur de kerstboomverlichting. Geniet van gratis eten en drinken, knutselen voor kinderen en een bezoek van de kerstman."
+  start: 2026-12-19T16:00:00Z
+  end: 2026-12-19T19:00:00Z
+  location: Wijkcentrum Koningshaven, Kruisvaardersstraat 32c, Tilburg
+  description: Samen ontsteken we rond 17.30 uur de kerstboomverlichting. Geniet
+    van gratis eten en drinken, knutselen voor kinderen en een bezoek van de
+    kerstman.
+image: /uploads/kerstimage.jpeg
+seo:
+  noindex: false
 ---
-
 ## Samen brengen we licht in de donkere dagen
 
 Ook dit jaar organiseert **Stichting Wijkraad Koningshaven** weer een gezellig Kerstevent voor de hele buurt. Op **zaterdag 19 december 2026** bent u van harte welkom in **Wijkcentrum Koningshaven**. We maken er samen een warme, feestelijke avond van!

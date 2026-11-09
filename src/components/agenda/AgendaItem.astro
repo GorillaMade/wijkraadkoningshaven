@@ -17,7 +17,11 @@ const weekday = new Intl.DateTimeFormat('nl-NL', { weekday: 'long' }).format(sta
 const time = new Intl.DateTimeFormat('nl-NL', { hour: '2-digit', minute: '2-digit' }).format(start);
 ---
 
-<article class="event-card">
+<article
+  class="event-card"
+  data-agenda-start={event.start.toISOString()}
+  data-agenda-end={event.end?.toISOString()}
+>
   <div class="event-card__date stack" aria-label={`${weekday} ${day} ${month}`}>
     <span class="event-card__weekday">{weekday}</span>
     <strong>{day}</strong>

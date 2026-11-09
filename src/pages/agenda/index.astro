@@ -8,10 +8,13 @@ import Section from '@/components/wrapper/Section.astro';
 import Button from '@/components/ui/button/Button.astro';
 import Grid from '@/components/wrapper/Grid.astro';
 import AgendaItem from '@/components/agenda/AgendaItem.astro';
+import { isUpcomingAgendaEvent } from '@/lib/agenda';
 
+const now = new Date();
 const events = (await getCollection('nieuws'))
-  .filter(({ data }) => Boolean(data.event))
-  .sort((a, b) => a.data.event!.start.getTime() - b.data.event!.start.getTime());
+  .filter(({ data }) => data.event && isUpcomingAgendaEvent(data.event, now))
+  // Nieuwste (verst in de toekomst gelegen) activiteit eerst.
+  .sort((a, b) => b.data.event!.start.getTime() - a.data.event!.start.getTime());
 ---
 
 <BaseLayout title="Agenda" description="Activiteiten en bijeenkomsten in Koningshaven.">
@@ -22,17 +25,17 @@ const events = (await getCollection('nieuws'))
       <Paragraph variant="large" maxWidth={58}>Van buurtactiviteiten tot bijeenkomsten: ontdek wat er speelt in Koningshaven en zet een activiteit direct in je Google Agenda.</Paragraph>
     </div>
 
-    {events.length ? (
+    <div class="agenda-list" id="agenda-list" hidden={events.length === 0}>
       <Grid layout="halves" gap="l">
         {events.map((post) => <AgendaItem post={post} />)}
       </Grid>
-    ) : (
-      <div class="empty stack">
-        <Eyebrow label="Binnenkort" />
-        <Heading tag="h2" variant="h3">Er staan momenteel geen activiteiten gepland.</Heading>
-        <Paragraph>Zodra een nieuwsbericht eventgegevens krijgt, verschijnt het hier automatisch.</Paragraph>
-      </div>
-    )}
+    </div>
+
+    <div class="empty stack" id="agenda-empty" hidden={events.length > 0}>
+      <Eyebrow label="Binnenkort" />
+      <Heading tag="h2" variant="h3">Er staan momenteel geen activiteiten gepland.</Heading>
+      <Paragraph>Zodra een nieuwsbericht eventgegevens krijgt, verschijnt het hier automatisch.</Paragraph>
+    </div>
 
     <div class="agenda-footer repel">
       <Paragraph variant="small">Organiseer je iets voor de buurt dat hier thuishoort?</Paragraph>
@@ -41,7 +44,51 @@ const events = (await getCollection('nieuws'))
   </Section>
 </BaseLayout>
 
+
+<!-- Op de statische website blijven verlopen agendapunten zo ook zonder nieuwe deploy verborgen. -->
+<script>
+  import { isUpcomingAgendaEvent } from '@/lib/agenda';
+
+  const agendaList = document.getElementById('agenda-list');
+  const agendaEmpty = document.getElementById('agenda-empty');
+  const cards = Array.from(document.querySelectorAll<HTMLElement>('[data-agenda-start]'));
+
+  function updateAgenda() {
+    const now = new Date();
+    let visibleCount = 0;
+
+    for (const card of cards) {
+      const start = card.dataset.agendaStart;
+      const end = card.dataset.agendaEnd;
+      const visible = Boolean(start) && isUpcomingAgendaEvent({
+        start: new Date(start!),
+        ...(end ? { end: new Date(end) } : {}),
+      }, now);
+
+      card.hidden = !visible;
+      if (visible) visibleCount++;
+    }
+
+    if (agendaList) agendaList.hidden = visibleCount === 0;
+    if (agendaEmpty) agendaEmpty.hidden = visibleCount > 0;
+  }
+
+  updateAgenda();
+  window.setInterval(updateAgenda, 60_000);
+  window.addEventListener('pageshow', updateAgenda);
+  document.addEventListener('visibilitychange', () => {
+    if (!document.hidden) updateAgenda();
+  });
+</script>
+
 <style lang="scss">
+  .agenda-list[hidden],
+  .empty[hidden],
+  :global(.event-card[hidden]) {
+    display: none !important;
+  }
+
+
   .agenda-intro {
     --stack-gap: var(--space-m);
     max-width: 58rem;

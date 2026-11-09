@@ -8,10 +8,11 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import Section from '@/components/wrapper/Section.astro';
 import ResponsiveImage from '@/components/ui/responsive-image/ResponsiveImage.astro';
 import Button from '@/components/ui/button/Button.astro';
-import { formatNieuwsDate, googleCalendarUrl } from '@/lib/nieuws';
+import { formatNieuwsDate, googleCalendarUrl, isPublishedNieuws } from '@/lib/nieuws';
 
 export async function getStaticPaths() {
-  const posts = await getCollection('nieuws');
+  // Concepten worden niet als publieke pagina gegenereerd.
+  const posts = (await getCollection('nieuws')).filter(isPublishedNieuws);
   return posts.map((post) => ({
     params: { slug: post.id.replace(/\.(md|mdx)$/, '') },
     props: { post },

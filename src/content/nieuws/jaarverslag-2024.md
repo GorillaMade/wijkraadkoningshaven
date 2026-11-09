@@ -1,4 +1,5 @@
 ---
+draft: false
 title: "Jaarverslag Stichting Wijkraad Koningshaven 2024"
 description: "Het jaarverslag Stichting Wijkraad Koningshaven 2024"
 date: 2024-01-01

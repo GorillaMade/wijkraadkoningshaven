@@ -34,7 +34,7 @@ content:
     operations:
       rename: false # Bestaande links naar artikelen blijven zo geldig.
     view:
-      fields: [title, date, description]
+      fields: [title, date, draft, description]
       primary: title
       sort: [date, title]
       search: [title, description, tags]
@@ -42,6 +42,12 @@ content:
         sort: date
         order: desc
     fields:
+      - name: draft
+        label: Concept (nog niet publiceren)
+        description: "AAN = onzichtbaar op de website en in de agenda. UIT = gepubliceerd. Nieuwe artikelen beginnen als concept."
+        type: boolean
+        default: true
+
       - name: title
         label: Titel
         type: string

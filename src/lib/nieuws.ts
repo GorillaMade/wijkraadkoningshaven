@@ -1,5 +1,7 @@
 import type { CollectionEntry } from 'astro:content';
 export type NieuwsEntry = CollectionEntry<'nieuws'>;
+/** Alleen gepubliceerde artikelen worden getoond of als HTML gebouwd. */
+export const isPublishedNieuws = (entry: NieuwsEntry): boolean => !entry.data.draft;
 export const formatNieuwsDate = (date: Date) => new Intl.DateTimeFormat('nl-NL',{day:'numeric',month:'long',year:'numeric'}).format(date);
 export const nieuwsHref = (entry: NieuwsEntry) => `/nieuws/${entry.id.replace(/\.(md|mdx)$/,'')}/`;
 export const googleCalendarUrl = (entry: NieuwsEntry) => {

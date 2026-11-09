@@ -9,9 +9,11 @@ import Button from '@/components/ui/button/Button.astro';
 import Grid from '@/components/wrapper/Grid.astro';
 import AgendaItem from '@/components/agenda/AgendaItem.astro';
 import { isUpcomingAgendaEvent } from '@/lib/agenda';
+import { isPublishedNieuws } from '@/lib/nieuws';
 
 const now = new Date();
 const events = (await getCollection('nieuws'))
+  .filter(isPublishedNieuws)
   .filter(({ data }) => data.event && isUpcomingAgendaEvent(data.event, now))
   // Nieuwste (verst in de toekomst gelegen) activiteit eerst.
   .sort((a, b) => b.data.event!.start.getTime() - a.data.event!.start.getTime());

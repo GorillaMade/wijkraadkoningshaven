@@ -9,13 +9,14 @@ import Section from '@/components/wrapper/Section.astro';
 import Button from '@/components/ui/button/Button.astro';
 import { getCollection } from 'astro:content';
 import NewsCard from '@/components/news/NewsCard.astro';
+import { isPublishedNieuws } from '@/lib/nieuws';
 import Eyebrow from '@/components/typography/Eyebrow.astro';
 import Heading from '@/components/typography/Heading.astro';
 import Paragraph from '@/components/typography/Paragraph.astro';
 import Grid from '@/components/wrapper/Grid.astro';
 import FAQ from '@/components/sections/faq/FAQ.astro';
 import Switcher from '@/components/layout/switcher/Switcher.astro';
-const news=(await getCollection('nieuws')).sort((a,b)=>b.data.date.getTime()-a.data.date.getTime());
+const news=(await getCollection('nieuws')).filter(isPublishedNieuws).sort((a,b)=>b.data.date.getTime()-a.data.date.getTime());
 ---
 <BaseLayout title="Hart voor de wijk" description="Stichting Wijkraad Koningshaven is er voor bewoners van Broekhoven 1, Fatima en Hoogvenne in Tilburg." isHome>
   <HeroModern />

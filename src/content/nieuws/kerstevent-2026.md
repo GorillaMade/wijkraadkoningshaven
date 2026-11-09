@@ -1,4 +1,5 @@
 ---
+draft: false
 title: "Kerstevent 2026: samen het licht in de boom aan"
 description: Vier zaterdag 19 december samen met de wijkraad het Kerstevent in
   Wijkcentrum Koningshaven, met gratis winterse lekkernijen, kinderactiviteiten

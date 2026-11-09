@@ -1,4 +1,5 @@
 ---
+draft: false
 title: "Kom jij ook gezellig mosselen eten?"
 description: "Het is weer tijd voor onze jaarlijkse mosselavond."
 date: 2025-01-08

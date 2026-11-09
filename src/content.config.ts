@@ -24,6 +24,7 @@ const nieuws = defineCollection({
         title: z.string(),
         description: z.string(),
         date: z.coerce.date(),
+        draft: z.boolean().default(false),
         image: z.string().optional(),
         imageAlt: z.string().default(''),
         tags: z.array(z.string()).default([]),

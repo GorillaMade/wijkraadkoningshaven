@@ -1,4 +1,5 @@
 ---
+draft: false
 title: "Debatavond Koningshaven 2026"
 description: "De wijkraad organiseert een debatavond over veiligheid, toegankelijkheid en de wijkvisie."
 date: 2026-01-10

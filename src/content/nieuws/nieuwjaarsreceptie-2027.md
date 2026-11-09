@@ -1,5 +1,5 @@
 ---
-draft: false
+draft: true
 title: "Nieuwjaarsreceptie 2027: kom gezellig proosten in De Kajuit"
 description: Stichting Wijkraad Koningshaven en Wijkcentrum Koningshaven nodigen
   wijkbewoners uit voor een gezellige nieuwjaarsreceptie op vrijdag 8 januari

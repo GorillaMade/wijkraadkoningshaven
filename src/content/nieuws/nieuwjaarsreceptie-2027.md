@@ -1,18 +1,24 @@
 ---
 title: "Nieuwjaarsreceptie 2027: kom gezellig proosten in De Kajuit"
-description: "Stichting Wijkraad Koningshaven en Wijkcentrum Koningshaven nodigen wijkbewoners uit voor een gezellige nieuwjaarsreceptie op vrijdag 8 januari 2027."
+description: Stichting Wijkraad Koningshaven en Wijkcentrum Koningshaven nodigen
+  wijkbewoners uit voor een gezellige nieuwjaarsreceptie op vrijdag 8 januari
+  2027.
 date: 2026-11-09
 tags:
   - evenement
   - nieuwjaar
   - wijkcentrum
 event:
-  start: 2027-01-08T17:00:00+01:00
-  end: 2027-01-08T19:00:00+01:00
-  location: "De Kajuit, Wijkcentrum Koningshaven, Kruisvaardersstraat 32c, Tilburg"
-  description: "Gezellige nieuwjaarsreceptie met een gratis glaasje bubbels, koffie of thee en een hapje. Vrije inloop voor alle wijkbewoners."
+  start: 2027-01-08T16:00:00Z
+  end: 2027-01-08T18:00:00Z
+  location: De Kajuit, Wijkcentrum Koningshaven, Kruisvaardersstraat 32c, Tilburg
+  description: Gezellige nieuwjaarsreceptie met een gratis glaasje bubbels, koffie
+    of thee en een hapje. Vrije inloop voor alle wijkbewoners.
+image: /uploads/nieuwjaarimage.jpeg
+imageAlt: Nieuwjaars borrel
+seo:
+  noindex: false
 ---
-
 ## Samen proosten op een mooi nieuwjaar!
 
 **Stichting Wijkraad Koningshaven** en **Wijkcentrum Koningshaven** nodigen alle wijkbewoners van harte uit voor een gezellige **nieuwjaarsreceptie op vrijdag 8 januari 2027**.

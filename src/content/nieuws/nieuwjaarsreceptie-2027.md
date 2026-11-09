@@ -3,7 +3,7 @@ title: "Nieuwjaarsreceptie 2027: kom gezellig proosten in De Kajuit"
 description: Stichting Wijkraad Koningshaven en Wijkcentrum Koningshaven nodigen
   wijkbewoners uit voor een gezellige nieuwjaarsreceptie op vrijdag 8 januari
   2027.
-date: 2026-11-08
+date: 2026-12-18
 tags:
   - evenement
   - nieuwjaar

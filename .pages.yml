@@ -1,42 +1,46 @@
-
-# .pages.yml
+# Pages CMS - Wijkraad Koningshaven
+# Beheer op https://app.pagescms.org/ voor de branch main.
+# Nieuws met een ingevuld 'event' verschijnt automatisch ook in de agenda.
 
 media:
   - name: uploads
-    label: Afbeeldingen
+    label: Afbeeldingen voor nieuws
     input: public/uploads
     output: /uploads
-    categories:
-      - image
-    extensions:
-      - jpg
-      - jpeg
-      - png
-      - webp
+    categories: [image]
+    rename: safe
+
+  - name: albumfotos
+    label: Foto's voor albums
+    input: public/uploads/albums
+    output: /uploads/albums
+    categories: [image]
+    rename: safe
+
+  - name: documenten
+    label: PDF-documenten
+    input: public/uploads
+    output: /uploads
+    extensions: [pdf]
     rename: safe
 
 content:
-  # Nieuws
   - name: nieuws
-    label: Nieuws
+    label: Nieuws, artikelen en agenda
     type: collection
     path: src/content/nieuws
     format: yaml-frontmatter
     filename: "{primary}.md"
-
+    operations:
+      rename: false # Bestaande links naar artikelen blijven zo geldig.
     view:
-      fields:
-        - title
-        - date
-        - description
+      fields: [title, date, description]
       primary: title
-      sort:
-        - date
-        - title
+      sort: [date, title]
+      search: [title, description, tags]
       default:
         sort: date
         order: desc
-
     fields:
       - name: title
         label: Titel
@@ -44,7 +48,8 @@ content:
         required: true
 
       - name: description
-        label: Korte omschrijving
+        label: Korte samenvatting
+        description: Wordt getoond in de nieuwsoverzichten en zoekresultaten.
         type: text
         required: true
 
@@ -52,101 +57,132 @@ content:
         label: Publicatiedatum
         type: date
         required: true
+        options:
+          format: yyyy-MM-dd
 
       - name: image
-        label: Omslagafbeelding
+        label: Omslagfoto (optioneel)
         type: image
         options:
           media: uploads
 
       - name: imageAlt
-        label: Alternatieve tekst afbeelding
+        label: Beschrijving van de omslagfoto
+        description: Beschrijf wat op de foto te zien is, voor toegankelijkheid.
         type: string
 
       - name: tags
-        label: Tags
+        label: Onderwerpen / tags
         type: string
         list: true
 
       - name: event
-        label: Evenement
+        label: Agendapunt (optioneel)
+        description: Laat dit leeg voor gewoon nieuws. Vul een startdatum in om het bericht ook in de agenda te tonen.
         type: object
         fields:
           - name: start
-            label: Startdatum
+            label: Start (datum en tijd)
             type: date
             required: true
+            default: ""
+            options:
+              time: true
+              format: "yyyy-MM-dd'T'HH:mm:ssXXX"
 
           - name: end
-            label: Einddatum
+            label: Einde (optioneel)
             type: date
+            default: ""
+            options:
+              time: true
+              format: "yyyy-MM-dd'T'HH:mm:ssXXX"
 
           - name: location
-            label: Locatie
+            label: Locatie / adres
             type: string
 
           - name: description
-            label: Omschrijving
+            label: Korte agendaomschrijving
             type: text
 
+      - name: body
+        label: Artikeltekst
+        description: Schrijf hier het volledige bericht. Afbeeldingen kun je direct in de tekst invoegen.
+        type: rich-text
+        options:
+          format: markdown
+          media: uploads
+          switcher: true
+
       - name: seo
-        label: SEO
+        label: Zoekmachine-instellingen (optioneel)
         type: object
         fields:
           - name: title
-            label: SEO-titel
+            label: Afwijkende SEO-titel
             type: string
-
           - name: description
-            label: SEO-omschrijving
+            label: Afwijkende SEO-beschrijving
             type: text
-
           - name: noindex
-            label: Niet indexeren
+            label: Niet opnemen in zoekmachines
             type: boolean
             default: false
 
-      - name: body
-        label: Inhoud
-        type: rich-text
-
-  # Fotoalbums
-  - name: media
+  - name: fotoalbums
     label: Fotoalbums
     type: collection
     path: src/content/media
     format: yaml-frontmatter
     filename: "{primary}.md"
-
+    operations:
+      rename: false # Bestaande albumlinks blijven zo geldig.
     view:
-      fields:
-        - title
-        - description
+      fields: [title, description]
       primary: title
-
+      sort: [title]
+      search: [title, description]
     fields:
       - name: title
-        label: Albumtitel
+        label: Titel van het album
         type: string
         required: true
 
       - name: description
-        label: Omschrijving
+        label: Korte beschrijving
         type: text
         required: true
 
       - name: images
-        label: Foto's
+        label: Foto's in het album
+        description: Voeg per foto een afbeelding en beschrijving toe. Gebruik 'Foto's voor albums' bij het uploaden.
         type: object
-        list: true
+        list:
+          min: 1
+          collapsible:
+            collapsed: true
+            summary: "Foto {index}: {alt}"
         fields:
           - name: src
             label: Afbeelding
             type: image
             required: true
             options:
-              media: uploads
+              media: albumfotos
 
           - name: alt
-            label: Alternatieve tekst
+            label: Beschrijving van de foto
+            description: Beschrijf wat op de afbeelding staat, voor toegankelijkheid.
             type: string
+            required: true
+
+settings:
+  content:
+    merge: true # Behoud onbekende velden bij het bewerken van bestaande berichten.
+  commit:
+    templates:
+      create: "cms: voeg {filename} toe"
+      update: "cms: werk {filename} bij"
+      delete: "cms: verwijder {filename}"
+      rename: "cms: hernoem {oldFilename} naar {newFilename}"

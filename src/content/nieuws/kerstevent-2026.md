@@ -18,6 +18,7 @@ event:
 image: /uploads/kerstimage.jpeg
 seo:
   noindex: false
+imageAlt: Kerst flyer
 ---
 ## Samen brengen we licht in de donkere dagen
 
